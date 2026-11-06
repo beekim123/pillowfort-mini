@@ -1,42 +1,36 @@
-# 本轮验证记录
+# 走位版最终验证记录
 
-日期：2026-11-06。环境：云端 Linux、Node v24.22.1、TypeScript 5.8.3、Vitest 3.2.4。
+日期2026-11-06。环境：云端Linux、Node24.22.1、TypeScript5.8.3、Vitest3.2.4。源码基线为 `46240ae919360c36052476aad98a4dfd6048ca42`；本轮为未提交候选，没有推送或平台发布。
 
-## 已实际执行
+## 最终检查
 
-| 检查 | 结果 | 证据 |
+| 命令/检查 | 结果 | 当前证据 |
 |---|---|---|
-| `npm test` | 107/107 通过，5个测试文件 | `verification/tests.log` |
-| `npm run check` | 测试、严格共享代码类型检查、规格散列、源码边界检查全部通过 | `verification/check-all.log` |
-| 原件完整性 | 10份规格、两份运行JSON逐字节一致 | `verification/spec-check.log` |
-| `npm run build:preview` | 引擎外Canvas代码编译通过 | `verification/preview-build.log` |
-| `npm run simulate:20m` | 1200秒逻辑仿真，88个完整波，80胜8负，最高0区34波，当前35波 | `verification/logic-simulation-20m.csv`、同名JSON |
-| `npm run smoke:progression` | 合法养成操作+模拟离线，可通过三个大噩梦并停在P1末区 | `verification/progression-smoke.log` |
-| `npm run test:packaging` | 临时合成夹具打包、排私有文件、逐文件SHA、篡改拒绝均通过；夹具已清理 | `verification/packaging-tools.log` |
+| `npm run check` | 156/156，8文件；共享严格类型、28份规格散列、19份源码边界通过 | `verification/p1-walk/check-all.log` |
+| `node tools/check-walk-review.mjs` | 独立41/41，数据9/战斗14/极端4/UI10/搬位4 | `verification/p1-walk/review-summary.json`及各组JSON |
+| `npm run build:preview` | 共享Canvas代码编译通过 | `verification/p1-walk/preview-build.log` |
+| `npm run simulate:20m` | 1200秒逻辑时间，71完整波，65胜6负；最高z0w36，当前w37 | `verification/p1-walk/logic-simulation-20m.json`与CSV |
+| `npm run smoke:progression` | 287波，三首领均胜，最终z2w49；累计模拟离线256小时 | `verification/p1-walk/progression-smoke.log` |
+| `npm run test:packaging` | 合成夹具打包/过滤/散列/篡改拒绝通过，夹具清理 | `verification/p1-walk/packaging-tools.log` |
+| GameView离屏渲染 | 4组PNG/SVG/绘制命令已生成并视觉核对 | `screenshots/p1-walk/` |
+| 完整候选差异检查 | 源码/交接文档通过；原始 `.diff` 快照的空白上下文行按原件保留 | `verification/p1-walk/diff-check.log` |
+| 资源/凭据范围审查 | assets无正式美术/二进制；无新增运行依赖；常见密钥模式未命中 | `verification/p1-walk/scope-check.json` |
 
-107个测试由68个核心用例、22个UI开发用例、10个独立核心回归、6个独立共享界面回归、1个平台空能力测试构成。测试总数不代表原始大数字5.5完整表已补齐，该表不在输入包中。
+156项分布：core47、movement-core32、economy-v2 25、independent-regression10、ui-interaction21、ui-walk14、interface-regression6、platform1。UI三套合计41项，与独立41组不是同一计数。
 
-20分钟是逻辑时间，不是人持续试玩20分钟。三梦可达测试累计232个波次、模拟离线200小时；固定策略没有最优站位/每日小事，不能据此给出真实玩家时长或平衡结论。
+本轮修复了复查发现的0伤手电污染指标、关门Boss冲锋优先、避让朝向、下场后在途弹道伤害、step改写原Save、拖动取消/立即关闭持久化、多指过滤、发射点随转身跳动、搬家被旧目标打断、绵绵遮挡点击。相关自动回归保留在源码与独立脚本中。
 
-## 未实际执行
+## 统计解释
 
-- Cocos 3.8.8 导入与真实 `cc` 类型检查。`typecheck:cocos` 确认前置检查以exit=2停止，原因：引擎生成的类型不存在。日志 `verification/cocos-typecheck-unavailable.log`。
-- Cocos H5 / 微信编译。两个 `build:*` 确认以exit=2停止，原因：没有Cocos可执行文件。日志 `verification/cocos-h5-unavailable.log`、`verification/cocos-wechat-unavailable.log`。**未生成正式运行ZIP，未测真实包大小。**
-- 微信开发者工具、iPhone、Android、FPS、内存、平台审核。
-- ArtGen / 正式美术：本轮按仅纯色块的范围不做。
+20分钟仿真只升级默认上场玩偶，不作弊、不挑战Boss；真实波间gap显式计入carry。三梦烟测使用合法资金/箱子/升级/设施和v2默认守点，按固定策略触发模拟8小时离线；没有直接发货币、改等级或解锁。两者不是设备实测、自然玩家时长或长期数值平衡结论。
 
-Vitest日志可能提示 `temp/tsconfig.cocos.json` 不存在，这是缺少编辑器导入的已知提示。测试变换使用独立严格配置；没有添加假的 `cc` 声明去消掉引擎验证缺口。
+首次受击墙距秒数仅在实际伤害>0时采样，使用基础速度分母，见 `CORE-ASSUMPTIONS.md`。独立复核脚本已改为仓库内相对路径，运行器先编译同一共享代码，可独立复现。
 
-后续编辑代码后要重新运行相关测试；引擎与真机步骤按 `QA.md` 继续。其他独立视觉回归证据若由集成阶段追加，应明确写出是DrawCommand离屏渲染、Canvas浏览器，还是Cocos运行，不能混用。
+## 明确未执行
 
-## 独立复核后修复
+- `typecheck:cocos`：缺真实 `temp/tsconfig.cocos.json`，前置exit2，**类型检查未执行**。
+- `build:h5` / `build:wechat`：缺Cocos可执行文件，前置exit2，**引擎构建未执行**。对应日志在 `verification/p1-walk/*-unavailable.log`。
+- 实际浏览器截图、微信工具/手机、FPS/内存、触屏/安全区及平台验收未执行；云端浏览器启动受系统socket限制。
+- 正式美术/ArtGen/Rig与公共发布链未验收；外部大数字完整表/calc未提供。
 
-- 嘎嘎对窝边被挡怪推回60px，移除零向量假推回。
-- 冲锋追踪移动目标，目标死亡重定向并实际接触后命中。
-- 分身只在24px实体碰撞范围接新怪，不远程阻挡。
-- 10010/10050/100100000及临界值截断回归，不使用epsilon进位。
-- 立即挑战/撤退默认经过时间0，不能反复免费充能；真实波间显式传1秒。
-- 长按展示最近真实直接命中的倍率快照，含临时增益、技能/暴击、目标易伤与壳；长内容分页。
-- 辅助首次选中保持场地无遮挡并展示相邻连线；前后台清理touchId。
-
-独立审查复验上述问题通过。另30项共享控制器/绘制检查和32帧离屏图无文本宽度/屏外异常，证据见 `verification/ui-qa/`。不是Cocos或真实浏览器输入证据。
+`verification/p1-walk/source-sha256.json` 固定本轮执行所依据的源码、测试、工具和规格文件。旧根目录的107项/88波/232波等记录属于固定站位版历史，不用于本次结论。后续改动任何行为代码都要重新执行受影响检查。

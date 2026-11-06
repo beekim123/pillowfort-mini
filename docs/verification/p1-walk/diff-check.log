@@ -1,0 +1,2 @@
+SOURCE_AND_DELIVERY_DOCS_EXIT_STATUS=0
+Original docs/spec/*.diff snapshots retain unified-diff blank context lines (a single space). These are intentionally unchanged and SHA256-verified, excluded only from whitespace checking. Full raw candidate check reports those context lines, not product source errors.

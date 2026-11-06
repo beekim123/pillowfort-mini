@@ -1,0 +1,8 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> pillowfort-mini@0.1.0 typecheck:cocos
+> node tools/check-cocos-types.mjs
+
+尚无 Cocos 3.8.8 生成的类型。先用编辑器打开工程，等待资源导入；此检查未执行，不能视为通过。
+
+EXIT_STATUS=2

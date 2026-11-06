@@ -1,6 +1,7 @@
 import type { Rules } from './types.ts';
-/** Prose-only parameters, isolated from generated levels.json. See ASSUMPTIONS.md. */
+/** Prose-only parameters, isolated from generated levels.json. See docs/CORE-ASSUMPTIONS.md. */
 export const P1_RULES: Rules = {
+  blockRegen: 0.8, blockWallInset: 30, blockClaimTolerance: 50, approachReach: 0.85, dashTargetOffset: 34,
   tick: 1/30, critChance: 0, critMul: 2,
   burnDuration: 3, burnRate: .2, warmVulnerability: 1.15,
   slowDuration: 2, slowMul: .7, freezeDuration: 1, freezeHits: 3, freezeVulnerability: 1.2,

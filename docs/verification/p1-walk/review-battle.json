@@ -1,0 +1,62 @@
+{
+  "passed": 14,
+  "total": 14,
+  "cases": [
+    {
+      "name": "windup and straight flight are sequential, hit at distance/speed within one tick",
+      "passed": true
+    },
+    {
+      "name": "lob duration and immediate beam/chain/melee releases",
+      "passed": true
+    },
+    {
+      "name": "single projectile target death cannot damage a replacement at the same point",
+      "passed": true
+    },
+    {
+      "name": "AOE projectile still explodes at deceased target final point",
+      "passed": true
+    },
+    {
+      "name": "aura attack snapshot survives helper leaving during windup and flight",
+      "passed": true
+    },
+    {
+      "name": "normal wall squeeze lasts at least1.2s, no kill rewards, startle inclusive120",
+      "passed": true
+    },
+    {
+      "name": "squeezing enemy can still be killed before the breach",
+      "passed": true
+    },
+    {
+      "name": "block capacity2, elite stamina, recovery5, boss never claimed",
+      "passed": true
+    },
+    {
+      "name": "dash prioritizes boss then elite then center, moves outside, strikes3, returns home",
+      "passed": true
+    },
+    {
+      "name": "moving/no-target units respect ground/leash, stationary is never pushed",
+      "passed": true
+    },
+    {
+      "name": "same seed and exact homes input reproduce every frame and projected view",
+      "passed": true
+    },
+    {
+      "name": "home inputs smaller than a fixed tick are not lost",
+      "passed": true
+    },
+    {
+      "name": "removed blocker releases claims without instantly leaking held enemies",
+      "passed": true
+    },
+    {
+      "name": "zero-DPS flashlight does not count as first damage",
+      "passed": true
+    }
+  ]
+}

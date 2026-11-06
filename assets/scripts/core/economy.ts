@@ -1,37 +1,57 @@
 import { add, mul, clamp } from './big.ts';
 import { baseHp, sheepForHp, table } from './data.ts';
 import { nextRandom } from './rng.ts';
-import type { Battle, GameData, Save, Unlock, WaveResult, MorningCard } from './types.ts';
+import { clampHome, distance, isPoint } from './ground.ts';
+import type { Battle, GameData, Save, Unlock, WaveResult, MorningCard, Point } from './types.ts';
 export function copySave(s:Save):Save{return JSON.parse(JSON.stringify(s)) as Save;}
 export function newSave(d:GameData,now:number):Save {
- const s:Save={version:1,z:0,w:1,maxZ:0,maxW:0,stay:false,pushBlock:0,courage:0,sheep:0,candy:0,toys:{},captain:{star:1,shards:0},fort:1,lineup:d.nest.slots.map(()=>null),devices:d.nest.devices.map(()=>null),farm:null,daily:{done:0,endAt:null},boxes:{free:0,clock:now},firstClear:{},bossBest:{},units:0,stats:{kills:0,sheepTotal:0,maxHit:0},rng:7920,autoFlash:true,lastSeen:now,attempts:{},completed:false};
+ const s:Save={version:2,z:0,w:1,maxZ:0,maxW:0,stay:false,pushBlock:0,courage:0,sheep:0,candy:0,toys:{},captain:{star:1,shards:0},fort:1,lineup:[],devices:[],farm:null,daily:{done:0,endAt:null},boxes:{free:0,clock:now},firstClear:{},bossBest:{},units:0,stats:{kills:0,sheepTotal:0,maxHit:0},rng:7920,autoFlash:true,lastSeen:now,attempts:{},completed:false};
  d.toys.forEach(t=>s.toys[t.id]={lv:1,star:1,shards:0,got:t.unlock.z===0&&t.unlock.w===0});
- d.toys.filter(t=>s.toys[t.id].got).slice(0,slotsOf(d,s.fort).toy).forEach((t,i)=>s.lineup[d.nest.slots.findIndex(x=>x.id===d.nest.openOrder[i])]=t.id);
- d.devices.filter(x=>x.unlock.z===0&&x.unlock.w===0).slice(0,slotsOf(d,s.fort).device).forEach((x,i)=>s.devices[i]=x.id);return s;
+ d.toys.filter(t=>s.toys[t.id].got).slice(0,slotsOf(d,s.fort).toy).forEach((t,i)=>s.lineup.push({id:t.id,home:clampHome(d,d.nest.homes[i])}));
+ d.devices.filter(x=>x.unlock.z===0&&x.unlock.w===0).slice(0,slotsOf(d,s.fort).device).forEach((x,i)=>s.devices.push({id:x.id,home:clampHome(d,d.nest.deviceHomes[i])}));return s;
 }
 export function toyAtk(d:GameData,id:string,lv:number,star:number):number {const t=d.byToy[id];return t?mul(d.econ.atk0,t.base,table(d,'atk',lv-1),table(d,'star',star-1)):0;}
 export function teamMul(d:GameData,s:Save):{total:number;parts:{name:string;mul:number}[]} {
- const parts=[{name:'不怕了',mul:table(d,'courage',s.courage)},{name:'枕头堡',mul:table(d,'fort',s.fort-1)},{name:'绵绵光环',mul:1+d.econ.captainAura[s.captain.star-1]},{name:'每天的小事',mul:table(d,'daily',s.daily.done)}];
- for(const id of new Set(s.devices)){const dev=id?d.byDevice[id]:null;if(dev?.effect.atkAll)parts.push({name:dev.name,mul:1+dev.effect.atkAll});}return {total:mul(...parts.map(x=>x.mul)),parts};
+ const parts=[{name:'不怕了',mul:table(d,'courage',s.courage)},{name:'枕头堡',mul:table(d,'fort',s.fort-1)},{name:'枕头堡宽敞',mul:slotsOf(d,s.fort).room},{name:'绵绵光环',mul:1+d.econ.captainAura[s.captain.star-1]},{name:'每天的小事',mul:table(d,'daily',s.daily.done)}];
+ for(const id of new Set(s.devices.map(x=>x.id))){const dev=id?d.byDevice[id]:null;if(dev?.effect.atkAll)parts.push({name:dev.name,mul:1+dev.effect.atkAll});}return {total:mul(...parts.map(x=>x.mul)),parts};
 }
 export function lvCap(d:GameData,courage:number):number{return d.econ.lvCap0+d.econ.lvCapPerBoss*courage;}
 export function lvCost(d:GameData,lv:number,courage:number):number {return mul(d.econ.lvCost0,table(d,'cost',lv-1),table(d,'over',Math.max(0,lv+1-lvCap(d,courage))));}
 export function levelUp(d:GameData,s:Save,id:string):Save|null {const t=s.toys[id];if(!t?.got||t.lv>=d.rules.tableSize)return null;const cost=lvCost(d,t.lv,s.courage);if(s.sheep<cost)return null;const n=copySave(s);n.sheep-=cost;n.toys[id].lv++;return n;}
-export function levelAllToCap(d:GameData,s:Save):Save {let n=copySave(s);const cap=lvCap(d,n.courage);const ids=[...new Set(n.lineup.filter((x):x is string=>!!x))];for(let guard=0;guard<d.rules.tableSize*ids.length;guard++){const order=ids.filter(id=>n.toys[id].lv<cap).sort((a,b)=>lvCost(d,n.toys[a].lv,n.courage)-lvCost(d,n.toys[b].lv,n.courage)||a.localeCompare(b));if(!order.length)break;const next=levelUp(d,n,order[0]);if(!next)break;n=next;}return n;}
+export function levelAllToCap(d:GameData,s:Save):Save {let n=copySave(s);const cap=lvCap(d,n.courage);const ids=[...new Set(n.lineup.map(x=>x.id))];for(let guard=0;guard<d.rules.tableSize*ids.length;guard++){const order=ids.filter(id=>n.toys[id].lv<cap).sort((a,b)=>lvCost(d,n.toys[a].lv,n.courage)-lvCost(d,n.toys[b].lv,n.courage)||a.localeCompare(b));if(!order.length)break;const next=levelUp(d,n,order[0]);if(!next)break;n=next;}return n;}
 export function fortCost(d:GameData,fort:number):number{return mul(d.econ.fortCost0,table(d,'fortCost',fort-1));}
 export function fortUp(d:GameData,s:Save):Save|null {const cost=fortCost(d,s.fort);if(s.sheep<cost||s.fort>=d.rules.tableSize)return null;const n=copySave(s);n.sheep-=cost;n.fort++;return n;}
-export function slotsOf(d:GameData,fortLv:number):{toy:number;device:number}{const get=(rows:number[][])=>rows.reduce((n,[lv,count])=>fortLv>=lv?count:n,0);return {toy:get(d.slots.toy),device:get(d.slots.device)};}
-export function openSlots(d:GameData,s:Save):string[]{return d.nest.openOrder.slice(0,slotsOf(d,s.fort).toy);}
-export function assignToy(d:GameData,s:Save,slot:string,id:string|null):Save|null {if(!openSlots(d,s).includes(slot)||id&&!s.toys[id]?.got)return null;const n=copySave(s);const index=d.nest.slots.findIndex(x=>x.id===slot);if(id){const old=n.lineup.indexOf(id);if(old>=0)n.lineup[old]=null;}n.lineup[index]=id;return n;}
-export function swapSlots(d:GameData,s:Save,a:string,b:string):Save|null {if(!openSlots(d,s).includes(a)||!openSlots(d,s).includes(b))return null;const n=copySave(s);const i=d.nest.slots.findIndex(x=>x.id===a),j=d.nest.slots.findIndex(x=>x.id===b);[n.lineup[i],n.lineup[j]]=[n.lineup[j],n.lineup[i]];return n;}
+export function slotsOf(d:GameData,fortLv:number):{toy:number;device:number;room:number} {
+ const get=(rows:number[][])=>rows.reduce((n,[lv,count])=>fortLv>=lv?count:n,0);
+ const raw=get(d.slots.toy);return {toy:Math.min(raw,d.slots.toyCap),device:get(d.slots.device),room:Math.max(1,raw/d.slots.toyCap)};
+}
+/** Add, move or remove one toy without replacing another member of the lineup. */
+export function place(d:GameData,s:Save,id:string,home:Point|null):Save|null {
+ if(!Object.prototype.hasOwnProperty.call(d.byToy,id)||!s.toys[id]?.got||home!==null&&!isPoint(home))return null;
+ const index=s.lineup.findIndex(x=>x.id===id);
+ if(home!==null&&index<0&&s.lineup.length>=slotsOf(d,s.fort).toy)return null;
+ const n=copySave(s);
+ if(home===null){n.lineup=n.lineup.filter(x=>x.id!==id);return n;}
+ const entry={id,home:clampHome(d,home)};
+ if(index<0)n.lineup.push(entry);else n.lineup[index]=entry;return n;
+}
 export function reached(s:Save,z:number,w:number):boolean{return s.maxZ>z||s.maxZ===z&&s.maxW>=w;}
 export function systemOpen(d:GameData,s:Save,id:string):boolean {const sys=d.systems.find(x=>x.id===id);return !!sys&&reached(s,sys.at[0],sys.at[1]);}
 export function availableDevices(d:GameData,s:Save):string[]{return d.devices.filter(x=>reached(s,x.unlock.z,x.unlock.w)).map(x=>x.id);}
-export function assignDevice(d:GameData,s:Save,slot:number,id:string|null):Save|null {if(slot<0||slot>=slotsOf(d,s.fort).device||id&&!availableDevices(d,s).includes(id))return null;const n=copySave(s);if(id){const old=n.devices.indexOf(id);if(old>=0)n.devices[old]=null;}n.devices[slot]=id;return n;}
+/** Devices use the same free-positioning model and keep their own fort quota. */
+export function placeDevice(d:GameData,s:Save,id:string,home:Point|null):Save|null {
+ if(!Object.prototype.hasOwnProperty.call(d.byDevice,id)||home!==null&&(!availableDevices(d,s).includes(id)||!isPoint(home)))return null;
+ const index=s.devices.findIndex(x=>x.id===id);
+ if(home!==null&&index<0&&s.devices.length>=slotsOf(d,s.fort).device)return null;
+ const n=copySave(s);
+ if(home===null){n.devices=n.devices.filter(x=>x.id!==id);return n;}
+ const entry={id,home:clampHome(d,home)};
+ if(index<0)n.devices.push(entry);else n.devices[index]=entry;return n;
+}
 export function openBox(d:GameData,s:Save,free:boolean):{save:Save;shards:string[]}|null {
  if(!systemOpen(d,s,'stars')||(free?s.boxes.free<1:s.candy<d.econ.boxCandy))return null;
  const n=copySave(s);if(free)n.boxes.free--;else n.candy-=d.econ.boxCandy;
- const active=[...new Set(n.lineup.filter((x):x is string=>!!x&&n.toys[x]?.got)),d.captain.id]; const reserve=d.toys.filter(t=>n.toys[t.id].got&&!active.includes(t.id)).map(t=>t.id);const shards:string[]=[];
+ const active=[...new Set(n.lineup.map(x=>x.id).filter(id=>n.toys[id]?.got)),d.captain.id]; const reserve=d.toys.filter(t=>n.toys[t.id].got&&!active.includes(t.id)).map(t=>t.id);const shards:string[]=[];
  const rand=()=>{const r=nextRandom(n.rng);n.rng=r.state;return r.value;};
  for(let i=0;i<d.econ.boxShards;i++){const pool=rand()<d.econ.boxLineupWeight||!reserve.length?active:reserve;const id=pool[Math.floor(rand()*pool.length)];if(id===d.captain.id)n.captain.shards++;else n.toys[id].shards++;shards.push(id);}return {save:n,shards};
 }
@@ -68,6 +88,20 @@ export function onWaveEnd(d:GameData,s:Save,r:WaveResult):{save:Save;unlocked:Un
  } else if(r.boss){n.w=d.wave.perZone-1;}else {n.w=Math.max(1,r.w-d.wave.fallback);n.pushBlock=d.wave.retryAfter;}
  return {save:n,unlocked};
 }
-export function damageBreakdown(d:GameData,s:Save,id:string,slot?:string):{total:number;parts:{name:string;mul:number}[]} {const t=s.toys[id],def=d.byToy[id];if(!t||!def)return {total:0,parts:[]};let support=0;const targetSlot=slot??d.nest.slots[s.lineup.indexOf(id)]?.id;
- for(let i=0;i<s.lineup.length;i++){const other=s.lineup[i];if(other==='dingdang'&&other!==id&&targetSlot&&d.nest.slots[i].adjacent.includes(targetSlot))support+=d.econ.supportBuff[s.toys[other].star-1];}
- const parts=[{name:'基础攻击',mul:toyAtk(d,id,t.lv,t.star)},...teamMul(d,s).parts,{name:'邻位攻击辅助',mul:1+support},{name:'辅助自身',mul:def.stance==='帮'?d.econ.supportSelf:1}];return {total:mul(...parts.map(x=>x.mul)),parts};}
+/** Aura membership is evaluated against supplied live positions, or saved homes outside combat. */
+export function supportBonus(d:GameData,s:Save,id:string,positions?:Record<string,Point>,sourceId='dingdang'):number {
+ const target=s.lineup.find(x=>x.id===id);if(!target)return 0;
+ const targetPos=positions?.[id]??target.home;let bonus=0;
+ for(const source of s.lineup){
+  if(source.id!==sourceId||source.id===id)continue;
+  const toy=d.byToy[source.id],saved=s.toys[source.id];
+  if(!toy||toy.stance!=='帮'||!saved?.got)continue;
+  if(distance(positions?.[source.id]??source.home,targetPos)<=(toy.aura??d.stance.aura.radius))bonus+=d.econ.supportBuff[saved.star-1]??0;
+ }
+ return bonus;
+}
+export function damageBreakdown(d:GameData,s:Save,id:string,home?:Point):{total:number;parts:{name:string;mul:number}[]} {
+ const t=s.toys[id],def=d.byToy[id];if(!t||!def)return {total:0,parts:[]};
+ const support=supportBonus(d,s,id,home?{[id]:home}:undefined);
+ const parts=[{name:'基础攻击',mul:toyAtk(d,id,t.lv,t.star)},...teamMul(d,s).parts,{name:'光环攻击辅助',mul:1+support},{name:'辅助自身',mul:def.stance==='帮'?d.econ.supportSelf:1}];return {total:mul(...parts.map(x=>x.mul)),parts};
+}

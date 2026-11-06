@@ -1,0 +1,640 @@
+--- /dev/fd/11	2026-11-06 05:34:57
++++ /dev/fd/12	2026-11-06 05:34:57
+@@ -1,5 +1,5 @@
+ {
+-    "version": 1,
++    "version": 2,
+     "code": "zhentou",
+     "phase": 1,
+     "note": "\u300a\u6795\u5934\u5821\u300b\uff08\u6682\u540d\uff09\u7684\u5168\u90e8\u5185\u5bb9\u8868\u3002\u7531 design/\u5c0f\u6e38\u620f/\u6795\u5934\u5821/calc/export.mjs \u751f\u6210\uff0c\u522b\u624b\u6539\uff1b\u8981\u6539\u6539 content.mjs \u518d\u751f\u6210\u3002\u6bcf\u4e00\u9879\u7684 phase \u662f\u5b83\u4ece\u7b2c\u51e0\u9636\u6bb5\u5f00\u59cb\u6709\uff1b\u6e38\u620f\u53ea\u7528 phase \u2264 \u9876\u5c42 phase \u7684\u4e1c\u897f\u3002\u5927\u6570\u5b57\u4e00\u5f8b\u53cc\u7cbe\u5ea6\uff0c\u8868\u91cc\u80fd\u6574\u6570\u5c31\u6574\u6570\uff1b\u6e38\u620f\u91cc\u4e0d\u7528 pow / log \u7b97\u89c4\u5219\uff08\u89c1 \u5f00\u53d1\u6587\u6863 \u7b2c 3 \u8282\uff09\u3002",
+@@ -53,6 +53,7 @@
+         "count": 8,
+         "spawnGap": 0.5,
+         "walk": 10,
++        "inReach": 6,
+         "gapAfter": 1,
+         "eliteHp": 6,
+         "eliteEvery": 10,
+@@ -122,12 +123,12 @@
+     "econ": {
+         "sheepPerHp": 0.01,
+         "sheepFlat": 3,
+-        "atk0": 4,
++        "atk0": 6,
+         "atkGrow": 1.08,
+         "lvCost0": 2,
+         "lvCostGrow": 1.09,
+         "lvCap0": 100,
+-        "lvCapPerBoss": 70,
++        "lvCapPerBoss": 68,
+         "lvOverGrow": 1.5,
+         "starMul": 2,
+         "starShards": [
+@@ -252,6 +253,7 @@
+                 12
+             ]
+         ],
++        "toyCap": 6,
+         "device": [
+             [
+                 1,
+@@ -266,8 +268,8 @@
+                 3
+             ]
+         ],
+-        "rows": 3,
+-        "perRow": 4
++        "rows": 2,
++        "perRow": 3
+     },
+     "stance": {
+         "block": {
+@@ -281,19 +283,64 @@
+             "hold": 2,
+             "drainNormal": 1,
+             "drainElite": 3,
+-            "knocked": 5
++            "knocked": 5,
++            "meet": 58,
++            "front": 44
+         },
+-        "startle": 2,
++        "startle": {
++            "sec": 2,
++            "radius": 120
++        },
+         "dash": {
+             "cd": 10,
+-            "travel": 1,
++            "speed": 560,
++            "back": 300,
+             "hits": 3,
++            "hitGap": 0.25,
+             "hitMul": 4,
+             "bossMul": 1.3,
+             "waveMul": 0.85
+         },
+         "clone": {
+             "stamina": 2
++        },
++        "range": {
++            "\u4e0d\u52a8": {
++                "leash": 0,
++                "speed": 0,
++                "turn": false
++            },
++            "\u5c0f": {
++                "leash": 45,
++                "speed": 55,
++                "turn": false
++            },
++            "\u4e2d": {
++                "leash": 140,
++                "speed": 130,
++                "turn": true
++            },
++            "\u5927": {
++                "leash": 9999,
++                "speed": 170,
++                "turn": true
++            },
++            "\u51b2": {
++                "leash": 9999,
++                "speed": 150,
++                "turn": true
++            }
++        },
++        "wander": {
++            "every": [
++                2,
++                5
++            ],
++            "radius": 50
++        },
++        "gap": 0.6,
++        "aura": {
++            "radius": 175
+         }
+     },
+     "nest": {
+@@ -301,193 +348,72 @@
+             375,
+             1170
+         ],
+-        "radius": {
+-            "outer": 330,
+-            "middle": 232,
+-            "inner": 135,
+-            "base": 390
++        "wall": 360,
++        "ground": {
++            "inset": 28,
++            "bottom": 1196,
++            "x": [
++                40,
++                710
++            ]
+         },
+-        "slots": [
+-            {
+-                "id": "O1",
+-                "arc": "\u5916",
+-                "pos": [
+-                    65,
+-                    1057
+-                ],
+-                "adjacent": [
+-                    "M1"
+-                ]
+-            },
+-            {
+-                "id": "O2",
+-                "arc": "\u5916",
+-                "pos": [
+-                    186,
+-                    900
+-                ],
+-                "adjacent": [
+-                    "M2"
+-                ]
+-            },
+-            {
+-                "id": "O3",
+-                "arc": "\u5916",
+-                "pos": [
+-                    375,
+-                    840
+-                ],
+-                "adjacent": [
+-                    "M2",
+-                    "M3"
+-                ]
+-            },
+-            {
+-                "id": "O4",
+-                "arc": "\u5916",
+-                "pos": [
+-                    564,
+-                    900
+-                ],
+-                "adjacent": [
+-                    "M3"
+-                ]
+-            },
+-            {
+-                "id": "O5",
+-                "arc": "\u5916",
+-                "pos": [
+-                    685,
+-                    1057
+-                ],
+-                "adjacent": [
+-                    "M4"
+-                ]
+-            },
+-            {
+-                "id": "M1",
+-                "arc": "\u4e2d",
+-                "pos": [
+-                    174,
+-                    1054
+-                ],
+-                "adjacent": [
+-                    "O1",
+-                    "I1"
+-                ]
+-            },
+-            {
+-                "id": "M2",
+-                "arc": "\u4e2d",
+-                "pos": [
+-                    296,
+-                    952
+-                ],
+-                "adjacent": [
+-                    "O2",
+-                    "O3",
+-                    "I1",
+-                    "I2"
+-                ]
+-            },
+-            {
+-                "id": "M3",
+-                "arc": "\u4e2d",
+-                "pos": [
+-                    454,
+-                    952
+-                ],
+-                "adjacent": [
+-                    "O3",
+-                    "O4",
+-                    "I2",
+-                    "I3"
+-                ]
+-            },
+-            {
+-                "id": "M4",
+-                "arc": "\u4e2d",
+-                "pos": [
+-                    576,
+-                    1054
+-                ],
+-                "adjacent": [
+-                    "O5",
+-                    "I3"
+-                ]
+-            },
+-            {
+-                "id": "I1",
+-                "arc": "\u91cc",
+-                "pos": [
+-                    272,
+-                    1083
+-                ],
+-                "adjacent": [
+-                    "M1",
+-                    "M2",
+-                    "I2"
+-                ]
+-            },
+-            {
+-                "id": "I2",
+-                "arc": "\u91cc",
+-                "pos": [
+-                    375,
+-                    1035
+-                ],
+-                "adjacent": [
+-                    "M2",
+-                    "M3",
+-                    "I1",
+-                    "I3"
+-                ]
+-            },
+-            {
+-                "id": "I3",
+-                "arc": "\u91cc",
+-                "pos": [
+-                    478,
+-                    1083
+-                ],
+-                "adjacent": [
+-                    "M3",
+-                    "M4",
+-                    "I2"
+-                ]
+-            }
++        "squeeze": 1.2,
++        "dollSize": 120,
++        "homes": [
++            [
++                375,
++                930
++            ],
++            [
++                235,
++                895
++            ],
++            [
++                525,
++                960
++            ],
++            [
++                285,
++                1080
++            ],
++            [
++                465,
++                1080
++            ],
++            [
++                160,
++                1000
++            ],
++            [
++                590,
++                1060
++            ],
++            [
++                375,
++                1040
++            ]
+         ],
+-        "openOrder": [
+-            "O3",
+-            "M2",
+-            "M3",
+-            "O2",
+-            "O4",
+-            "M1",
+-            "M4",
+-            "I2",
+-            "O1",
+-            "O5",
+-            "I1",
+-            "I3"
++        "deviceHomes": [
++            [
++                80,
++                1150
++            ],
++            [
++                670,
++                1150
++            ],
++            [
++                180,
++                1170
++            ]
+         ],
+-        "adjacentWithin": 150,
+-        "slotRadius": 46,
+         "spawn": {
+             "y": 262,
+             "x": [
+                 80,
+                 670
+             ],
+-            "lanes": [
+-                "O1",
+-                "O2",
+-                "O3",
+-                "O4",
+-                "O5"
+-            ],
+-            "speed": 65,
+-            "edge": 60
++            "speed": 56
+         },
+         "captain": [
+             375,
+@@ -507,35 +433,6 @@
+             440,
+             1150
+         ],
+-        "devices": [
+-            {
+-                "id": "D1",
+-                "rect": [
+-                    20,
+-                    1120,
+-                    80,
+-                    90
+-                ]
+-            },
+-            {
+-                "id": "D2",
+-                "rect": [
+-                    650,
+-                    1120,
+-                    80,
+-                    90
+-                ]
+-            },
+-            {
+-                "id": "D3",
+-                "rect": [
+-                    130,
+-                    1135,
+-                    80,
+-                    80
+-                ]
+-            }
+-        ],
+         "fence": {
+             "rect": [
+                 20,
+@@ -1182,6 +1079,14 @@
+                 "z": 0,
+                 "w": 0
+             },
++            "range": "\u4e2d",
++            "reach": 280,
++            "windup": 0.2,
++            "shot": {
++                "kind": "lob",
++                "dur": 0.55,
++                "arc": 90
++            },
+             "desc": "\u6254\u79ef\u6728\uff0c\u4e13\u6253\u6700\u524d\u9762\u90a3\u53ea",
+             "phase": 1
+         },
+@@ -1199,7 +1104,14 @@
+                 "z": 0,
+                 "w": 0
+             },
+-            "desc": "\u547c\u51fa\u4e00\u53e3\u70ed\u6c14\uff0c\u524d\u9762\u4e00\u5c0f\u7247\u90fd\u70d8\u7740",
++            "range": "\u4e2d",
++            "reach": 400,
++            "windup": 0.25,
++            "shot": {
++                "kind": "straight",
++                "speed": 560
++            },
++            "desc": "\u5410\u4e00\u9897\u5c0f\u706b\u7403\uff0c\u6253\u4e2d\u70b8\u5f00\u4e00\u5c0f\u7247\uff0c\u90fd\u70d8\u7740",
+             "phase": 1
+         },
+         {
+@@ -1216,6 +1128,13 @@
+                 "z": 0,
+                 "w": 0
+             },
++            "range": "\u5c0f",
++            "reach": 430,
++            "windup": 0.15,
++            "shot": {
++                "kind": "beam",
++                "dur": 0.28
++            },
+             "desc": "\u6ecb\u4e00\u80a1\u51c9\u6c34\uff0c\u6253\u4e2d\u7684\u53d8\u6162",
+             "phase": 1
+         },
+@@ -1233,6 +1152,15 @@
+                 "z": 0,
+                 "w": 25
+             },
++            "range": "\u4e0d\u52a8",
++            "reach": 330,
++            "windup": 0.2,
++            "shot": {
++                "kind": "lob",
++                "dur": 0.5,
++                "arc": 80
++            },
++            "aura": 175,
+             "desc": "\u8f85\u52a9\uff1a\u540c\u4e00\u6392\u7684\u73a9\u5076\u653b\u51fb\u52a0\u6210",
+             "phase": 1
+         },
+@@ -1250,6 +1178,13 @@
+                 "z": 0,
+                 "w": 50
+             },
++            "range": "\u5c0f",
++            "reach": 370,
++            "windup": 0.2,
++            "shot": {
++                "kind": "chain",
++                "dur": 0.22
++            },
+             "desc": "\u653e\u4e00\u9053\u9759\u7535\uff0c\u8df3\u7740\u6253 3 \u53ea",
+             "phase": 1
+         },
+@@ -1267,6 +1202,14 @@
+                 "z": 1,
+                 "w": 50
+             },
++            "range": "\u4e0d\u52a8",
++            "reach": 350,
++            "windup": 0.2,
++            "shot": {
++                "kind": "straight",
++                "speed": 380
++            },
++            "aura": 175,
+             "desc": "\u8f85\u52a9\uff1a\u540c\u4e00\u6392\u7684\u73a9\u5076\u653b\u901f\u52a0\u6210\uff08\u6838\u7b97\u6309\u653b\u51fb\u52a0\u6210\u7b97\uff09",
+             "phase": 1
+         },
+@@ -1284,6 +1227,12 @@
+                 "z": 1,
+                 "w": 25
+             },
++            "range": "\u5927",
++            "reach": 90,
++            "windup": 0.15,
++            "shot": {
++                "kind": "melee"
++            },
+             "desc": "\u53d8\u51fa\u5c0f\u6795\u5934\u5206\u8eab\u4e00\u8d77\u62cd\uff0c\u5206\u8eab\u4e5f\u5403\u540c\u6392\u52a0\u6210",
+             "phase": 1
+         },
+@@ -1301,6 +1250,13 @@
+                 "z": 2,
+                 "w": 25
+             },
++            "range": "\u4e2d",
++            "reach": 350,
++            "windup": 0.25,
++            "shot": {
++                "kind": "straight",
++                "speed": 260
++            },
+             "desc": "\u718f\u4e00\u4e0b\u53e0\u4e00\u5c42\u81ed\uff0c\u5c42\u6570\u4e00\u76f4\u718f",
+             "phase": 1
+         },
+@@ -1318,6 +1274,13 @@
+                 "z": 2,
+                 "w": 50
+             },
++            "range": "\u51b2",
++            "reach": 300,
++            "windup": 0.2,
++            "shot": {
++                "kind": "straight",
++                "speed": 520
++            },
+             "desc": "\u6254\u96ea\u7403\uff0c\u7838\u4e00\u7247\uff0c\u4e09\u4e0b\u51bb\u4f4f",
+             "phase": 1
+         },
+@@ -1335,6 +1298,14 @@
+                 "z": 3,
+                 "w": 50
+             },
++            "range": "\u4e2d",
++            "reach": 330,
++            "windup": 0.3,
++            "shot": {
++                "kind": "lob",
++                "dur": 0.6,
++                "arc": 70
++            },
+             "desc": "\u628a\u81ed\u5473\u4e00\u4e0b\u5b50\u201c\u5657\u201d\u51fa\u6765\uff1a\u5c42\u6570\u8d8a\u591a\u70b8\u5f97\u8d8a\u75bc",
+             "phase": 2
+         },
+@@ -1352,6 +1323,14 @@
+                 "z": 3,
+                 "w": 25
+             },
++            "range": "\u4e0d\u52a8",
++            "reach": 340,
++            "windup": 0.2,
++            "shot": {
++                "kind": "straight",
++                "speed": 420
++            },
++            "aura": 175,
+             "desc": "\u8f85\u52a9\uff1a\u7ed9\u540c\u4e00\u6392\u6253\u4e2d\u7684\u5669\u68a6\u753b\u4e0a\u7ea2\u5708\uff0c\u53d7\u5230\u7684\u4f24\u5bb3\u52a0\u6210",
+             "phase": 2
+         },
+@@ -1369,6 +1348,13 @@
+                 "z": 4,
+                 "w": 50
+             },
++            "range": "\u51b2",
++            "reach": 280,
++            "windup": 0.2,
++            "shot": {
++                "kind": "chain",
++                "dur": 0.22
++            },
+             "desc": "\u8e6d\u6bdb\u7ebf\u8d77\u7535\uff0c\u961f\u91cc\u5e26\u7535\u7684\u8d8a\u591a\u8df3\u5f97\u8d8a\u8fdc",
+             "phase": 2
+         },
+@@ -1386,6 +1372,14 @@
+                 "z": 4,
+                 "w": 25
+             },
++            "range": "\u4e0d\u52a8",
++            "reach": 360,
++            "windup": 0.15,
++            "shot": {
++                "kind": "straight",
++                "speed": 600
++            },
++            "aura": 175,
+             "desc": "\u8f85\u52a9\uff1a\u540c\u4e00\u6392\u66b4\u51fb\u52a0\u6210\uff08\u6838\u7b97\u6309\u653b\u51fb\u52a0\u6210\u7b97\uff09",
+             "phase": 2
+         },
+@@ -1403,6 +1397,13 @@
+                 "z": 5,
+                 "w": 50
+             },
++            "range": "\u4e2d",
++            "reach": 300,
++            "windup": 0.25,
++            "shot": {
++                "kind": "beam",
++                "dur": 0.35
++            },
+             "desc": "\u9e23\u7b1b\u5192\u4e00\u80a1\u70ed\u84b8\u6c7d\uff0c\u4e00\u6761\u7ebf\u4e0a\u7684\u90fd\u70d8\u7740",
+             "phase": 2
+         },
+@@ -1420,6 +1421,15 @@
+                 "z": 6,
+                 "w": 50
+             },
++            "range": "\u4e0d\u52a8",
++            "reach": 330,
++            "windup": 0.2,
++            "shot": {
++                "kind": "lob",
++                "dur": 0.5,
++                "arc": 80
++            },
++            "aura": 175,
+             "desc": "\u8f85\u52a9\uff1a\u540c\u4e00\u6392\u6bcf\u6b21\u718f\u591a\u53e0\u4e00\u5c42",
+             "phase": 3
+         },
+@@ -1436,6 +1446,13 @@
+             "unlock": {
+                 "z": 7,
+                 "w": 50
++            },
++            "range": "\u51b2",
++            "reach": 300,
++            "windup": 0.15,
++            "shot": {
++                "kind": "straight",
++                "speed": 640
+             },
+             "desc": "\u5f39\u6765\u5f39\u53bb\uff0c\u4e00\u4e0b\u6253\u597d\u51e0\u53ea",
+             "phase": 3

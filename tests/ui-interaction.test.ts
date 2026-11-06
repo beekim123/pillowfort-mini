@@ -35,11 +35,11 @@ describe('presentation and controller integration', () => {
     for (let i = 0; i < 300; i++) { short.app.tick(1 / 30); tall.app.tick(1 / 30); }
     expect(tall.app.save).toEqual(short.app.save); expect(tall.app.battle.seed).toBe(short.app.battle.seed);
   });
-  it('keeps exact slot mapping and shifts only presentation y on tall screens', () => {
+  it('keeps default guard points and shifts only presentation y on tall screens', () => {
     const { app, view } = setup();
-    expect(app.save.lineup.map((id, i) => id ? app.data.nest.slots[i].id : null).filter(Boolean)).toEqual(['O3', 'M2', 'M3']);
-    const a = view.render(1334).hitRegions.find(r => r.id === 'slot-2')!;
-    const b = view.render(1624).hitRegions.find(r => r.id === 'slot-2')!;
+    expect(app.save.lineup.map(item => item.home)).toEqual(app.data.nest.homes.slice(0, 3));
+    const a = view.render(1334).hitRegions.find(r => r.id === 'actor-fangfang')!;
+    const b = view.render(1624).hitRegions.find(r => r.id === 'actor-fangfang')!;
     expect(b.x).toBe(a.x); expect(b.y - a.y).toBe(290);
   });
   it('runs battle beneath an open tab and supports repeated close/tab changes', () => {
@@ -51,17 +51,9 @@ describe('presentation and controller integration', () => {
   });
   it('does not pass panel or modal touches to the underlying battlefield', () => {
     const { app, view } = setup(); app.panel = 'settings';
-    view.render(); app.pointerDown(40, 1000); app.pointerUp(40, 1000); expect(app.selectedSlot).toBeNull();
+    view.render(); app.pointerDown(40, 1000); app.pointerUp(40, 1000); expect(app.selectedActor).toBeNull();
     app.modal = { kind: 'notice', title: '测试', lines: ['测试'] }; const frame = view.render();
     expect(frame.hitRegions.map(r => r.action)).toEqual(['dismiss']);
-  });
-  it('places and swaps toys live, while rejecting unopened positions', () => {
-    const { app, view } = setup();
-    app.action('slot', 0); expect(app.panel).toBeNull();
-    click(app, view, 'slot-2'); expect(app.selectedSlot).toBe(2);
-    click(app, view, 'swap'); expect(app.panel).toBeNull();
-    click(app, view, 'slot-6'); expect(app.save.lineup[2]).toBe('huhu'); expect(app.save.lineup[6]).toBe('fangfang');
-    expect(app.battle.units.find(u => u.id === 'fangfang')?.slot).toBe('M2');
   });
   it('holds upgrade to buy multiple levels and stops immediately on cancellation', () => {
     const { app, view } = setup(); app.save.sheep = 100000; app.panel = 'toys';
@@ -72,18 +64,15 @@ describe('presentation and controller integration', () => {
     app.pointerCancel(); const level = app.save.toys.fangfang.lv; app.tick(1); expect(app.save.toys.fangfang.lv).toBe(level);
   });
   it('long-presses an on-field doll for damage breakdown without opening formation', () => {
-    const { app, view } = setup(); const hit = view.render().hitRegions.find(r => r.id === 'slot-2')!;
+    const { app, view } = setup(); const hit = view.render().hitRegions.find(r => r.id === 'actor-fangfang')!;
     app.pointerDown(hit.x + 10, hit.y + 10); app.tick(0.6);
     expect(app.modal?.kind).toBe('breakdown'); app.pointerUp(hit.x + 10, hit.y + 10); expect(app.panel).toBeNull();
   });
-  it('shows support adjacency on the uncovered field before opening formation', () => {
-    const { app, view } = setup(); app.save.toys.dingdang.got = true; app.save.lineup[6] = 'dingdang'; syncBattle(app.battle, app.save);
-    click(app, view, 'slot-6'); expect(app.selectedSlot).toBe(6); expect(app.panel).toBeNull();
-    const slot = app.data.nest.slots[6];
-    const lines = view.render().commands.filter(c => c.kind === 'line' && c.color === '#f4ce73');
-    expect(lines.length).toBe(slot.adjacent.length);
-    expect(lines.every(c => c.layer === 0)).toBe(true);
-    app.tick(0.3); click(app, view, 'slot-6'); expect(app.panel).toBe('placement');
+  it('shows a support aura on the uncovered battlefield', () => {
+    const { app, view } = setup(); app.save.toys.dingdang.got = true; app.save.lineup[0] = { id: 'dingdang', home: [375, 1050] }; syncBattle(app.battle, app.save);
+    click(app, view, 'actor-dingdang'); expect(app.selectedActor).toBe('dingdang'); expect(app.panel).toBeNull();
+    const lines = view.render().commands.filter(c => c.kind === 'line' && c.color === '#85d897b0');
+    expect(lines.length).toBeGreaterThan(50); expect(lines.every(c => c.layer === 0)).toBe(true);
   });
   it('cancels a held upgrade across hide/show without a pointer-up event', () => {
     const { app, view, advance } = setup(); app.save.sheep = 10000; app.panel = 'toys';
@@ -103,16 +92,16 @@ describe('presentation and controller integration', () => {
   });
   it('shows exact recorded real-hit factors including active support and target conditions', () => {
     const { app } = setup(); app.save.toys.dingdang.got = true;
-    app.save.lineup[2] = 'huhu'; app.save.lineup[6] = 'dingdang'; app.save.lineup[7] = 'fangfang'; syncBattle(app.battle, app.save);
+    app.save.lineup = [{ id: 'huhu', home: [235, 895] }, { id: 'dingdang', home: [275, 995] }, { id: 'fangfang', home: [200, 1050] }]; syncBattle(app.battle, app.save);
     const attacker = app.battle.units.find(u => u.id === 'huhu')!, helper = app.battle.units.find(u => u.id === 'dingdang')!;
     helper.buffUntil = 10; attacker.attackClock = 2;
     const enemy = spawnEnemy(app.battle, app.data.zones[0].nightmares[0], { x: 375, y: 700, hp: 1000000 })[0];
     enemy.freezeUntil = 10; enemy.flashUntil = 10; enemy.burnUntil = 10; enemy.shell = 3;
-    step(app.battle, 1 / 30, {});
+    for (let i = 0; i < 35; i++) step(app.battle, 1 / 30, {});
     const result = lastDamageBreakdown(app.battle, 'huhu'); expect(result.mode).toBe('last-hit');
     app.action('breakdown', 'huhu'); const lines = app.modal!.lines;
     expect(lines.some(line => line.includes('最近真实命中'))).toBe(true);
-    expect(lines).toContain('邻位攻击辅助（含叮当响） ×1.5');
+    expect(lines.some(line => line.includes('辅助') && line.includes('1.5'))).toBe(true);
     expect(lines).toContain(`原始值 ${String(result.total)}`);
     expect(lines.some(line => line.includes('带壳减伤'))).toBe(true);
     helper.buffUntil = 0; enemy.freezeUntil = 0; enemy.flashUntil = 0; enemy.burnUntil = 0; enemy.shell = 0;
@@ -144,7 +133,7 @@ describe('presentation and controller integration', () => {
   });
   it('credits wave kills immediately and settlement never credits them twice', () => {
     const { app } = setup();
-    for (let i = 0; i < 150; i++) app.tick(1 / 30);
+    for (let i = 0; i < 450; i++) app.tick(1 / 30);
     expect(app.save.sheep).toBeGreaterThan(0); expect(app.battle.creditedSheep).toBe(app.battle.sheep);
     const sheep = app.save.sheep; app.tick(1 / 30); expect(app.save.sheep).toBeGreaterThanOrEqual(sheep);
   });
@@ -174,8 +163,8 @@ describe('presentation and controller integration', () => {
   });
   it('keeps every panel and modal button inside the viewport at both heights', () => {
     const { app, view } = setup(true);
-    for (const h of [1334, 1624]) for (const panel of ['toys', 'fort', 'daily', 'boxes', 'settings', 'debug', 'placement'] as const) {
-      app.panel = panel; app.selectedSlot = panel === 'placement' ? 2 : null;
+    for (const h of [1334, 1624]) for (const panel of ['toys', 'fort', 'daily', 'boxes', 'settings', 'debug'] as const) {
+      app.panel = panel;
       const frame = view.render(h);
       for (const r of frame.hitRegions) { expect(r.x).toBeGreaterThanOrEqual(0); expect(r.x + r.w).toBeLessThanOrEqual(750); expect(r.y).toBeGreaterThanOrEqual(0); expect(r.y + r.h).toBeLessThanOrEqual(h); }
       const commands = frame.commands.filter(c => c.kind === 'text'); expect(commands.every(c => c.kind !== 'text' || c.size >= 22)).toBe(true);
@@ -187,7 +176,7 @@ describe('presentation and controller integration', () => {
   });
   it('continues final-dream farming without advancing after campaign completion', () => {
     const { app } = setup(); app.save = newSave(app.data, 1000000); app.save.z = 2; app.save.w = 49; app.save.completed = true;
-    for (const id of app.save.lineup) if (id) app.save.toys[id].lv = 600;
+    for (const { id } of app.save.lineup) app.save.toys[id].lv = 600;
     app.battle = CoreStart(app); for (let i = 0; i < 600; i++) app.tick(1 / 30);
     expect(app.rows.length).toBeGreaterThan(1); expect(app.save.z).toBe(2); expect(app.save.w).toBe(49); expect(app.waveMessage).toBe('下一个梦还在路上');
   });

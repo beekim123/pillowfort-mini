@@ -1,0 +1,45 @@
+{
+  "baseline": "46240ae919360c36052476aad98a4dfd6048ca42",
+  "changedExistingOrNewFilesScanned": 107,
+  "formalArtDirectories": [],
+  "newBinaryFiles": [
+    {
+      "path": "docs/screenshots/p1-walk/walk-1334-selection-render.png",
+      "bytes": 181118
+    },
+    {
+      "path": "docs/screenshots/p1-walk/walk-1624-debug-render.png",
+      "bytes": 275451
+    },
+    {
+      "path": "docs/screenshots/p1-walk/walk-1624-selection-render.png",
+      "bytes": 183703
+    },
+    {
+      "path": "docs/screenshots/p1-walk/walk-toy-cards-render.png",
+      "bytes": 188541
+    },
+    {
+      "path": "docs/spec-v1/布局方案/站位设计.png",
+      "bytes": 538654
+    },
+    {
+      "path": "docs/spec/布局方案/走位灰盒-选中.png",
+      "bytes": 925617
+    },
+    {
+      "path": "docs/spec/布局方案/走位灰盒.png",
+      "bytes": 909744
+    }
+  ],
+  "assetBinaryFiles": [],
+  "packageFilesUnchanged": true,
+  "commonCredentialPatternHits": [],
+  "credentialScanIsHeuristic": true,
+  "generatedPathsIgnored": {
+    "node_modules/": true,
+    "preview/": true,
+    "build/": true
+  },
+  "note": "Specification reference images and prior-spec archive images are documentation, not loaded gameplay art. No push performed."
+}

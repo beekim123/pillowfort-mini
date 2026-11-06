@@ -1,0 +1,5 @@
+PASS: Four real GameView render captures in docs/screenshots/p1-walk; not device screenshots.
+walk-toy-cards-render.draw.json
+walk-1334-selection-render.draw.json
+walk-1624-debug-render.draw.json
+walk-1624-selection-render.draw.json

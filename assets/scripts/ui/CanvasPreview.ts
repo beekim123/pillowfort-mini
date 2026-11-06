@@ -36,14 +36,19 @@ export async function startCanvasPreview(canvas: HTMLCanvasElement): Promise<Gam
   };
   resize(); window.addEventListener('resize', resize);
   const point = (event: PointerEvent) => { const box = canvas.getBoundingClientRect(); return [(event.clientX - box.left) / box.width * 750, (event.clientY - box.top) / box.height * designHeight] as const; };
-  canvas.addEventListener('pointerdown', e => { e.preventDefault(); canvas.setPointerCapture(e.pointerId); const [x, y] = point(e); app.pointerDown(x, y); });
-  canvas.addEventListener('pointermove', e => { const [x, y] = point(e); app.pointerMove(x, y); });
-  canvas.addEventListener('pointerup', e => { const [x, y] = point(e); app.pointerUp(x, y); });
-  canvas.addEventListener('pointercancel', () => app.pointerCancel());
-  document.addEventListener('visibilitychange', () => document.hidden ? app.suspend() : app.resume());
+  let pointerId: number | null = null;
+  const cancelPointer = () => { pointerId = null; app.pointerCancel(); };
+  canvas.addEventListener('pointerdown', e => { if (pointerId !== null) return; e.preventDefault(); pointerId = e.pointerId; canvas.setPointerCapture(e.pointerId); const [x, y] = point(e); app.pointerDown(x, y); });
+  canvas.addEventListener('pointermove', e => { if (e.pointerId !== pointerId) return; const [x, y] = point(e); app.pointerMove(x, y); });
+  canvas.addEventListener('pointerup', e => { if (e.pointerId !== pointerId) return; pointerId = null; const [x, y] = point(e); app.pointerUp(x, y); });
+  canvas.addEventListener('pointercancel', e => { if (e.pointerId === pointerId) cancelPointer(); });
+  canvas.addEventListener('lostpointercapture', e => { if (e.pointerId === pointerId) cancelPointer(); });
+  window.addEventListener('blur', cancelPointer);
+  document.addEventListener('visibilitychange', () => document.hidden ? (cancelPointer(), app.suspend()) : app.resume());
   window.addEventListener('pagehide', () => app.suspend()); window.addEventListener('pageshow', () => app.resume());
   window.addEventListener('keydown', e => {
     if (e.key === 'Escape') app.action(app.modal ? 'dismiss' : 'close');
+    if (e.key === 'F3' && development) { e.preventDefault(); app.action('overlay'); }
     const tabs = ['toys', 'fort', 'daily', 'boxes', 'settings']; const tab = Number(e.key) - 1;
     if (tab >= 0 && tab < tabs.length && !app.modal) app.action('tab', tabs[tab]);
   });

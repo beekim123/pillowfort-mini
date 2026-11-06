@@ -1,39 +1,42 @@
-# 枕头堡 P1 纯 TypeScript 核心
+# 枕头堡 P1 走位核心接口
 
-本目录不依赖 Cocos、DOM、Node API 或美术资源。数据来自 2026-11-06 第二版开发包。主入口 `index.ts`。所有时间单位均为秒，现实时间请传 `Date.now()/1000`。
+核心不依赖 Cocos、DOM、Node API 或美术。时间单位为秒，玩法坐标固定750×1334。数据使用走位包v2，旧固定格子/五通道接口已移除。
 
-## 接口
+## 数据与存档
 
-- `DATA` 是已过滤 P1、已建倍率表的默认 GameData；`loadData(json, rulesOverrides?)` 可加载原表并局部覆盖显式规则参数。
-- `newSave(data, now)` 初始三玩偶、O3/M2/M3、D1 小夜灯。
-- `parseSave(data, text, now)` 校验 JSON、限制数值、消除重复/未开放站位和未解锁设施；无法读取的存档退回新档。
-- `serializeSave(save)` 生成 JSON。调用层负责本地存储与异常提示；原存档应在替换前保留备份。
-- 经济函数返回复制的 Save 或 null，原 Save 不变。字段名称与开发文档 §6、§9 对齐。
-- `startWave(data, save, { attempt, boss?, carry?, elapsedBetweenWaves? })` 创建可变战斗。所有设计坐标固定 750×1334。attempt 从 1 计，按区/波分别保存。
-- `step(battle, realDeltaSeconds, { flash?: { aim: radians } })` 采用累计器只跑固定 1/30 秒 tick，返回该次所有事件。不要为了追帧丢弃逻辑 dt。
-- `collectBattleRewards(data, save, battle)` 每次 step 后调用，将即时击杀羊/统计记入 Save，重复调用无重复收益。
-- `syncBattle(battle, save)` 用新 Save 更新升级/换阵/开关。保留仍上场玩偶的计时器，不重开波。换走的阻挡会释放。
-- `result(battle)` 未结束为 null，结束为 WaveResult。`onWaveEnd(data, save, result)` 只补计尚未收取的即时奖励并负责首通、退回/推进、解锁、农场。
-- 一秒间歇后，下一波传 `{carry: previousBattle, elapsedBetweenWaves: 1}`。立即挑战首领/撤退传0（缺省也是0），不会凭切换领取冷却。保留攻击/技能/冲锋、绵绵和手电计时。间歇期间也算冷却，活动中的短时光束和辅助效果按剩余时长转移。
-- `advanceClocks(data, save, now)` 在线更新免费箱与六小时小事，返回新 Save；调用层维护 lastSeen。
-- `settleOffline(data, save, now)` 一次结算至 now 并更新 lastSeen，返回领取展示用 MorningCard。奖励此时已计入，不要在点收下时再加。
-- 阵容操作：`assignToy`、`swapSlots`、`assignDevice`；检查函数：`openSlots`、`slotsOf`、`availableDevices`、`systemOpen`。
-- 真实命中分解：`lastDamageBreakdown(battle,id)` 返回最近命中的不可变倍率快照，或未命中过时的当前目标预估；`mode` 明确区分二者，`parts`乘积等于命中伤害（含壳、主动辅助、技能、暴击及目标易伤）。`battleDamageBreakdown`返回当前预估，并由真正的攻击共享使用。
-- 数值：`toyAtk`、`teamMul`、`damageBreakdown`、`lvCost`、`fortCost`、`dailyCost`、`fmt`、`unitIndex`。
-- `battleCsv(results)` 包含原始伤害、时长、avgDps、漏怪、阻挡秒数、挤倒次数、冲锋次数等。
+- `DATA` 是过滤P1并建立倍率表的默认数据；`loadData(json, rulesOverrides?)` 不修改原始JSON。
+- `newSave(data, now)` 返回version2：阵容和设施为 `{id, home:[x,y]}[]`。初始方方、呼呼、嘎嘎依次使用前三个 `nest.homes`，小夜灯使用第一个 `deviceHomes`。
+- `parseSave(data,text,now)` 校验输入；v1非空ID按旧数组顺序去重、过滤未知/未拥有ID，前六只按默认守点迁移，超额仍保留在 `toys` 中。v2合法守点保留，坏坐标修复/夹入地面。
+- `serializeSave` 只生成JSON；调用者负责存储异常和备份。UI沿用 `zhentou.save.v1` 键，写入内容是v2。
+- `place(data,save,id,home|null)` 和 `placeDevice(...)` 添加、移动或移除；返回新Save或null，拒绝操作不改原档。移动已上场玩偶不受当前满员限制。
+- `slotsOf(data,fort)` 返回 `{toy,device,room}`。toy最多6，`room=max(1,原名额/6)` 进入全队伤害倍率；默认守点数组更长不代表可上8只。
+- `clampHome` / `isOnGround` / `distance` 提供纯坐标几何；设备使用同一守点约束。
 
-## 表现数据
+## 战斗调用顺序
 
-`Battle.enemies` 中 `dead` / `leaked` 的实体保留到波末供表现使用；活体使用 `aliveEnemies(b)`。每个实体的 `x,y,hp,maxHp,lane,boss,elite,shell,stink,burnUntil,slowUntil,freezeUntil,stunUntil,flashUntil,blockedBy,closed` 可直接绘制色块/文字。`Battle.units` 提供站位、耐力、挤倒、吓到、冲锋位置。`Battle.clones` 是分身。
+1. `startWave(data,save,{attempt,boss?,carry?,elapsedBetweenWaves?})` 创建Battle。种子由区/波/attempt确定。
+2. `step(battle,dt,{flash?:{aim},homes?:Record<string,Point>})` 以1/30秒固定步推进；不足一tick的homes保留到下一tick。返回该调用的事件。
+3. homes只更新 `battle.save`，不修改调用者原Save。调用层须把已应用守点复制回主Save，再收奖励与同步；`GameController` 已这样处理。
+4. `collectBattleRewards(data,save,battle)` 收取未入账击杀羊和统计，再 `syncBattle(battle,newSave)`。仍上场玩偶保留位置和冷却，不因每帧同步而回到home。
+5. `result` 未结束为null，结束返回结果；`onWaveEnd` 补差、首通、推进/回退、解锁与农场。
+6. 实际波间休息传 `elapsedBetweenWaves:data.wave.gapAfter`；立即挑战/撤退传0。默认0，不能通过切换免费充能。
 
-事件 `type` 包括 spawn、attack、hit、dot、skill、chain、burn、slow、freeze、stink、shell、split、kill、leak、block、knockdown、recover、startle、dashStart、dashHit、dashEnd、clone、cloneEnd、support、captain、push、flashStart、flashEnd、bossTrick、waveEnd。详情字段在触发处与 types.ts 中可读；事件均含 battle time。
+`syncBattle` 处理上/下场、升级、设施和开关；移除挡者释放认领，不直接制造漏怪。未放出的出手会随发射者下场取消，已放出弹道保留攻击快照直至命中或散去。
 
-伤害在逻辑 tick 出手时扣血。表现层可以延后显示倒下，但不能重复结算。`hit.damage` 为显示伤害，`hit.actual` 是扣除过量伤害后的实扣量；DPS / 手电最近5秒依据实扣伤害。破单位里程碑由表现层比较 `unitIndex(hit.damage)` 与 Save.units，展示后保存。
+## 走位与表现接口
 
-## 测试
+- `wallPoint(data,x,y,inset?)` 求圆心射线与墙交点；敌人无lane，朝圆心移动。
+- 每只玩偶分别有home、当前pos、速度、目标、状态、朝向。搬动守点后，能走的玩偶按速度到新家；不动辅助即时改变位置。搬位途中可暂时位于新home的leash外，不瞬移补偿。
+- `actors(battle)` 返回 `toys/nightmares/shots` 视图；优先由此读位置、目标、朝向与真实弹道。绘制不得自行再扣血。
+- 攻击流程为 `attack/skill` → windup → `shot` → `hit/dot/impact`。straight/lob到达后结算；beam/chain/melee释放同tick结算。伤害数字依据hit/dot，不在attack时制造伤害。
+- 事件还包括claim、block、knockdown、recover、squeeze、leak、startle、dashStart、dashHit、dashReturn、dashEnd、clone、support、flash、bossTrick、waveEnd等，均带战斗时间。
+- `hit.damage` 是显示伤害；`hit.actual` 是去除过量伤害的实扣量。`lastDamageBreakdown` 为最近命中快照，未命中过时标为当前预估。
+- `battleCsv` 含原字段和 `firstHitWallSeconds`：本波每个敌人首次实际伤害>0时，剩余径向墙距÷基础移动速度，再求均值；不计0伤害，零速度记0，不因冻结得到Infinity。
 
-`tests/core.test.ts` 使用 Vitest。运行 `vitest run core/tests/core.test.ts`（整合到项目时路径可移动）。不依赖图形和物理引擎。仅 core 的严格 TS 检查示例：`tsc --strict --noEmit --target ES2022 --module ESNext --moduleResolution bundler --allowImportingTsExtensions core/index.ts`。
+## 确定性边界
 
-## 完整流程烟测
+相同初始档、seed、逐tick homes/flash及同序经济/上下场操作可复现。`battle.inputLog` 和UI `homeInputs` 记录守点输入，但不是全部会话命令的持久录像。切后台存档不保存整场Battle，重新启动会重开当前波；不承诺跨进程接回每一颗弹道。
 
-`npm run smoke:progression` 采用固定策略自动升级、使用合法羊/糖/箱子、按当前开放格位布阵与8小时离线结算，不直接改等级/发货币/解锁玩偶。一次跑完三个首领，完成时232个波次、累计模拟离线200小时。第0/1区首领在该策略下首次成功，第2区有多次失败后成功。该测试只证明养成闭环与最终P1边界可达；策略没有最优化站位/每日研究，离线触发时机人为固定，不能当成真实玩家通关时长或平衡验收。原始结果在 docs/verification/progression-smoke.log。
+## 验证
+
+`npm run check` 覆盖当前全部测试、共享类型与源码/规格门禁；`node tools/check-walk-review.mjs` 重跑41组定向独立复核。`npm run smoke:progression` 用合法升级/纸箱/设施、默认守点和模拟离线验证三梦可达，最新结果见 `VALIDATION.md`。不得以这些结果推导真机性能或玩家通关时长。

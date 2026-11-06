@@ -1,11 +1,14 @@
 import * as Core from '../core/index';
-import type { Battle, BattleEvent, GameData, MorningCard, Save, WaveResult } from '../core/index';
+import type { Battle, BattleEvent, GameData, MorningCard, Save, WaveResult, Point, ShotDef } from '../core/index';
 import { contains, HitRegion } from './Draw';
+import { THEME } from './Theme';
 
 export interface StorageLike { getItem(key: string): string | null; setItem(key: string, value: string): void; removeItem(key: string): void }
-export type Panel = 'toys' | 'fort' | 'daily' | 'boxes' | 'settings' | 'debug' | 'placement' | null;
+export type Panel = 'toys' | 'fort' | 'daily' | 'boxes' | 'settings' | 'debug' | null;
 export interface Modal { kind: 'intro' | 'morning' | 'notice' | 'breakdown' | 'reset'; title: string; lines: string[]; card?: MorningCard; page?: number }
-export interface Effect { type: 'shot' | 'damage' | 'cotton' | 'hit' | 'leak'; x: number; y: number; tx: number; ty: number; age: number; life: number; color: string; value: number; target?: number }
+export interface Effect { type: 'shot' | 'damage' | 'cotton' | 'hit' | 'leak'; x: number; y: number; tx: number; ty: number; age: number; life: number; color: string; value: number; target?: number; shotKind?: ShotKind; source?: string }
+export interface DragState { id: string; kind: 'toy' | 'device'; source: 'field' | 'card'; original: Point | null; point: Point; started: boolean; panel: Panel }
+type ShotKind = ShotDef['kind'];
 const SAVE_KEY = 'zhentou.save.v1';
 const clone = <T>(value: T): T => JSON.parse(JSON.stringify(value));
 
@@ -16,11 +19,16 @@ export class GameController {
   battle: Battle;
   panel: Panel = null;
   page = 0;
-  selectedSlot: number | null = null;
+  selectedActor: string | null = null;
+  selectedDevice: string | null = null;
+  drag: DragState | null = null;
+  readonly homeInputs: { seed: number; z: number; w: number; tick: number; homes: Record<string, Point> }[] = [];
+  private pendingHomes: Record<string, Point> = {};
   selectedToy = '';
   modal: Modal | null = null;
   notices: Modal[] = [];
   effects: Effect[] = [];
+  readonly projectileMuzzles = new Map<number, Point>();
   rows: WaveResult[] = [];
   uiTime = 0;
   toast = '';
@@ -56,8 +64,7 @@ export class GameController {
     try {
       const encoded = storage.getItem(SAVE_KEY);
       if (encoded) {
-        const candidate = JSON.parse(encoded) as Save;
-        if (candidate.version === 1 && Number.isFinite(candidate.sheep) && candidate.sheep >= 0 && Array.isArray(candidate.lineup) && candidate.lineup.length === this.data.nest.slots.length && candidate.toys && candidate.stats && candidate.daily && candidate.boxes && candidate.firstClear && candidate.captain && candidate.devices && candidate.z >= 0 && candidate.z < this.data.zones.length && candidate.w >= 1 && candidate.w <= this.data.wave.perZone) loaded = Core.parseSave(this.data, encoded, this.now());
+        loaded = Core.parseSave(this.data, encoded, this.now());
       }
     } catch { /* Corrupt/unavailable storage is recoverable. */ }
     this.save = loaded ?? initial;
@@ -73,6 +80,7 @@ export class GameController {
   }
 
   private makeBattle(boss = false, carry?: Battle, elapsedBetweenWaves = 0): Battle {
+    this.projectileMuzzles.clear();
     const key = `${this.save.z}:${boss ? this.data.wave.perZone : this.save.w}`;
     this.save.attempts ??= {};
     const attempt = this.save.attempts[key] ?? 0;
@@ -93,9 +101,8 @@ export class GameController {
       const p = this.pointer;
       if (p.region?.repeat && this.uiTime >= p.nextRepeat) {
         this.action(p.region.action, p.region.value); p.repeated = true; p.nextRepeat = this.uiTime + 0.14;
-      } else if (p.region?.action === 'slot' && !p.holdShown && this.uiTime - p.time > 0.55) {
-        const id = this.save.lineup[Number(p.region.value)];
-        if (id) { this.breakdown(id); p.holdShown = true; }
+      } else if ((p.region?.action === 'actor' || p.region?.action === 'toyCard') && !this.drag?.started && !p.holdShown && this.uiTime - p.time > THEME.holdSeconds) {
+        this.breakdown(String(p.region.value)); p.holdShown = true; this.drag = null;
       }
     }
     if (this.modal?.kind === 'intro' || this.modal?.kind === 'morning') return;
@@ -117,11 +124,18 @@ export class GameController {
         continue;
       }
       if (Core.result(this.battle)) continue;
-      const events = Core.step(this.battle, step, this.flashAim === undefined ? {} : { flash: { aim: this.flashAim } });
+      const homes = this.pendingHomes; this.pendingHomes = {};
+      if (Object.keys(homes).length) this.homeInputs.push({ seed: this.battle.seed, z: this.battle.z, w: this.battle.w, tick: this.battle.tick, homes: clone(homes) });
+      const events = Core.step(this.battle, step, { ...(this.flashAim === undefined ? {} : { flash: { aim: this.flashAim } }), homes });
+      if (Object.keys(homes).length) {
+        this.save.lineup = this.save.lineup.map(item => { const moved = this.battle.save.lineup.find(u => u.id === item.id); return moved ? { ...item, home: [...moved.home] as Point } : item; });
+        this.persist();
+      }
       if (!this.holdFlash) this.flashAim = undefined;
       this.save = Core.collectBattleRewards(this.data, this.save, this.battle);
       Core.syncBattle(this.battle, this.save);
       this.processEvents(events);
+      for (const id of this.projectileMuzzles.keys()) if (!this.battle.projectiles.some(shot => shot.id === id)) this.projectileMuzzles.delete(id);
       const outcome = Core.result(this.battle);
       if (outcome) this.finishWave(outcome);
     }
@@ -153,9 +167,13 @@ export class GameController {
       const y = Number(e.y ?? enemy?.y ?? unit?.y ?? this.data.nest.center[1]);
       const damage = Number(e.damage ?? e.amount ?? 0);
       const color = ({ '枕': '#fff1d1', '暖': '#f3a16e', '凉': '#8bd8f2', '电': '#d1abf0', '臭': '#bed18c' } as Record<string, string>)[String(e.el ?? e.element)] ?? '#ffffff';
-      if (type === 'attack' || type === 'shot' || type === 'chain') {
-        const fromEnemy = type === 'chain' ? this.battle.enemies.find(n => n.id === Number(e.from)) : undefined;
-        this.addEffect({ type: 'shot', x: fromEnemy?.x ?? unit?.x ?? x, y: fromEnemy?.y ?? unit?.y ?? y, tx: x, ty: y, age: 0, life: 0.2, color, value: damage, target: id });
+      if (type === 'shot' && unit) {
+        const size = this.data.nest.dollSize;
+        this.projectileMuzzles.set(Number(e.projectileId), [unit.face === 'side' ? (unit.flip ? -size * 0.31 : size * 0.31) : 0, -size * (unit.face === 'back' ? 0.7 : 0.48)]);
+      }
+      if (type === 'chain') {
+        const fromEnemy = this.battle.enemies.find(n => n.id === Number(e.from));
+        this.addEffect({ type: 'shot', shotKind: 'chain', source: unit?.id, x: fromEnemy?.x ?? unit?.x ?? x, y: fromEnemy?.y ?? unit?.y ?? y, tx: x, ty: y, age: 0, life: THEME.chainSeconds, color, value: 0, target: id });
       }
       if (['hit', 'damage', 'dot'].includes(type) && damage > 0) {
         const existing = this.effects.find(n => n.type === 'damage' && n.target === id && n.age < 0.3);
@@ -178,7 +196,7 @@ export class GameController {
 
   notify(text: string, duration = 1.8): void { this.toast = text; this.toastUntil = this.uiTime + duration; }
   isUnlocked(z: number, w: number): boolean { return w === 0 || this.save.maxZ > z || (this.save.maxZ === z && this.save.maxW >= w) || this.save.firstClear[z]?.[w - 1] === '1'; }
-  isSlotOpen(index: number): boolean { return this.data.nest.openOrder.slice(0, Core.slotsOf(this.data, this.save.fort).toy).includes(this.data.nest.slots[index].id); }
+
   get boxUnlocked(): boolean { return this.isUnlocked(0, 10); }
   get dailyUnlocked(): boolean { return this.isUnlocked(this.data.researchDaily.gate.z, this.data.researchDaily.gate.w); }
 
@@ -190,11 +208,11 @@ export class GameController {
   }
 
   action(action: string, value?: string | number): void {
-    if (action === 'close') { this.panel = null; this.selectedSlot = null; this.page = 0; return; }
-    if (action === 'tab') { const p = String(value) as Panel; this.panel = this.panel === p ? null : p; this.selectedSlot = null; this.page = 0; return; }
+    if (['close', 'tab', 'dismiss', 'boss', 'retreat', 'jump', 'progress', 'reset', 'confirmReset', 'page'].includes(action)) this.pointerCancel();
+    if (action === 'close') { this.panel = null; this.selectedActor = null; this.selectedDevice = null; this.page = 0; return; }
+    if (action === 'tab') { const p = String(value) as Panel; this.panel = this.panel === p ? null : p; this.selectedActor = null; this.selectedDevice = null; this.page = 0; return; }
     if (action === 'modalPage') { if (this.modal) this.modal.page = Math.max(0, (this.modal.page ?? 0) + Number(value)); return; }
     if (action === 'dismiss') { this.modal = this.notices.shift() ?? null; return; }
-    if (action === 'swapMode') { this.panel = null; this.notify('现在点第二个位置，就能互换'); return; }
     if (action === 'page') { this.page = Math.max(0, this.page + Number(value)); return; }
     if (action === 'stay') { this.save.stay = !this.save.stay; this.persist(); return; }
     if (action === 'flashMode') { this.save.autoFlash = !this.save.autoFlash; Core.syncBattle(this.battle, this.save); this.persist(); return; }
@@ -215,37 +233,8 @@ export class GameController {
       this.battle = this.makeBattle(true, this.battle); this.nextWaveIn = 0; this.waveMessage = ''; this.panel = null; this.persist(); return;
     }
     if (action === 'retreat') { if (this.battle.boss) { this.battle = this.makeBattle(false, this.battle); this.nextWaveIn = 0; this.notify('回到第49波，休整一下'); } return; }
-    if (action === 'slot') {
-      const i = Number(value);
-      if (!this.isSlotOpen(i)) { this.notify('升级枕头堡，就能打开这个位置'); return; }
-      if (this.selectedSlot !== null && this.selectedSlot !== i) {
-        const lineup = [...this.save.lineup]; [lineup[i], lineup[this.selectedSlot]] = [lineup[this.selectedSlot], lineup[i]];
-        this.accept({ ...this.save, lineup }); this.selectedSlot = null; this.panel = null; this.notify('位置换好了');
-      } else {
-        const alreadySelected = this.selectedSlot === i; this.selectedSlot = i; this.page = 0;
-        const toy = this.data.byToy[this.save.lineup[i] ?? ''];
-        if (toy?.stance === '帮' && !alreadySelected) { this.panel = null; this.notify('连线就是相邻伙伴；再点本位可换玩偶'); }
-        else this.panel = 'placement';
-      }
-      return;
-    }
-    if (action === 'place') {
-      if (this.selectedSlot === null) return;
-      const id = String(value); const lineup = [...this.save.lineup];
-      const oldIndex = lineup.indexOf(id);
-      if (oldIndex >= 0) lineup[oldIndex] = lineup[this.selectedSlot];
-      lineup[this.selectedSlot] = id === '' ? null : id;
-      this.accept({ ...this.save, lineup }); this.selectedSlot = null; this.panel = null; return;
-    }
-    if (action === 'device') {
-      const [slotText, id] = String(value).split(':'); const slot = Number(slotText);
-      if (slot >= Core.slotsOf(this.data, this.save.fort).device) return;
-      const def = this.data.byDevice[id];
-      if (id && (!def || !this.isUnlocked(def.unlock.z, def.unlock.w))) return;
-      const devices = [...this.save.devices]; const existing = devices.indexOf(id);
-      if (existing >= 0) devices[existing] = devices[slot];
-      devices[slot] = id || null; this.accept({ ...this.save, devices }); return;
-    }
+    if (action === 'actor' || action === 'toyCard') { this.selectedActor = String(value); this.selectedDevice = null; if (action === 'actor') this.panel = null; return; }
+    if (action === 'fieldDevice' || action === 'deviceCard') { this.selectedDevice = String(value); this.selectedActor = null; return; }
     if (action === 'breakdown') { this.breakdown(String(value)); return; }
     if (action === 'selectWish') { this.selectedToy = String(value); return; }
     if (!this.development) return;
@@ -268,13 +257,13 @@ export class GameController {
     if (action === 'money') { this.accept({ ...this.save, sheep: Math.min(this.data.big.max, Math.max(1, this.save.sheep) * Number(value)) }); return; }
     if (action === 'candy') { this.accept({ ...this.save, candy: this.save.candy + 100 }); return; }
     if (action === 'shards') { const s = clone(this.save); for (const toy of Object.values(s.toys)) toy.shards += 100; s.captain.shards += 100; this.accept(s); return; }
-    if (action === 'setLevels') { const s = clone(this.save); for (const id of s.lineup) if (id) s.toys[id].lv = this.debugLevel; this.accept(s); return; }
+    if (action === 'setLevels') { const s = clone(this.save); for (const { id } of s.lineup) s.toys[id].lv = this.debugLevel; this.accept(s); return; }
     if (action === 'offline') { const s = { ...this.save, lastSeen: this.now() - Number(value) * 3600 }; const out = Core.settleOffline(this.data, s, this.now()); this.accept(out.save); if (out.card) this.showMorning(out.card); return; }
     if (action === 'finishDaily') { const s = clone(this.save); if (s.daily.endAt !== null) s.daily.endAt = this.now() - 1; this.accept(Core.settleOffline(this.data, { ...s, lastSeen: this.now() }, this.now()).save); return; }
     if (action === 'addBox') { this.accept({ ...this.save, boxes: { ...this.save.boxes, free: Math.min(this.data.econ.freeBoxMax, this.save.boxes.free + 1) } }); return; }
     if (action === 'csv') { this.onExport?.(this.csv()); this.notify(`已准备${this.rows.length}波记录`); return; }
     if (action === 'reset') { this.modal = { kind: 'reset', title: '清空这个设备的存档？', lines: ['此操作会重新从第一个梦开始。', '调试记录不会删除。'] }; return; }
-    if (action === 'confirmReset') { this.save = Core.newSave(this.data, this.now()); this.battle = this.makeBattle(); this.nextWaveIn = 0; this.modal = null; this.panel = null; this.selectedSlot = null; this.effects = []; this.notices = []; this.persist(); }
+    if (action === 'confirmReset') { this.save = Core.newSave(this.data, this.now()); this.battle = this.makeBattle(); this.nextWaveIn = 0; this.modal = null; this.panel = null; this.selectedActor = null; this.selectedDevice = null; this.effects = []; this.notices = []; this.persist(); }
   }
 
   private breakdown(id: string): void {
@@ -289,9 +278,40 @@ export class GameController {
     ] };
   }
 
+  /** UI coordinates are inverted once here; core and persisted homes never use screen height. */
+  private point(x: number, y: number): Point { return [x, y - (this.height - THEME.designHeight)]; }
+  private validDrop(point: Point): boolean {
+    const n = this.data.nest;
+    // The visible crescent is the drop target. Its inner margin is clamped by core.
+    return point[0] >= 0 && point[0] <= THEME.designWidth && point[1] <= n.ground.bottom + n.ground.inset && Math.hypot(point[0] - n.center[0], point[1] - n.center[1]) <= n.wall + THEME.dropSlop;
+  }
+  private queueHome(id: string, point: Point): void { this.pendingHomes[id] = Core.clampHome(this.data, point); }
+  private finishDrop(drag: DragState): void {
+    const inside = this.validDrop(drag.point);
+    if (drag.kind === 'toy') {
+      if (drag.source === 'field' && inside) {
+        this.queueHome(drag.id, drag.point); this.persist();
+        this.notify('守点换好了，会走的伙伴自己过去');
+      } else {
+        delete this.pendingHomes[drag.id];
+        this.accept(Core.place(this.data, this.save, drag.id, inside ? drag.point : null), '名额满了，先拖一只下来');
+        if (!inside) this.selectedActor = null;
+      }
+    } else {
+      this.accept(Core.placeDevice(this.data, this.save, drag.id, inside ? drag.point : null), '设施名额满了，先拖一个下来');
+      if (!inside) this.selectedDevice = null;
+    }
+  }
   pointerDown(x: number, y: number): void {
+    if (this.pointer) return; // Ignore a second touch until the active gesture ends.
     const region = [...this.hitRegions].reverse().find(r => r.enabled !== false && contains(r, x, y));
-    this.pointer = { region, x, y, time: this.uiTime, repeated: false, holdShown: false, nextRepeat: this.uiTime + 0.45 };
+    this.pointer = { region, x, y, time: this.uiTime, repeated: false, holdShown: false, nextRepeat: this.uiTime + THEME.repeatDelay };
+    if (!this.modal && region && ['actor', 'toyCard', 'fieldDevice', 'deviceCard'].includes(region.action)) {
+      const id = String(region.value), kind = region.action === 'actor' || region.action === 'toyCard' ? 'toy' : 'device';
+      const original = (kind === 'toy' ? this.save.lineup : this.save.devices).find(item => item.id === id)?.home;
+      this.drag = { id, kind, source: original ? 'field' : 'card', original: original ? [...original] as Point : null, point: this.point(x, y), started: false, panel: this.panel };
+      if (kind === 'toy') this.selectedActor = id; else this.selectedDevice = id;
+    }
     if (region?.action === 'flash') {
       this.holdFlash = true; this.save.autoFlash = false; Core.syncBattle(this.battle, this.save);
       this.flashAim = -Math.PI / 2; this.persist();
@@ -299,18 +319,40 @@ export class GameController {
     }
   }
   pointerMove(x: number, y: number): void {
-    if (this.holdFlash) { const [cx, cy] = this.data.nest.center; this.flashAim = Math.atan2(y - (this.height - 1334) - cy, x - cx); }
-    else if (this.pointer && Math.hypot(x - this.pointer.x, y - this.pointer.y) > 24) this.pointer = null;
+    if (this.holdFlash) { const [cx, cy] = this.data.nest.center, point = this.point(x, y); this.flashAim = Math.atan2(point[1] - cy, point[0] - cx); return; }
+    const p = this.pointer;
+    if (!p || p.holdShown) return;
+    const moved = Math.hypot(x - p.x, y - p.y) >= THEME.dragThreshold;
+    if (this.drag) {
+      this.drag.point = this.point(x, y);
+      if (moved) this.drag.started = true;
+      if (!this.drag.started) return;
+      this.panel = null; // Uncover the ground while keeping the same captured pointer.
+      if (this.drag.kind === 'toy' && this.drag.source === 'field' && this.data.byToy[this.drag.id].range === '不动' && this.validDrop(this.drag.point)) this.queueHome(this.drag.id, this.drag.point);
+      return;
+    }
+    if (moved) this.pointer = null;
   }
   pointerUp(x: number, y: number): void {
-    const p = this.pointer; this.pointer = null;
+    const p = this.pointer, drag = this.drag; this.pointer = null; this.drag = null;
     if (this.holdFlash) { this.holdFlash = false; return; }
+    if (drag?.started && p && !p.holdShown) { drag.point = this.point(x, y); this.finishDrop(drag); return; }
     if (!p?.region || p.repeated || p.holdShown || !contains(p.region, x, y)) return;
     const last = this.lastAction.get(p.region.id) ?? -Infinity;
-    if (this.uiTime - last < 0.2) return;
+    if (this.uiTime - last < THEME.tapDebounce) return;
     this.lastAction.set(p.region.id, this.uiTime); this.action(p.region.action, p.region.value);
   }
-  pointerCancel(): void { this.pointer = null; this.holdFlash = false; this.flashAim = undefined; }
+  pointerCancel(): void {
+    const drag = this.drag;
+    if (drag?.started) {
+      if (drag.kind === 'toy' && drag.original) {
+        // Restore live stationary drags through the same deterministic input path.
+        this.queueHome(drag.id, drag.original);
+      }
+      this.panel = drag.panel; this.persist();
+    }
+    this.drag = null; this.pointer = null; this.holdFlash = false; this.flashAim = undefined;
+  }
   suspend(): void { if (this.suspended) return; this.pointerCancel(); this.persist(); this.suspended = true; }
   resume(): void {
     if (!this.suspended) return;
@@ -321,11 +363,15 @@ export class GameController {
   private showMorning(card: MorningCard): void { this.modal = { kind: 'morning', title: '早安，昨晚我们守住了', lines: [], card }; }
   persist(): void {
     this.save.lastSeen = this.now();
-    try { this.storage.setItem(SAVE_KEY, JSON.stringify(this.save)); }
+    const lineup = this.save.lineup.map(item => {
+      const drag = this.drag, home = drag?.started && drag.kind === 'toy' && drag.id === item.id && drag.original ? drag.original : this.pendingHomes[item.id] ?? item.home;
+      return { ...item, home };
+    });
+    try { this.storage.setItem(SAVE_KEY, JSON.stringify({ ...this.save, lineup })); }
     catch { if (!this.storageFailed) this.notify('这个环境暂时不能保存，请不要关闭页面', 5); this.storageFailed = true; }
   }
   csv(): string {
-    const header: (keyof WaveResult)[] = ['z', 'w', 'seed', 'shots', 'damage', 'duration', 'leaks', 'blockedSeconds', 'knockdowns', 'dashes', 'won', 'sheep'];
-    return '\ufeff' + ['区,波,种子,出手次数,全队平均DPS,用时秒,漏怪,挡住秒数,挤倒次数,冲刺次数,守住,羊', ...this.rows.map(r => header.map(k => k === 'damage' ? r.damage / Math.max(r.duration, this.data.rules.tick) : r[k]).join(','))].join('\r\n');
+    const header: (keyof WaveResult)[] = ['z', 'w', 'seed', 'shots', 'damage', 'duration', 'leaks', 'blockedSeconds', 'knockdowns', 'dashes', 'firstHitWallSeconds', 'won', 'sheep'];
+    return '\ufeff' + ['区,波,种子,出手次数,全队平均DPS,用时秒,漏怪,挡住秒数,挤倒次数,冲刺次数,首次挨打距墙秒均值,守住,羊', ...this.rows.map(r => header.map(k => k === 'damage' ? r.damage / Math.max(r.duration, this.data.rules.tick) : r[k]).join(','))].join('\r\n');
   }
 }

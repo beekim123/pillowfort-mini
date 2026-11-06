@@ -1,0 +1,16 @@
+{
+  "kind": "Node pure-logic simulation; not Cocos/device runtime",
+  "node": "v24.22.1",
+  "simulatedSeconds": 1200,
+  "completedWaves": 71,
+  "strategy": "Upgrade deployed toys after every wave, no debug grants, no bosses, default lineup.",
+  "lastProgress": {
+    "z": 0,
+    "w": 37,
+    "maxZ": 0,
+    "maxW": 36
+  },
+  "wins": 65,
+  "losses": 6,
+  "cocosRuntimeVerified": false
+}

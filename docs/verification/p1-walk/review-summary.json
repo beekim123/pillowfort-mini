@@ -1,0 +1,32 @@
+{
+  "kind": "Targeted shared-code checks; not browser/Cocos/device runtime",
+  "passed": 41,
+  "total": 41,
+  "groups": [
+    {
+      "name": "data",
+      "passed": 9,
+      "total": 9
+    },
+    {
+      "name": "battle",
+      "passed": 14,
+      "total": 14
+    },
+    {
+      "name": "edge-cases",
+      "passed": 4,
+      "total": 4
+    },
+    {
+      "name": "ui",
+      "passed": 10,
+      "total": 10
+    },
+    {
+      "name": "relocation",
+      "passed": 4,
+      "total": 4
+    }
+  ]
+}

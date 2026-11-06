@@ -9,7 +9,7 @@ let save=core.newSave(data,0),elapsed=0,attempt=0,carry;
 const rows=[];
 const limit=1200;
 while(elapsed<limit){
-  const battle=core.startWave(data,save,{attempt:attempt++,carry});
+  const battle=core.startWave(data,save,{attempt:attempt++,carry,elapsedBetweenWaves:carry?data.wave.gapAfter:0});
   while(!core.result(battle)&&elapsed<limit){core.step(battle,data.rules.tick,{});elapsed+=data.rules.tick;}
   const r=core.result(battle);
   if(!r)break;
@@ -18,8 +18,9 @@ while(elapsed<limit){
   save=core.levelAllToCap(data,save);save.lastSeen=elapsed;
   carry=battle;elapsed+=data.wave.gapAfter;
 }
-fs.mkdirSync('docs/verification',{recursive:true});
-fs.writeFileSync('docs/verification/logic-simulation-20m.csv',core.battleCsv(rows)+'\n');
+const output='docs/verification/p1-walk';
+fs.mkdirSync(output,{recursive:true});
+fs.writeFileSync(`${output}/logic-simulation-20m.csv`,core.battleCsv(rows)+'\n');
 const report={kind:'Node pure-logic simulation; not Cocos/device runtime',node:process.version,simulatedSeconds:Math.min(limit,elapsed),completedWaves:rows.length,strategy:'Upgrade deployed toys after every wave, no debug grants, no bosses, default lineup.',lastProgress:{z:save.z,w:save.w,maxZ:save.maxZ,maxW:save.maxW},wins:rows.filter(r=>r.won).length,losses:rows.filter(r=>!r.won).length,cocosRuntimeVerified:false};
-fs.writeFileSync('docs/verification/logic-simulation-20m.json',JSON.stringify(report,null,2)+'\n');
+fs.writeFileSync(`${output}/logic-simulation-20m.json`,JSON.stringify(report,null,2)+'\n');
 console.log(JSON.stringify(report,null,2));

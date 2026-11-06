@@ -1,0 +1,42 @@
+{
+  "passed": 9,
+  "total": 9,
+  "cases": [
+    {
+      "name": "read-only v2 and phase filtering",
+      "passed": true
+    },
+    {
+      "name": "every slot threshold and room multiplier",
+      "passed": true
+    },
+    {
+      "name": "placements clamp all extreme finite coordinates and never mutate input",
+      "passed": true
+    },
+    {
+      "name": "full lineup allows move/remove; cannot duplicate or replace others",
+      "passed": true
+    },
+    {
+      "name": "device full/move/remove, unavailable rejection",
+      "passed": true
+    },
+    {
+      "name": "legacy sparse order and ownership overflow roundtrip",
+      "passed": true
+    },
+    {
+      "name": "legacy toyCap migration does not silently discard valid extra owned actors on low fort",
+      "passed": true
+    },
+    {
+      "name": "malformed save entries, prototype names, and nonfinite coordinates remain safe",
+      "passed": true
+    },
+    {
+      "name": "aura inclusive boundary, no self support, and room in source factors",
+      "passed": true
+    }
+  ]
+}

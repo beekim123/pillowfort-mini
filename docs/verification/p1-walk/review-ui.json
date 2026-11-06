@@ -1,0 +1,46 @@
+{
+  "passed": 10,
+  "total": 10,
+  "cases": [
+    {
+      "name": "toy field drag identical home on1334/1624 and persists before next tick",
+      "passed": true
+    },
+    {
+      "name": "stationary follows cursor then cancel restores persisted original even on immediate suspend",
+      "passed": true
+    },
+    {
+      "name": "field drag into dream removes without replacing anyone",
+      "passed": true
+    },
+    {
+      "name": "card drag rejects full lineups and succeeds after removal",
+      "passed": true
+    },
+    {
+      "name": "device field drag moves and drag out removes",
+      "passed": true
+    },
+    {
+      "name": "long press still opens breakdown without drag and width room factor exists",
+      "passed": true
+    },
+    {
+      "name": "height alone produces identical core trace and save",
+      "passed": true
+    },
+    {
+      "name": "v1 storage key is migrated without intro or progress loss",
+      "passed": true
+    },
+    {
+      "name": "released visual projectile does not jump if source facing changes",
+      "passed": true
+    },
+    {
+      "name": "captain label and overlapping hit area stay behind foreground toys on both heights",
+      "passed": true
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
- "version": 1,
+ "version": 2,
  "code": "zhentou",
  "phase": 1,
  "note": "《枕头堡》（暂名）的全部内容表。由 design/小游戏/枕头堡/calc/export.mjs 生成，别手改；要改改 content.mjs 再生成。每一项的 phase 是它从第几阶段开始有；游戏只用 phase ≤ 顶层 phase 的东西。大数字一律双精度，表里能整数就整数；游戏里不用 pow / log 算规则（见 开发文档 第 3 节）。",
@@ -53,6 +53,7 @@
   "count": 8,
   "spawnGap": 0.5,
   "walk": 10,
+  "inReach": 6,
   "gapAfter": 1,
   "eliteHp": 6,
   "eliteEvery": 10,
@@ -122,12 +123,12 @@
  "econ": {
   "sheepPerHp": 0.01,
   "sheepFlat": 3,
-  "atk0": 4,
+  "atk0": 6,
   "atkGrow": 1.08,
   "lvCost0": 2,
   "lvCostGrow": 1.09,
   "lvCap0": 100,
-  "lvCapPerBoss": 70,
+  "lvCapPerBoss": 68,
   "lvOverGrow": 1.5,
   "starMul": 2,
   "starShards": [
@@ -252,6 +253,7 @@
     12
    ]
   ],
+  "toyCap": 6,
   "device": [
    [
     1,
@@ -266,8 +268,8 @@
     3
    ]
   ],
-  "rows": 3,
-  "perRow": 4
+  "rows": 2,
+  "perRow": 3
  },
  "stance": {
   "block": {
@@ -281,19 +283,64 @@
    "hold": 2,
    "drainNormal": 1,
    "drainElite": 3,
-   "knocked": 5
+   "knocked": 5,
+   "meet": 58,
+   "front": 44
   },
-  "startle": 2,
+  "startle": {
+   "sec": 2,
+   "radius": 120
+  },
   "dash": {
    "cd": 10,
-   "travel": 1,
+   "speed": 560,
+   "back": 300,
    "hits": 3,
+   "hitGap": 0.25,
    "hitMul": 4,
    "bossMul": 1.3,
    "waveMul": 0.85
   },
   "clone": {
    "stamina": 2
+  },
+  "range": {
+   "不动": {
+    "leash": 0,
+    "speed": 0,
+    "turn": false
+   },
+   "小": {
+    "leash": 45,
+    "speed": 55,
+    "turn": false
+   },
+   "中": {
+    "leash": 140,
+    "speed": 130,
+    "turn": true
+   },
+   "大": {
+    "leash": 9999,
+    "speed": 170,
+    "turn": true
+   },
+   "冲": {
+    "leash": 9999,
+    "speed": 150,
+    "turn": true
+   }
+  },
+  "wander": {
+   "every": [
+    2,
+    5
+   ],
+   "radius": 50
+  },
+  "gap": 0.6,
+  "aura": {
+   "radius": 175
   }
  },
  "nest": {
@@ -301,193 +348,72 @@
    375,
    1170
   ],
-  "radius": {
-   "outer": 330,
-   "middle": 232,
-   "inner": 135,
-   "base": 390
+  "wall": 360,
+  "ground": {
+   "inset": 28,
+   "bottom": 1196,
+   "x": [
+    40,
+    710
+   ]
   },
-  "slots": [
-   {
-    "id": "O1",
-    "arc": "外",
-    "pos": [
-     65,
-     1057
-    ],
-    "adjacent": [
-     "M1"
-    ]
-   },
-   {
-    "id": "O2",
-    "arc": "外",
-    "pos": [
-     186,
-     900
-    ],
-    "adjacent": [
-     "M2"
-    ]
-   },
-   {
-    "id": "O3",
-    "arc": "外",
-    "pos": [
-     375,
-     840
-    ],
-    "adjacent": [
-     "M2",
-     "M3"
-    ]
-   },
-   {
-    "id": "O4",
-    "arc": "外",
-    "pos": [
-     564,
-     900
-    ],
-    "adjacent": [
-     "M3"
-    ]
-   },
-   {
-    "id": "O5",
-    "arc": "外",
-    "pos": [
-     685,
-     1057
-    ],
-    "adjacent": [
-     "M4"
-    ]
-   },
-   {
-    "id": "M1",
-    "arc": "中",
-    "pos": [
-     174,
-     1054
-    ],
-    "adjacent": [
-     "O1",
-     "I1"
-    ]
-   },
-   {
-    "id": "M2",
-    "arc": "中",
-    "pos": [
-     296,
-     952
-    ],
-    "adjacent": [
-     "O2",
-     "O3",
-     "I1",
-     "I2"
-    ]
-   },
-   {
-    "id": "M3",
-    "arc": "中",
-    "pos": [
-     454,
-     952
-    ],
-    "adjacent": [
-     "O3",
-     "O4",
-     "I2",
-     "I3"
-    ]
-   },
-   {
-    "id": "M4",
-    "arc": "中",
-    "pos": [
-     576,
-     1054
-    ],
-    "adjacent": [
-     "O5",
-     "I3"
-    ]
-   },
-   {
-    "id": "I1",
-    "arc": "里",
-    "pos": [
-     272,
-     1083
-    ],
-    "adjacent": [
-     "M1",
-     "M2",
-     "I2"
-    ]
-   },
-   {
-    "id": "I2",
-    "arc": "里",
-    "pos": [
-     375,
-     1035
-    ],
-    "adjacent": [
-     "M2",
-     "M3",
-     "I1",
-     "I3"
-    ]
-   },
-   {
-    "id": "I3",
-    "arc": "里",
-    "pos": [
-     478,
-     1083
-    ],
-    "adjacent": [
-     "M3",
-     "M4",
-     "I2"
-    ]
-   }
+  "squeeze": 1.2,
+  "dollSize": 120,
+  "homes": [
+   [
+    375,
+    930
+   ],
+   [
+    235,
+    895
+   ],
+   [
+    525,
+    960
+   ],
+   [
+    285,
+    1080
+   ],
+   [
+    465,
+    1080
+   ],
+   [
+    160,
+    1000
+   ],
+   [
+    590,
+    1060
+   ],
+   [
+    375,
+    1040
+   ]
   ],
-  "openOrder": [
-   "O3",
-   "M2",
-   "M3",
-   "O2",
-   "O4",
-   "M1",
-   "M4",
-   "I2",
-   "O1",
-   "O5",
-   "I1",
-   "I3"
+  "deviceHomes": [
+   [
+    80,
+    1150
+   ],
+   [
+    670,
+    1150
+   ],
+   [
+    180,
+    1170
+   ]
   ],
-  "adjacentWithin": 150,
-  "slotRadius": 46,
   "spawn": {
    "y": 262,
    "x": [
     80,
     670
    ],
-   "lanes": [
-    "O1",
-    "O2",
-    "O3",
-    "O4",
-    "O5"
-   ],
-   "speed": 65,
-   "edge": 60
+   "speed": 56
   },
   "captain": [
    375,
@@ -506,35 +432,6 @@
   "flashlight": [
    440,
    1150
-  ],
-  "devices": [
-   {
-    "id": "D1",
-    "rect": [
-     20,
-     1120,
-     80,
-     90
-    ]
-   },
-   {
-    "id": "D2",
-    "rect": [
-     650,
-     1120,
-     80,
-     90
-    ]
-   },
-   {
-    "id": "D3",
-    "rect": [
-     130,
-     1135,
-     80,
-     80
-    ]
-   }
   ],
   "fence": {
    "rect": [
@@ -1182,6 +1079,14 @@
     "z": 0,
     "w": 0
    },
+   "range": "中",
+   "reach": 280,
+   "windup": 0.2,
+   "shot": {
+    "kind": "lob",
+    "dur": 0.55,
+    "arc": 90
+   },
    "desc": "扔积木，专打最前面那只",
    "phase": 1
   },
@@ -1199,7 +1104,14 @@
     "z": 0,
     "w": 0
    },
-   "desc": "呼出一口热气，前面一小片都烘着",
+   "range": "中",
+   "reach": 400,
+   "windup": 0.25,
+   "shot": {
+    "kind": "straight",
+    "speed": 560
+   },
+   "desc": "吐一颗小火球，打中炸开一小片，都烘着",
    "phase": 1
   },
   {
@@ -1215,6 +1127,13 @@
    "unlock": {
     "z": 0,
     "w": 0
+   },
+   "range": "小",
+   "reach": 430,
+   "windup": 0.15,
+   "shot": {
+    "kind": "beam",
+    "dur": 0.28
    },
    "desc": "滋一股凉水，打中的变慢",
    "phase": 1
@@ -1233,6 +1152,15 @@
     "z": 0,
     "w": 25
    },
+   "range": "不动",
+   "reach": 330,
+   "windup": 0.2,
+   "shot": {
+    "kind": "lob",
+    "dur": 0.5,
+    "arc": 80
+   },
+   "aura": 175,
    "desc": "辅助：同一排的玩偶攻击加成",
    "phase": 1
   },
@@ -1249,6 +1177,13 @@
    "unlock": {
     "z": 0,
     "w": 50
+   },
+   "range": "小",
+   "reach": 370,
+   "windup": 0.2,
+   "shot": {
+    "kind": "chain",
+    "dur": 0.22
    },
    "desc": "放一道静电，跳着打 3 只",
    "phase": 1
@@ -1267,6 +1202,14 @@
     "z": 1,
     "w": 50
    },
+   "range": "不动",
+   "reach": 350,
+   "windup": 0.2,
+   "shot": {
+    "kind": "straight",
+    "speed": 380
+   },
+   "aura": 175,
    "desc": "辅助：同一排的玩偶攻速加成（核算按攻击加成算）",
    "phase": 1
   },
@@ -1283,6 +1226,12 @@
    "unlock": {
     "z": 1,
     "w": 25
+   },
+   "range": "大",
+   "reach": 90,
+   "windup": 0.15,
+   "shot": {
+    "kind": "melee"
    },
    "desc": "变出小枕头分身一起拍，分身也吃同排加成",
    "phase": 1
@@ -1301,6 +1250,13 @@
     "z": 2,
     "w": 25
    },
+   "range": "中",
+   "reach": 350,
+   "windup": 0.25,
+   "shot": {
+    "kind": "straight",
+    "speed": 260
+   },
    "desc": "熏一下叠一层臭，层数一直熏",
    "phase": 1
   },
@@ -1317,6 +1273,13 @@
    "unlock": {
     "z": 2,
     "w": 50
+   },
+   "range": "冲",
+   "reach": 300,
+   "windup": 0.2,
+   "shot": {
+    "kind": "straight",
+    "speed": 520
    },
    "desc": "扔雪球，砸一片，三下冻住",
    "phase": 1
@@ -1335,6 +1298,14 @@
     "z": 3,
     "w": 50
    },
+   "range": "中",
+   "reach": 330,
+   "windup": 0.3,
+   "shot": {
+    "kind": "lob",
+    "dur": 0.6,
+    "arc": 70
+   },
    "desc": "把臭味一下子“噗”出来：层数越多炸得越疼",
    "phase": 2
   },
@@ -1352,6 +1323,14 @@
     "z": 3,
     "w": 25
    },
+   "range": "不动",
+   "reach": 340,
+   "windup": 0.2,
+   "shot": {
+    "kind": "straight",
+    "speed": 420
+   },
+   "aura": 175,
    "desc": "辅助：给同一排打中的噩梦画上红圈，受到的伤害加成",
    "phase": 2
   },
@@ -1368,6 +1347,13 @@
    "unlock": {
     "z": 4,
     "w": 50
+   },
+   "range": "冲",
+   "reach": 280,
+   "windup": 0.2,
+   "shot": {
+    "kind": "chain",
+    "dur": 0.22
    },
    "desc": "蹭毛线起电，队里带电的越多跳得越远",
    "phase": 2
@@ -1386,6 +1372,14 @@
     "z": 4,
     "w": 25
    },
+   "range": "不动",
+   "reach": 360,
+   "windup": 0.15,
+   "shot": {
+    "kind": "straight",
+    "speed": 600
+   },
+   "aura": 175,
    "desc": "辅助：同一排暴击加成（核算按攻击加成算）",
    "phase": 2
   },
@@ -1402,6 +1396,13 @@
    "unlock": {
     "z": 5,
     "w": 50
+   },
+   "range": "中",
+   "reach": 300,
+   "windup": 0.25,
+   "shot": {
+    "kind": "beam",
+    "dur": 0.35
    },
    "desc": "鸣笛冒一股热蒸汽，一条线上的都烘着",
    "phase": 2
@@ -1420,6 +1421,15 @@
     "z": 6,
     "w": 50
    },
+   "range": "不动",
+   "reach": 330,
+   "windup": 0.2,
+   "shot": {
+    "kind": "lob",
+    "dur": 0.5,
+    "arc": 80
+   },
+   "aura": 175,
    "desc": "辅助：同一排每次熏多叠一层",
    "phase": 3
   },
@@ -1436,6 +1446,13 @@
    "unlock": {
     "z": 7,
     "w": 50
+   },
+   "range": "冲",
+   "reach": 300,
+   "windup": 0.15,
+   "shot": {
+    "kind": "straight",
+    "speed": 640
    },
    "desc": "弹来弹去，一下打好几只",
    "phase": 3

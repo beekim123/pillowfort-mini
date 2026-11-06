@@ -2,7 +2,7 @@
 
 ## 前提
 
-完成 README 的一次性场景步骤。先运行 `npm run check`，再运行 `npm run typecheck:cocos`。正式包应使用非调试构建，逐项确认调试入口、帧率计数和日志已关闭。
+先按 LOCAL-VALIDATION.md 备份本地工程与旧存档，完成 README 的一次性场景步骤。先运行 `npm run check`，再运行 `npm run typecheck:cocos`。正式包应使用非调试构建，逐项确认调试入口、帧率计数和日志已关闭。
 
 Mac 设置示例（路径按自己的安装位置调整）：
 

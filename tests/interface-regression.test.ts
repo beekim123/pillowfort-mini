@@ -17,7 +17,7 @@ describe('Independent shared controller/view regression',()=>{
   it('modal blocks all underlying targets and dismiss restores a fresh set',()=>{
     const {app,view}=setup();
     const first=view.render();expect(first.hitRegions.map(x=>x.action)).toEqual(['dismiss']);
-    app.action('dismiss');const normal=view.render();expect(normal.hitRegions.some(x=>x.action==='slot')).toBe(true);
+    app.action('dismiss');const normal=view.render();expect(normal.hitRegions.some(x=>x.action==='actor')).toBe(true);
     app.action('breakdown','fangfang');expect(view.render().hitRegions.map(x=>x.action)).toEqual(['dismiss']);
     app.action('dismiss');expect(view.render().hitRegions.length).toBe(normal.hitRegions.length);
   });
@@ -29,10 +29,10 @@ describe('Independent shared controller/view regression',()=>{
   });
   it('fixed nest layout shifts by extra height but never changes logic',()=>{
     const {app,view}=setup();app.action('dismiss');const before=JSON.stringify(app.save);
-    const short=view.render(1334).hitRegions.find(x=>x.id==='slot-2')!;
-    const tall=view.render(1624).hitRegions.find(x=>x.id==='slot-2')!;
+    const short=view.render(1334).hitRegions.find(x=>x.id==='actor-fangfang')!;
+    const tall=view.render(1624).hitRegions.find(x=>x.id==='actor-fangfang')!;
     expect(tall.x).toBe(short.x);expect(tall.y-short.y).toBe(290);expect(JSON.stringify(app.save)).toBe(before);
-    expect(app.battle.units.find(x=>x.id==='fangfang')?.y).toBe(840);
+    expect(app.battle.units.find(x=>x.id==='fangfang')?.y).toBe(app.data.nest.homes[0][1]);
   });
   it('pointer cancel ends repeated upgrade without further purchases',()=>{
     const {app,view,tick}=setup();app.action('dismiss');app.save.sheep=100000;

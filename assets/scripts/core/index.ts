@@ -7,3 +7,4 @@ export * from './battle.ts';
 export * from './state.ts';
 export * from './rules.ts';
 export * from './default-data.ts';
+export * from './ground.ts';

@@ -1,7 +1,8 @@
 {
  "game": "枕头堡",
  "code": "zhentou",
- "note": "P1 的全部美术资源。美术交出图模块（Canvas2D 代码），不交 PNG；做法见 美术技术方案.md，画什么见 美术文档.md。size / anchor / display 都是设计像素（屏幕宽 750）。batch = 第几批交。",
+ "version": 2,
+ "note": "P1 的全部美术资源。美术交出图模块（Canvas2D 代码），不交 PNG；做法见 美术技术方案.md，画什么见 美术文档.md。size / anchor / display 都是设计像素（屏幕宽 750）。batch = 第几批交，redo = 在第几批返修。facings：L1 画几套朝向（front 正、back 背、side 侧，侧面画朝右）。玩偶站哪、弹道怎么飞由我们和开发拼，美术只画东西。",
  "assets": [
   {
    "phase": 1,
@@ -11,6 +12,7 @@
    "cat": "角色",
    "level": "L1",
    "batch": 1,
+   "redo": 2,
    "size": [
     140,
     140
@@ -27,22 +29,27 @@
     375,
     770
    ],
+   "facings": [
+    "front"
+   ],
    "events": {
-    "idle": {
-     "loop": true,
-     "dur": 2000
-    },
-    "baa": {
-     "dur": 1200
-    },
-    "cheer": {
-     "dur": 900
-    },
-    "flinch": {
-     "dur": 400
+    "front": {
+     "idle": {
+      "loop": true,
+      "dur": 2000
+     },
+     "baa": {
+      "dur": 1200
+     },
+     "cheer": {
+      "dur": 900
+     },
+     "flinch": {
+      "dur": 400
+     }
     }
    },
-   "desc": "绵绵：旧绵羊玩偶，领头羊；浆果色丝带 + 金色小铃铛（单独部件）"
+   "desc": "绵绵：旧绵羊玩偶，领头羊；浆果色丝带 + 金色小铃铛（单独部件）。站在枕头墙顶上面，不走动"
   },
   {
    "phase": 1,
@@ -52,6 +59,7 @@
    "cat": "玩偶",
    "level": "L1",
    "batch": 1,
+   "redo": 2,
    "size": [
     140,
     150
@@ -61,30 +69,86 @@
     138
    ],
    "display": [
-    96,
-    104
+    112,
+    120
+   ],
+   "sizeRange": [
+    80,
+    180
    ],
    "stance": "打",
-   "slots": "站在 nest.slots 的 12 个位置上（脚底中心 = 位置）",
+   "range": "中",
+   "facings": [
+    "front",
+    "back",
+    "side"
+   ],
    "events": {
-    "idle": {
-     "loop": true,
-     "dur": 1800
+    "front": {
+     "idle": {
+      "loop": true,
+      "dur": 1800
+     },
+     "walk": {
+      "loop": true,
+      "dur": 600
+     },
+     "cheer": {
+      "dur": 900
+     },
+     "startled": {
+      "dur": 500
+     }
     },
-    "attack": {
-     "dur": 500
+    "back": {
+     "idle": {
+      "loop": true,
+      "dur": 1800
+     },
+     "walk": {
+      "loop": true,
+      "dur": 600
+     },
+     "attack": {
+      "dur": 500
+     },
+     "skill": {
+      "dur": 1000
+     }
     },
-    "skill": {
-     "dur": 1000
-    },
-    "cheer": {
-     "dur": 900
-    },
-    "startled": {
-     "dur": 500
+    "side": {
+     "idle": {
+      "loop": true,
+      "dur": 1800
+     },
+     "walk": {
+      "loop": true,
+      "dur": 600
+     },
+     "attack": {
+      "dur": 500
+     },
+     "skill": {
+      "dur": 1000
+     }
     }
    },
-   "desc": "呼呼：恐龙玩偶（绿），圆肚子，背上软刺；暖"
+   "release": {
+    "attack": 250,
+    "skill": 500
+   },
+   "muzzle": "每个朝向一个发射点（画布坐标），弹道从这里出来",
+   "desc": "呼呼：恐龙玩偶（绿），圆肚子、短手、背上一排软刺；暖"
+  },
+  {
+   "phase": 1,
+   "code": "art-code/shot_huhu.js",
+   "key": "shot_huhu",
+   "cat": "弹道",
+   "level": "L3",
+   "batch": 2,
+   "kind": "straight",
+   "desc": "呼呼的弹道（straight）：飞的样子 fly（2–4 帧循环，画朝右）+ 拖尾 trail（粒子配方，可选）+ 打中 hit（粒子配方）"
   },
   {
    "phase": 1,
@@ -103,44 +167,104 @@
     138
    ],
    "display": [
-    96,
-    104
+    112,
+    120
+   ],
+   "sizeRange": [
+    80,
+    180
    ],
    "stance": "挡",
-   "slots": "站在 nest.slots 的 12 个位置上（脚底中心 = 位置）",
+   "range": "中",
+   "facings": [
+    "front",
+    "back",
+    "side"
+   ],
    "events": {
-    "idle": {
-     "loop": true,
-     "dur": 1800
+    "front": {
+     "idle": {
+      "loop": true,
+      "dur": 1800
+     },
+     "walk": {
+      "loop": true,
+      "dur": 600
+     },
+     "cheer": {
+      "dur": 900
+     },
+     "startled": {
+      "dur": 500
+     },
+     "knocked": {
+      "dur": 400
+     },
+     "down": {
+      "loop": true,
+      "dur": 1600
+     },
+     "getup": {
+      "dur": 700
+     }
     },
-    "attack": {
-     "dur": 500
+    "back": {
+     "idle": {
+      "loop": true,
+      "dur": 1800
+     },
+     "walk": {
+      "loop": true,
+      "dur": 600
+     },
+     "attack": {
+      "dur": 500
+     },
+     "skill": {
+      "dur": 1000
+     },
+     "block": {
+      "loop": true,
+      "dur": 800
+     }
     },
-    "skill": {
-     "dur": 1000
-    },
-    "cheer": {
-     "dur": 900
-    },
-    "startled": {
-     "dur": 500
-    },
-    "block": {
-     "loop": true,
-     "dur": 800
-    },
-    "knocked": {
-     "dur": 400
-    },
-    "down": {
-     "loop": true,
-     "dur": 1600
-    },
-    "getup": {
-     "dur": 700
+    "side": {
+     "idle": {
+      "loop": true,
+      "dur": 1800
+     },
+     "walk": {
+      "loop": true,
+      "dur": 600
+     },
+     "attack": {
+      "dur": 500
+     },
+     "skill": {
+      "dur": 1000
+     },
+     "block": {
+      "loop": true,
+      "dur": 800
+     }
     }
    },
+   "release": {
+    "attack": 200,
+    "skill": 500
+   },
+   "muzzle": "每个朝向一个发射点（画布坐标），弹道从这里出来",
    "desc": "方方：积木小兵；枕头；挡"
+  },
+  {
+   "phase": 1,
+   "code": "art-code/shot_fangfang.js",
+   "key": "shot_fangfang",
+   "cat": "弹道",
+   "level": "L3",
+   "batch": 2,
+   "kind": "lob",
+   "desc": "方方的弹道（lob）：飞的样子 fly（2–4 帧，正着画，开发让它边飞边转）+ 打中 hit"
   },
   {
    "phase": 1,
@@ -159,30 +283,58 @@
     138
    ],
    "display": [
-    96,
-    104
+    112,
+    120
+   ],
+   "sizeRange": [
+    80,
+    180
    ],
    "stance": "打",
-   "slots": "站在 nest.slots 的 12 个位置上（脚底中心 = 位置）",
+   "range": "小",
+   "facings": [
+    "front"
+   ],
    "events": {
-    "idle": {
-     "loop": true,
-     "dur": 1800
-    },
-    "attack": {
-     "dur": 500
-    },
-    "skill": {
-     "dur": 1000
-    },
-    "cheer": {
-     "dur": 900
-    },
-    "startled": {
-     "dur": 500
+    "front": {
+     "idle": {
+      "loop": true,
+      "dur": 1800
+     },
+     "walk": {
+      "loop": true,
+      "dur": 600
+     },
+     "attack": {
+      "dur": 500
+     },
+     "skill": {
+      "dur": 1000
+     },
+     "cheer": {
+      "dur": 900
+     },
+     "startled": {
+      "dur": 500
+     }
     }
    },
+   "release": {
+    "attack": 150,
+    "skill": 500
+   },
+   "muzzle": "每个朝向一个发射点（画布坐标），弹道从这里出来",
    "desc": "嘎嘎：橡皮鸭；凉"
+  },
+  {
+   "phase": 1,
+   "code": "art-code/shot_gaga.js",
+   "key": "shot_gaga",
+   "cat": "弹道",
+   "level": "L3",
+   "batch": 2,
+   "kind": "beam",
+   "desc": "嘎嘎的弹道（beam）：一段柱子 beam（朝右、左右能接着重复）+ 起点 / 终点的小水花 cap（可选）+ 打中 hit"
   },
   {
    "phase": 1,
@@ -201,212 +353,55 @@
     138
    ],
    "display": [
-    96,
-    104
+    112,
+    120
+   ],
+   "sizeRange": [
+    80,
+    180
    ],
    "stance": "帮",
-   "slots": "站在 nest.slots 的 12 个位置上（脚底中心 = 位置）",
+   "range": "不动",
+   "facings": [
+    "front"
+   ],
    "events": {
-    "idle": {
-     "loop": true,
-     "dur": 1800
-    },
-    "attack": {
-     "dur": 500
-    },
-    "skill": {
-     "dur": 1000
-    },
-    "cheer": {
-     "dur": 900
-    },
-    "startled": {
-     "dur": 500
+    "front": {
+     "idle": {
+      "loop": true,
+      "dur": 1800
+     },
+     "attack": {
+      "dur": 500
+     },
+     "skill": {
+      "dur": 1000
+     },
+     "cheer": {
+      "dur": 900
+     },
+     "startled": {
+      "dur": 500
+     }
     }
    },
+   "release": {
+    "attack": 200,
+    "skill": 500
+   },
+   "muzzle": "每个朝向一个发射点（画布坐标），弹道从这里出来",
    "desc": "叮当：存钱罐小猪；枕头；帮"
   },
   {
    "phase": 1,
-   "boil": 3,
-   "code": "art-code/toy_kaka.js",
-   "key": "toy_kaka",
-   "cat": "玩偶",
-   "level": "L1",
+   "code": "art-code/shot_dingdang.js",
+   "key": "shot_dingdang",
+   "cat": "弹道",
+   "level": "L3",
    "batch": 2,
-   "size": [
-    140,
-    150
-   ],
-   "anchor": [
-    70,
-    138
-   ],
-   "display": [
-    96,
-    104
-   ],
-   "stance": "打",
-   "slots": "站在 nest.slots 的 12 个位置上（脚底中心 = 位置）",
-   "events": {
-    "idle": {
-     "loop": true,
-     "dur": 1800
-    },
-    "attack": {
-     "dur": 500
-    },
-    "skill": {
-     "dur": 1000
-    },
-    "cheer": {
-     "dur": 900
-    },
-    "startled": {
-     "dur": 500
-    }
-   },
-   "desc": "咔咔：发条机器人；静电"
-  },
-  {
-   "phase": 1,
-   "boil": 3,
-   "code": "art-code/toy_ruanruan.js",
-   "key": "toy_ruanruan",
-   "cat": "玩偶",
-   "level": "L1",
-   "batch": 2,
-   "size": [
-    140,
-    150
-   ],
-   "anchor": [
-    70,
-    138
-   ],
-   "display": [
-    96,
-    104
-   ],
-   "stance": "挡",
-   "slots": "站在 nest.slots 的 12 个位置上（脚底中心 = 位置）",
-   "events": {
-    "idle": {
-     "loop": true,
-     "dur": 1800
-    },
-    "attack": {
-     "dur": 500
-    },
-    "skill": {
-     "dur": 1000
-    },
-    "cheer": {
-     "dur": 900
-    },
-    "startled": {
-     "dur": 500
-    },
-    "block": {
-     "loop": true,
-     "dur": 800
-    },
-    "knocked": {
-     "dur": 400
-    },
-    "down": {
-     "loop": true,
-     "dur": 1600
-    },
-    "getup": {
-     "dur": 700
-    }
-   },
-   "desc": "软软：小枕头；枕头；挡（+ 分身）"
-  },
-  {
-   "phase": 1,
-   "boil": 3,
-   "code": "art-code/toy_piaopiao.js",
-   "key": "toy_piaopiao",
-   "cat": "玩偶",
-   "level": "L1",
-   "batch": 2,
-   "size": [
-    140,
-    150
-   ],
-   "anchor": [
-    70,
-    138
-   ],
-   "display": [
-    96,
-    104
-   ],
-   "stance": "帮",
-   "slots": "站在 nest.slots 的 12 个位置上（脚底中心 = 位置）",
-   "events": {
-    "idle": {
-     "loop": true,
-     "dur": 1800
-    },
-    "attack": {
-     "dur": 500
-    },
-    "skill": {
-     "dur": 1000
-    },
-    "cheer": {
-     "dur": 900
-    },
-    "startled": {
-     "dur": 500
-    }
-   },
-   "desc": "飘飘：气球兔；静电；帮"
-  },
-  {
-   "phase": 1,
-   "boil": 3,
-   "code": "art-code/toy_laowa.js",
-   "key": "toy_laowa",
-   "cat": "玩偶",
-   "level": "L1",
-   "batch": 2,
-   "size": [
-    140,
-    150
-   ],
-   "anchor": [
-    70,
-    138
-   ],
-   "display": [
-    96,
-    104
-   ],
-   "stance": "打",
-   "slots": "站在 nest.slots 的 12 个位置上（脚底中心 = 位置）",
-   "events": {
-    "idle": {
-     "loop": true,
-     "dur": 1800
-    },
-    "attack": {
-     "dur": 500
-    },
-    "skill": {
-     "dur": 1000
-    },
-    "cheer": {
-     "dur": 900
-    },
-    "startled": {
-     "dur": 500
-    }
-   },
-   "desc": "老袜：袜子玩偶；臭"
+   "kind": "lob",
+   "aura": 175,
+   "desc": "叮当的弹道（lob）：飞的样子 fly（2–4 帧，正着画，开发让它边飞边转）+ 打中 hit；另画脚下光环 aura（半径 175 的一圈柔光，平放在地上）"
   },
   {
    "phase": 1,
@@ -425,41 +420,451 @@
     138
    ],
    "display": [
-    96,
-    104
+    112,
+    120
+   ],
+   "sizeRange": [
+    80,
+    180
    ],
    "stance": "冲",
-   "slots": "站在 nest.slots 的 12 个位置上（脚底中心 = 位置）",
+   "range": "冲",
+   "facings": [
+    "front",
+    "back",
+    "side"
+   ],
    "events": {
-    "idle": {
-     "loop": true,
-     "dur": 1800
-    },
-    "attack": {
-     "dur": 500
-    },
-    "skill": {
-     "dur": 1000
-    },
-    "cheer": {
-     "dur": 900
-    },
-    "startled": {
-     "dur": 500
-    },
-    "dash": {
-     "loop": true,
-     "dur": 400
-    },
-    "strike": {
-     "dur": 250
+    "front": {
+     "idle": {
+      "loop": true,
+      "dur": 1800
+     },
+     "walk": {
+      "loop": true,
+      "dur": 600
+     },
+     "cheer": {
+      "dur": 900
+     },
+     "startled": {
+      "dur": 500
+     }
     },
     "back": {
-     "loop": true,
-     "dur": 500
+     "idle": {
+      "loop": true,
+      "dur": 1800
+     },
+     "walk": {
+      "loop": true,
+      "dur": 600
+     },
+     "attack": {
+      "dur": 500
+     },
+     "skill": {
+      "dur": 1000
+     },
+     "dash": {
+      "loop": true,
+      "dur": 400
+     },
+     "strike": {
+      "dur": 250
+     }
+    },
+    "side": {
+     "idle": {
+      "loop": true,
+      "dur": 1800
+     },
+     "walk": {
+      "loop": true,
+      "dur": 600
+     },
+     "attack": {
+      "dur": 500
+     },
+     "skill": {
+      "dur": 1000
+     },
+     "dash": {
+      "loop": true,
+      "dur": 400
+     },
+     "strike": {
+      "dur": 250
+     }
     }
    },
+   "release": {
+    "attack": 200,
+    "skill": 500
+   },
+   "muzzle": "每个朝向一个发射点（画布坐标），弹道从这里出来",
    "desc": "阿冰：企鹅；凉；冲（肚皮滑出去）"
+  },
+  {
+   "phase": 1,
+   "code": "art-code/shot_abing.js",
+   "key": "shot_abing",
+   "cat": "弹道",
+   "level": "L3",
+   "batch": 2,
+   "kind": "straight",
+   "desc": "阿冰的弹道（straight）：飞的样子 fly（2–4 帧循环，画朝右）+ 拖尾 trail（粒子配方，可选）+ 打中 hit（粒子配方）"
+  },
+  {
+   "phase": 1,
+   "boil": 3,
+   "code": "art-code/toy_kaka.js",
+   "key": "toy_kaka",
+   "cat": "玩偶",
+   "level": "L1",
+   "batch": 3,
+   "size": [
+    140,
+    150
+   ],
+   "anchor": [
+    70,
+    138
+   ],
+   "display": [
+    112,
+    120
+   ],
+   "sizeRange": [
+    80,
+    180
+   ],
+   "stance": "打",
+   "range": "小",
+   "facings": [
+    "front"
+   ],
+   "events": {
+    "front": {
+     "idle": {
+      "loop": true,
+      "dur": 1800
+     },
+     "walk": {
+      "loop": true,
+      "dur": 600
+     },
+     "attack": {
+      "dur": 500
+     },
+     "skill": {
+      "dur": 1000
+     },
+     "cheer": {
+      "dur": 900
+     },
+     "startled": {
+      "dur": 500
+     }
+    }
+   },
+   "release": {
+    "attack": 200,
+    "skill": 500
+   },
+   "muzzle": "每个朝向一个发射点（画布坐标），弹道从这里出来",
+   "desc": "咔咔：发条机器人；静电"
+  },
+  {
+   "phase": 1,
+   "code": "art-code/shot_kaka.js",
+   "key": "shot_kaka",
+   "cat": "弹道",
+   "level": "L3",
+   "batch": 3,
+   "kind": "chain",
+   "desc": "咔咔的弹道（chain）：一段电光 bolt（朝右、左右能接着重复）+ 打中 hit"
+  },
+  {
+   "phase": 1,
+   "boil": 3,
+   "code": "art-code/toy_ruanruan.js",
+   "key": "toy_ruanruan",
+   "cat": "玩偶",
+   "level": "L1",
+   "batch": 3,
+   "size": [
+    140,
+    150
+   ],
+   "anchor": [
+    70,
+    138
+   ],
+   "display": [
+    112,
+    120
+   ],
+   "sizeRange": [
+    80,
+    180
+   ],
+   "stance": "挡",
+   "range": "大",
+   "facings": [
+    "front",
+    "back",
+    "side"
+   ],
+   "events": {
+    "front": {
+     "idle": {
+      "loop": true,
+      "dur": 1800
+     },
+     "walk": {
+      "loop": true,
+      "dur": 600
+     },
+     "cheer": {
+      "dur": 900
+     },
+     "startled": {
+      "dur": 500
+     },
+     "knocked": {
+      "dur": 400
+     },
+     "down": {
+      "loop": true,
+      "dur": 1600
+     },
+     "getup": {
+      "dur": 700
+     }
+    },
+    "back": {
+     "idle": {
+      "loop": true,
+      "dur": 1800
+     },
+     "walk": {
+      "loop": true,
+      "dur": 600
+     },
+     "attack": {
+      "dur": 500
+     },
+     "skill": {
+      "dur": 1000
+     },
+     "block": {
+      "loop": true,
+      "dur": 800
+     }
+    },
+    "side": {
+     "idle": {
+      "loop": true,
+      "dur": 1800
+     },
+     "walk": {
+      "loop": true,
+      "dur": 600
+     },
+     "attack": {
+      "dur": 500
+     },
+     "skill": {
+      "dur": 1000
+     },
+     "block": {
+      "loop": true,
+      "dur": 800
+     }
+    }
+   },
+   "release": {
+    "attack": 150,
+    "skill": 500
+   },
+   "muzzle": "每个朝向一个发射点（画布坐标），弹道从这里出来",
+   "desc": "软软：小枕头；枕头；挡（+ 分身）"
+  },
+  {
+   "phase": 1,
+   "code": "art-code/shot_ruanruan.js",
+   "key": "shot_ruanruan",
+   "cat": "弹道",
+   "level": "L3",
+   "batch": 3,
+   "kind": "melee",
+   "desc": "软软的弹道（melee）：只有打中 hit（拍到时的棉絮 / 碎屑）"
+  },
+  {
+   "phase": 1,
+   "boil": 3,
+   "code": "art-code/toy_piaopiao.js",
+   "key": "toy_piaopiao",
+   "cat": "玩偶",
+   "level": "L1",
+   "batch": 3,
+   "size": [
+    140,
+    150
+   ],
+   "anchor": [
+    70,
+    138
+   ],
+   "display": [
+    112,
+    120
+   ],
+   "sizeRange": [
+    80,
+    180
+   ],
+   "stance": "帮",
+   "range": "不动",
+   "facings": [
+    "front"
+   ],
+   "events": {
+    "front": {
+     "idle": {
+      "loop": true,
+      "dur": 1800
+     },
+     "attack": {
+      "dur": 500
+     },
+     "skill": {
+      "dur": 1000
+     },
+     "cheer": {
+      "dur": 900
+     },
+     "startled": {
+      "dur": 500
+     }
+    }
+   },
+   "release": {
+    "attack": 200,
+    "skill": 500
+   },
+   "muzzle": "每个朝向一个发射点（画布坐标），弹道从这里出来",
+   "desc": "飘飘：气球兔；静电；帮"
+  },
+  {
+   "phase": 1,
+   "code": "art-code/shot_piaopiao.js",
+   "key": "shot_piaopiao",
+   "cat": "弹道",
+   "level": "L3",
+   "batch": 3,
+   "kind": "straight",
+   "aura": 175,
+   "desc": "飘飘的弹道（straight）：飞的样子 fly（2–4 帧循环，画朝右）+ 拖尾 trail（粒子配方，可选）+ 打中 hit（粒子配方）；另画脚下光环 aura（半径 175 的一圈柔光，平放在地上）"
+  },
+  {
+   "phase": 1,
+   "boil": 3,
+   "code": "art-code/toy_laowa.js",
+   "key": "toy_laowa",
+   "cat": "玩偶",
+   "level": "L1",
+   "batch": 3,
+   "size": [
+    140,
+    150
+   ],
+   "anchor": [
+    70,
+    138
+   ],
+   "display": [
+    112,
+    120
+   ],
+   "sizeRange": [
+    80,
+    180
+   ],
+   "stance": "打",
+   "range": "中",
+   "facings": [
+    "front",
+    "back",
+    "side"
+   ],
+   "events": {
+    "front": {
+     "idle": {
+      "loop": true,
+      "dur": 1800
+     },
+     "walk": {
+      "loop": true,
+      "dur": 600
+     },
+     "cheer": {
+      "dur": 900
+     },
+     "startled": {
+      "dur": 500
+     }
+    },
+    "back": {
+     "idle": {
+      "loop": true,
+      "dur": 1800
+     },
+     "walk": {
+      "loop": true,
+      "dur": 600
+     },
+     "attack": {
+      "dur": 500
+     },
+     "skill": {
+      "dur": 1000
+     }
+    },
+    "side": {
+     "idle": {
+      "loop": true,
+      "dur": 1800
+     },
+     "walk": {
+      "loop": true,
+      "dur": 600
+     },
+     "attack": {
+      "dur": 500
+     },
+     "skill": {
+      "dur": 1000
+     }
+    }
+   },
+   "release": {
+    "attack": 250,
+    "skill": 500
+   },
+   "muzzle": "每个朝向一个发射点（画布坐标），弹道从这里出来",
+   "desc": "老袜：袜子玩偶；臭"
+  },
+  {
+   "phase": 1,
+   "code": "art-code/shot_laowa.js",
+   "key": "shot_laowa",
+   "cat": "弹道",
+   "level": "L3",
+   "batch": 3,
+   "kind": "straight",
+   "desc": "老袜的弹道（straight）：飞的样子 fly（2–4 帧循环，画朝右）+ 拖尾 trail（粒子配方，可选）+ 打中 hit（粒子配方）"
   },
   {
    "phase": 1,
@@ -468,7 +873,7 @@
    "key": "obj_pillow_clone",
    "cat": "玩偶",
    "level": "L1",
-   "batch": 2,
+   "batch": 3,
    "size": [
     70,
     60
@@ -478,23 +883,28 @@
     54
    ],
    "display": [
-    56,
-    48
+    64,
+    55
+   ],
+   "facings": [
+    "front"
    ],
    "events": {
-    "idle": {
-     "loop": true,
-     "dur": 1200
-    },
-    "block": {
-     "loop": true,
-     "dur": 800
-    },
-    "attack": {
-     "dur": 400
-    },
-    "poof": {
-     "dur": 300
+    "front": {
+     "idle": {
+      "loop": true,
+      "dur": 1200
+     },
+     "block": {
+      "loop": true,
+      "dur": 800
+     },
+     "attack": {
+      "dur": 400
+     },
+     "poof": {
+      "dur": 300
+     }
     }
    },
    "desc": "软软变出来的小枕头分身：站到窝外挡 1 只，6 秒后噗地散掉"
@@ -506,7 +916,7 @@
    "key": "kid_nuonuo",
    "cat": "角色",
    "level": "L1",
-   "batch": 2,
+   "batch": 3,
    "size": [
     200,
     110
@@ -523,19 +933,24 @@
     375,
     1204
    ],
+   "facings": [
+    "front"
+   ],
    "events": {
-    "idle": {
-     "loop": true,
-     "dur": 3000
-    },
-    "stir": {
-     "dur": 800
-    },
-    "mumble": {
-     "dur": 1000
-    },
-    "smile": {
-     "dur": 1000
+    "front": {
+     "idle": {
+      "loop": true,
+      "dur": 3000
+     },
+     "stir": {
+      "dur": 800
+     },
+     "mumble": {
+      "dur": 1000
+     },
+     "smile": {
+      "dur": 1000
+     }
     }
    },
    "desc": "糯糯在被窝里睡觉，只露头和一只手"
@@ -547,7 +962,7 @@
    "key": "dev_nightlight",
    "cat": "设施",
    "level": "L1",
-   "batch": 2,
+   "batch": 3,
    "size": [
     100,
     110
@@ -560,14 +975,18 @@
     80,
     88
    ],
-   "slots": "放在 nest.devices 的 D1–D3（框的底边中心）",
+   "facings": [
+    "front"
+   ],
    "events": {
-    "idle": {
-     "loop": true,
-     "dur": 2400
+    "front": {
+     "idle": {
+      "loop": true,
+      "dur": 2400
+     }
     }
    },
-   "desc": "小夜灯：光晕呼吸"
+   "desc": "小夜灯：光晕呼吸。玩家拖进窝里放，不动"
   },
   {
    "phase": 1,
@@ -576,7 +995,7 @@
    "key": "dev_fan",
    "cat": "设施",
    "level": "L1",
-   "batch": 2,
+   "batch": 3,
    "size": [
     100,
     110
@@ -589,14 +1008,18 @@
     80,
     88
    ],
-   "slots": "放在 nest.devices 的 D1–D3（框的底边中心）",
+   "facings": [
+    "front"
+   ],
    "events": {
-    "idle": {
-     "loop": true,
-     "dur": 600
+    "front": {
+     "idle": {
+      "loop": true,
+      "dur": 600
+     }
     }
    },
-   "desc": "小风扇：叶片单独部件，开发转它"
+   "desc": "小风扇：叶片单独部件，开发转它。玩家拖进窝里放，不动"
   },
   {
    "phase": 1,
@@ -605,7 +1028,7 @@
    "key": "obj_flashlight",
    "cat": "设施",
    "level": "L1",
-   "batch": 2,
+   "batch": 3,
    "size": [
     90,
     60
@@ -622,13 +1045,18 @@
     440,
     1150
    ],
+   "facings": [
+    "front"
+   ],
    "events": {
-    "idle": {
-     "loop": true,
-     "dur": 2000
-    },
-    "flash": {
-     "dur": 300
+    "front": {
+     "idle": {
+      "loop": true,
+      "dur": 2000
+     },
+     "flash": {
+      "dur": 300
+     }
     }
    },
    "desc": "手电筒：糯糯手里拿着，轴心在尾部，开发旋转对准光束"
@@ -641,6 +1069,7 @@
    "cat": "噩梦 · 第 0 区",
    "level": "L2",
    "batch": 1,
+   "redo": 2,
    "size": [
     120,
     120
@@ -686,7 +1115,7 @@
    "key": "nm_hand",
    "cat": "噩梦 · 第 0 区",
    "level": "L2",
-   "batch": 3,
+   "batch": 4,
    "size": [
     120,
     120
@@ -732,7 +1161,7 @@
    "key": "nm_curtain",
    "cat": "噩梦 · 第 0 区",
    "level": "L2",
-   "batch": 3,
+   "batch": 4,
    "size": [
     120,
     120
@@ -778,7 +1207,7 @@
    "key": "nm_stair",
    "cat": "噩梦 · 第 1 区",
    "level": "L2",
-   "batch": 3,
+   "batch": 4,
    "size": [
     120,
     120
@@ -824,7 +1253,7 @@
    "key": "nm_drip",
    "cat": "噩梦 · 第 1 区",
    "level": "L2",
-   "batch": 3,
+   "batch": 4,
    "size": [
     120,
     120
@@ -870,7 +1299,7 @@
    "key": "nm_door",
    "cat": "噩梦 · 第 1 区",
    "level": "L2",
-   "batch": 3,
+   "batch": 4,
    "size": [
     120,
     120
@@ -916,7 +1345,7 @@
    "key": "nm_paper",
    "cat": "噩梦 · 第 2 区",
    "level": "L2",
-   "batch": 3,
+   "batch": 4,
    "size": [
     120,
     120
@@ -962,7 +1391,7 @@
    "key": "nm_clock",
    "cat": "噩梦 · 第 2 区",
    "level": "L2",
-   "batch": 3,
+   "batch": 4,
    "size": [
     120,
     120
@@ -1008,7 +1437,7 @@
    "key": "nm_notebook",
    "cat": "噩梦 · 第 2 区",
    "level": "L2",
-   "batch": 3,
+   "batch": 4,
    "size": [
     120,
     120
@@ -1055,6 +1484,7 @@
    "cat": "羊",
    "level": "L2",
    "batch": 1,
+   "redo": 2,
    "size": [
     64,
     60
@@ -1094,7 +1524,7 @@
    "key": "boss_closet",
    "cat": "大噩梦",
    "level": "L0",
-   "batch": 3,
+   "batch": 4,
    "size": [
     300,
     300
@@ -1130,7 +1560,7 @@
    "key": "boss_hallway",
    "cat": "大噩梦",
    "level": "L0",
-   "batch": 3,
+   "batch": 4,
    "size": [
     300,
     300
@@ -1166,7 +1596,7 @@
    "key": "boss_exam",
    "cat": "大噩梦",
    "level": "L0",
-   "batch": 3,
+   "batch": 4,
    "size": [
     300,
     300
@@ -1203,7 +1633,8 @@
    "cat": "特效",
    "level": "L3",
    "batch": 1,
-   "desc": "暖：热气团、火星、光斑；breath / hit / burn（烘）"
+   "redo": 2,
+   "desc": "暖：热气团、火星、光斑；hit / burn（烘：目标身上往上冒的暖色小烟）"
   },
   {
    "phase": 1,
@@ -1211,7 +1642,7 @@
    "key": "fx_pillow",
    "cat": "特效",
    "level": "L3",
-   "batch": 4,
+   "batch": 5,
    "desc": "枕头：积木碎屑、硬币闪、棉絮；hit"
   },
   {
@@ -1220,7 +1651,7 @@
    "key": "fx_cool",
    "cat": "特效",
    "level": "L3",
-   "batch": 4,
+   "batch": 5,
    "desc": "凉：水花、雪粒、冰晶；hit / slow / freeze / slide（阿冰滑出去的雪痕）"
   },
   {
@@ -1229,8 +1660,8 @@
    "key": "fx_static",
    "cat": "特效",
    "level": "L3",
-   "batch": 4,
-   "desc": "静电：电花、电弧；hit / chain"
+   "batch": 5,
+   "desc": "静电：电花；hit"
   },
   {
    "phase": 1,
@@ -1238,7 +1669,7 @@
    "key": "fx_stink",
    "cat": "特效",
    "level": "L3",
-   "batch": 4,
+   "batch": 5,
    "desc": "臭：绿色臭气；hit / layer（1–10 层）"
   },
   {
@@ -1247,7 +1678,7 @@
    "key": "fx_common",
    "cat": "特效",
    "level": "L3",
-   "batch": 4,
+   "batch": 5,
    "desc": "壳、漏怪的棉絮、手电筒光束、破单位、push（挡和噩梦顶在一起冒的小棉絮）、startle（吓一跳的惊吓线）、dash（冲出去的风线）"
   },
   {
@@ -1257,6 +1688,7 @@
    "cat": "背景",
    "level": "bg",
    "batch": 1,
+   "redo": 2,
    "size": [
     750,
     1624
@@ -1265,7 +1697,7 @@
     750,
     1624
    ],
-   "desc": "刚闭眼：梦里的卧室（衣柜、窗户月光、玩具架在两边；中间平静）"
+   "desc": "刚闭眼：梦里的卧室（衣柜、窗户月光、玩具架在两边；中间平静、干净）"
   },
   {
    "phase": 1,
@@ -1273,7 +1705,7 @@
    "key": "bg_dream_1",
    "cat": "背景",
    "level": "bg",
-   "batch": 3,
+   "batch": 4,
    "size": [
     750,
     1624
@@ -1290,7 +1722,7 @@
    "key": "bg_dream_2",
    "cat": "背景",
    "level": "bg",
-   "batch": 3,
+   "batch": 4,
    "size": [
     750,
     1624
@@ -1307,18 +1739,18 @@
    "key": "obj_fort",
    "cat": "枕头堡",
    "level": "bg",
-   "batch": 2,
+   "batch": 3,
    "size": [
     750,
-    560
+    564
    ],
    "anchor": [
     375,
-    396
+    400
    ],
    "display": [
     750,
-    560
+    564
    ],
    "pos": [
     375,
@@ -1329,7 +1761,7 @@
     "2",
     "3"
    ],
-   "desc": "月牙枕头窝三档（几个枕头 → 小窝 → 带被子的大窝）：圆心 = anchor；外圈枕头墙（半径 330）、中圈（232）、里圈（135）是一层层被子；12 个小圆垫（半径 46）画在 nest.slots 的位置上，要平"
+   "desc": "月牙枕头窝三档（几个枕头 → 一道墙 → 带被子的高墙）：圆心 = anchor；一道月牙形的枕头墙（半径 360），墙里是一整块平的被子 / 床单地面（玩偶在上面走），不画垫子、不分格子"
   },
   {
    "phase": 1,
@@ -1337,7 +1769,7 @@
    "key": "obj_fence",
    "cat": "枕头堡",
    "level": "bg",
-   "batch": 2,
+   "batch": 3,
    "size": [
     160,
     80
@@ -1354,7 +1786,7 @@
     80,
     220
    ],
-   "desc": "左上角雾里的小木栅栏（nest.fence.rect），羊从右边 sheepJumpTo 起跳、往左跳过去消失在雾里"
+   "desc": "左上角雾里的小木栅栏，羊从右边起跳、往左跳过去消失在雾里"
   }
  ]
 }

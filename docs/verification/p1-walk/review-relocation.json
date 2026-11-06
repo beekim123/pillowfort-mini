@@ -1,0 +1,22 @@
+{
+  "passed": 4,
+  "total": 4,
+  "cases": [
+    {
+      "name": "large home change walks at range speed even if old target remains in reach",
+      "passed": true
+    },
+    {
+      "name": "new home during relocation redirects at bounded speed and stationary moves instantly",
+      "passed": true
+    },
+    {
+      "name": "changing home during dash uses latest home on return, no teleport or normal attack",
+      "passed": true
+    },
+    {
+      "name": "mid-outbound target death retargets nearest then returns if all targets are gone",
+      "passed": true
+    }
+  ]
+}

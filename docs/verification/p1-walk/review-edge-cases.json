@@ -1,0 +1,22 @@
+{
+  "passed": 4,
+  "total": 4,
+  "cases": [
+    {
+      "name": "closed wardrobe boss remains dash priority while present",
+      "passed": true
+    },
+    {
+      "name": "released projectile continues through source removal",
+      "passed": true
+    },
+    {
+      "name": "startWave does not mutate its input save when replaying home moves",
+      "passed": true
+    },
+    {
+      "name": "displacement by spacing updates facing to velocity",
+      "passed": true
+    }
+  ]
+}

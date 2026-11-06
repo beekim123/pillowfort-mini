@@ -1,0 +1,234 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> pillowfort-mini@0.1.0 smoke:progression
+> npm run build:preview && node tools/progression-smoke.mjs
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> pillowfort-mini@0.1.0 build:preview
+> node tools/build-preview.mjs
+
+PASS: 引擎外 Canvas 预览已生成到 preview/。它不是 Cocos 或 TapTap 构建。npm run preview 启动。
+ZONE 1 after 49 waves 8 offline hours
+ZONE 2 after 109 waves 40 offline hours
+{
+  "kind": "Node pure-logic progression; simulated offline time, not device/player time",
+  "completed": true,
+  "completedWaves": 287,
+  "z": 2,
+  "w": 49,
+  "offlineHours": 256,
+  "bosses": [
+    {
+      "wave": 48,
+      "z": 0,
+      "won": true,
+      "bossDamage": 1,
+      "levels": [
+        92,
+        92,
+        92,
+        91
+      ],
+      "fort": 9,
+      "hours": 8
+    },
+    {
+      "wave": 97,
+      "z": 1,
+      "won": false,
+      "bossDamage": 0.712614700013147,
+      "levels": [
+        176,
+        176,
+        176,
+        176,
+        176,
+        176
+      ],
+      "fort": 24,
+      "hours": 24
+    },
+    {
+      "wave": 108,
+      "z": 1,
+      "won": true,
+      "bossDamage": 1,
+      "levels": [
+        185,
+        185,
+        185,
+        185,
+        185,
+        185
+      ],
+      "fort": 30,
+      "hours": 40
+    },
+    {
+      "wave": 169,
+      "z": 2,
+      "won": false,
+      "bossDamage": 0.006676123547384782,
+      "levels": [
+        259,
+        259,
+        259,
+        258,
+        258,
+        258
+      ],
+      "fort": 43,
+      "hours": 72
+    },
+    {
+      "wave": 181,
+      "z": 2,
+      "won": false,
+      "bossDamage": 0.07412480938715915,
+      "levels": [
+        262,
+        262,
+        262,
+        262,
+        262,
+        262
+      ],
+      "fort": 45,
+      "hours": 104
+    },
+    {
+      "wave": 209,
+      "z": 2,
+      "won": false,
+      "bossDamage": 0.5415953263312596,
+      "levels": [
+        264,
+        264,
+        264,
+        264,
+        264,
+        264
+      ],
+      "fort": 47,
+      "hours": 160
+    },
+    {
+      "wave": 220,
+      "z": 2,
+      "won": false,
+      "bossDamage": 0.1261059068181979,
+      "levels": [
+        265,
+        265,
+        264,
+        264,
+        264,
+        264
+      ],
+      "fort": 47,
+      "hours": 176
+    },
+    {
+      "wave": 231,
+      "z": 2,
+      "won": false,
+      "bossDamage": 0.4674738944030631,
+      "levels": [
+        265,
+        265,
+        265,
+        265,
+        265,
+        264
+      ],
+      "fort": 47,
+      "hours": 192
+    },
+    {
+      "wave": 242,
+      "z": 2,
+      "won": false,
+      "bossDamage": 0.8809573150819882,
+      "levels": [
+        265,
+        265,
+        265,
+        265,
+        265,
+        265
+      ],
+      "fort": 47,
+      "hours": 208
+    },
+    {
+      "wave": 253,
+      "z": 2,
+      "won": false,
+      "bossDamage": 0.3234696483617814,
+      "levels": [
+        265,
+        265,
+        265,
+        265,
+        265,
+        265
+      ],
+      "fort": 48,
+      "hours": 224
+    },
+    {
+      "wave": 264,
+      "z": 2,
+      "won": false,
+      "bossDamage": 0.5453681596469333,
+      "levels": [
+        266,
+        265,
+        265,
+        265,
+        265,
+        265
+      ],
+      "fort": 48,
+      "hours": 232
+    },
+    {
+      "wave": 275,
+      "z": 2,
+      "won": false,
+      "bossDamage": 0.7377823271607729,
+      "levels": [
+        266,
+        266,
+        266,
+        265,
+        265,
+        265
+      ],
+      "fort": 48,
+      "hours": 248
+    },
+    {
+      "wave": 286,
+      "z": 2,
+      "won": true,
+      "bossDamage": 1,
+      "levels": [
+        266,
+        266,
+        266,
+        266,
+        265,
+        265
+      ],
+      "fort": 48,
+      "hours": 256
+    }
+  ]
+}
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.2
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.2
+npm notice To update run: npm install -g npm@12.2.2
+npm notice
