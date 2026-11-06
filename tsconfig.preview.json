@@ -18,7 +18,8 @@
   "include": [
     "assets/scripts/core/**/*.ts",
     "assets/scripts/ui/**/*.ts",
-    "assets/scripts/fw/**/*.ts"
+    "assets/scripts/fw/**/*.ts",
+    "assets/scripts/art/**/*.ts"
   ],
   "exclude": [
     "assets/scripts/ui/PillowFort.ts",

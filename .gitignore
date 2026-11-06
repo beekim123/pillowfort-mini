@@ -17,3 +17,8 @@ project.private.config.json
 *.tsbuildinfo
 coverage/
 .npm/
+
+# 用户放 GPT 交来的 git bundle 的地方，不进仓库
+bundle/
+# Cocos 编辑器的个人设置（另三款也不提交）
+profiles/

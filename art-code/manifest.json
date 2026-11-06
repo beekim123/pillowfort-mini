@@ -1,0 +1,652 @@
+{
+ "game": "枕头堡",
+ "code": "zhentou",
+ "version": 2,
+ "batch": 2,
+ "note": "第 2 批：返修 6 件（redo: 2）+ 新做 9 件。字段说明见 美术文档-P1.md 第 2.1 节；facings / events / release 照这里，别改。",
+ "assets": [
+  {
+   "phase": 1,
+   "boil": 3,
+   "code": "art-code/captain_mianmian.js",
+   "key": "captain_mianmian",
+   "cat": "角色",
+   "level": "L1",
+   "batch": 1,
+   "redo": 2,
+   "done": true,
+   "size": [
+    140,
+    140
+   ],
+   "anchor": [
+    70,
+    128
+   ],
+   "display": [
+    110,
+    110
+   ],
+   "pos": [
+    375,
+    770
+   ],
+   "facings": [
+    "front"
+   ],
+   "events": {
+    "front": {
+     "idle": {
+      "loop": true,
+      "dur": 2000
+     },
+     "baa": {
+      "dur": 1200
+     },
+     "cheer": {
+      "dur": 900
+     },
+     "flinch": {
+      "dur": 400
+     }
+    }
+   },
+   "desc": "绵绵：旧绵羊玩偶，领头羊；浆果色丝带 + 金色小铃铛（单独部件）。站在枕头墙顶上面，不走动"
+  },
+  {
+   "phase": 1,
+   "boil": 3,
+   "code": "art-code/toy_huhu.js",
+   "key": "toy_huhu",
+   "cat": "玩偶",
+   "level": "L1",
+   "batch": 1,
+   "redo": 2,
+   "done": true,
+   "size": [
+    140,
+    150
+   ],
+   "anchor": [
+    70,
+    138
+   ],
+   "display": [
+    112,
+    120
+   ],
+   "sizeRange": [
+    80,
+    180
+   ],
+   "stance": "打",
+   "range": "中",
+   "facings": [
+    "front",
+    "back",
+    "side"
+   ],
+   "events": {
+    "front": {
+     "idle": {
+      "loop": true,
+      "dur": 1800
+     },
+     "walk": {
+      "loop": true,
+      "dur": 600
+     },
+     "cheer": {
+      "dur": 900
+     },
+     "startled": {
+      "dur": 500
+     }
+    },
+    "back": {
+     "idle": {
+      "loop": true,
+      "dur": 1800
+     },
+     "walk": {
+      "loop": true,
+      "dur": 600
+     },
+     "attack": {
+      "dur": 500
+     },
+     "skill": {
+      "dur": 1000
+     }
+    },
+    "side": {
+     "idle": {
+      "loop": true,
+      "dur": 1800
+     },
+     "walk": {
+      "loop": true,
+      "dur": 600
+     },
+     "attack": {
+      "dur": 500
+     },
+     "skill": {
+      "dur": 1000
+     }
+    }
+   },
+   "release": {
+    "attack": 250,
+    "skill": 500
+   },
+   "muzzle": "每个朝向一个发射点（画布坐标），弹道从这里出来",
+   "desc": "呼呼：恐龙玩偶（绿），圆肚子、短手、背上一排软刺；暖"
+  },
+  {
+   "phase": 1,
+   "code": "art-code/shot_huhu.js",
+   "key": "shot_huhu",
+   "cat": "弹道",
+   "level": "L3",
+   "batch": 2,
+   "done": true,
+   "kind": "straight",
+   "desc": "呼呼的弹道（straight）：飞的样子 fly（2–4 帧循环，画朝右）+ 拖尾 trail（粒子配方，可选）+ 打中 hit（粒子配方）"
+  },
+  {
+   "phase": 1,
+   "boil": 3,
+   "code": "art-code/toy_fangfang.js",
+   "key": "toy_fangfang",
+   "cat": "玩偶",
+   "level": "L1",
+   "batch": 2,
+   "done": true,
+   "size": [
+    140,
+    150
+   ],
+   "anchor": [
+    70,
+    138
+   ],
+   "display": [
+    112,
+    120
+   ],
+   "sizeRange": [
+    80,
+    180
+   ],
+   "stance": "挡",
+   "range": "中",
+   "facings": [
+    "front",
+    "back",
+    "side"
+   ],
+   "events": {
+    "front": {
+     "idle": {
+      "loop": true,
+      "dur": 1800
+     },
+     "walk": {
+      "loop": true,
+      "dur": 600
+     },
+     "cheer": {
+      "dur": 900
+     },
+     "startled": {
+      "dur": 500
+     },
+     "knocked": {
+      "dur": 400
+     },
+     "down": {
+      "loop": true,
+      "dur": 1600
+     },
+     "getup": {
+      "dur": 700
+     }
+    },
+    "back": {
+     "idle": {
+      "loop": true,
+      "dur": 1800
+     },
+     "walk": {
+      "loop": true,
+      "dur": 600
+     },
+     "attack": {
+      "dur": 500
+     },
+     "skill": {
+      "dur": 1000
+     },
+     "block": {
+      "loop": true,
+      "dur": 800
+     }
+    },
+    "side": {
+     "idle": {
+      "loop": true,
+      "dur": 1800
+     },
+     "walk": {
+      "loop": true,
+      "dur": 600
+     },
+     "attack": {
+      "dur": 500
+     },
+     "skill": {
+      "dur": 1000
+     },
+     "block": {
+      "loop": true,
+      "dur": 800
+     }
+    }
+   },
+   "release": {
+    "attack": 200,
+    "skill": 500
+   },
+   "muzzle": "每个朝向一个发射点（画布坐标），弹道从这里出来",
+   "desc": "方方：积木小兵；枕头；挡"
+  },
+  {
+   "phase": 1,
+   "code": "art-code/shot_fangfang.js",
+   "key": "shot_fangfang",
+   "cat": "弹道",
+   "level": "L3",
+   "batch": 2,
+   "done": true,
+   "kind": "lob",
+   "desc": "方方的弹道（lob）：飞的样子 fly（2–4 帧，正着画，开发让它边飞边转）+ 打中 hit"
+  },
+  {
+   "phase": 1,
+   "boil": 3,
+   "code": "art-code/toy_gaga.js",
+   "key": "toy_gaga",
+   "cat": "玩偶",
+   "level": "L1",
+   "batch": 2,
+   "done": true,
+   "size": [
+    140,
+    150
+   ],
+   "anchor": [
+    70,
+    138
+   ],
+   "display": [
+    112,
+    120
+   ],
+   "sizeRange": [
+    80,
+    180
+   ],
+   "stance": "打",
+   "range": "小",
+   "facings": [
+    "front"
+   ],
+   "events": {
+    "front": {
+     "idle": {
+      "loop": true,
+      "dur": 1800
+     },
+     "walk": {
+      "loop": true,
+      "dur": 600
+     },
+     "attack": {
+      "dur": 500
+     },
+     "skill": {
+      "dur": 1000
+     },
+     "cheer": {
+      "dur": 900
+     },
+     "startled": {
+      "dur": 500
+     }
+    }
+   },
+   "release": {
+    "attack": 150,
+    "skill": 500
+   },
+   "muzzle": "每个朝向一个发射点（画布坐标），弹道从这里出来",
+   "desc": "嘎嘎：橡皮鸭；凉"
+  },
+  {
+   "phase": 1,
+   "code": "art-code/shot_gaga.js",
+   "key": "shot_gaga",
+   "cat": "弹道",
+   "level": "L3",
+   "batch": 2,
+   "done": true,
+   "kind": "beam",
+   "desc": "嘎嘎的弹道（beam）：一段柱子 beam（朝右、左右能接着重复）+ 起点 / 终点的小水花 cap（可选）+ 打中 hit"
+  },
+  {
+   "phase": 1,
+   "boil": 3,
+   "code": "art-code/toy_dingdang.js",
+   "key": "toy_dingdang",
+   "cat": "玩偶",
+   "level": "L1",
+   "batch": 2,
+   "done": true,
+   "size": [
+    140,
+    150
+   ],
+   "anchor": [
+    70,
+    138
+   ],
+   "display": [
+    112,
+    120
+   ],
+   "sizeRange": [
+    80,
+    180
+   ],
+   "stance": "帮",
+   "range": "不动",
+   "facings": [
+    "front"
+   ],
+   "events": {
+    "front": {
+     "idle": {
+      "loop": true,
+      "dur": 1800
+     },
+     "attack": {
+      "dur": 500
+     },
+     "skill": {
+      "dur": 1000
+     },
+     "cheer": {
+      "dur": 900
+     },
+     "startled": {
+      "dur": 500
+     }
+    }
+   },
+   "release": {
+    "attack": 200,
+    "skill": 500
+   },
+   "muzzle": "每个朝向一个发射点（画布坐标），弹道从这里出来",
+   "desc": "叮当：存钱罐小猪；枕头；帮"
+  },
+  {
+   "phase": 1,
+   "code": "art-code/shot_dingdang.js",
+   "key": "shot_dingdang",
+   "cat": "弹道",
+   "level": "L3",
+   "batch": 2,
+   "done": true,
+   "kind": "lob",
+   "aura": 175,
+   "desc": "叮当的弹道（lob）：飞的样子 fly（2–4 帧，正着画，开发让它边飞边转）+ 打中 hit；另画脚下光环 aura（半径 175 的一圈柔光，平放在地上）"
+  },
+  {
+   "phase": 1,
+   "boil": 3,
+   "code": "art-code/toy_abing.js",
+   "key": "toy_abing",
+   "cat": "玩偶",
+   "level": "L1",
+   "batch": 2,
+   "done": true,
+   "size": [
+    140,
+    150
+   ],
+   "anchor": [
+    70,
+    138
+   ],
+   "display": [
+    112,
+    120
+   ],
+   "sizeRange": [
+    80,
+    180
+   ],
+   "stance": "冲",
+   "range": "冲",
+   "facings": [
+    "front",
+    "back",
+    "side"
+   ],
+   "events": {
+    "front": {
+     "idle": {
+      "loop": true,
+      "dur": 1800
+     },
+     "walk": {
+      "loop": true,
+      "dur": 600
+     },
+     "cheer": {
+      "dur": 900
+     },
+     "startled": {
+      "dur": 500
+     }
+    },
+    "back": {
+     "idle": {
+      "loop": true,
+      "dur": 1800
+     },
+     "walk": {
+      "loop": true,
+      "dur": 600
+     },
+     "attack": {
+      "dur": 500
+     },
+     "skill": {
+      "dur": 1000
+     },
+     "dash": {
+      "loop": true,
+      "dur": 400
+     },
+     "strike": {
+      "dur": 250
+     }
+    },
+    "side": {
+     "idle": {
+      "loop": true,
+      "dur": 1800
+     },
+     "walk": {
+      "loop": true,
+      "dur": 600
+     },
+     "attack": {
+      "dur": 500
+     },
+     "skill": {
+      "dur": 1000
+     },
+     "dash": {
+      "loop": true,
+      "dur": 400
+     },
+     "strike": {
+      "dur": 250
+     }
+    }
+   },
+   "release": {
+    "attack": 200,
+    "skill": 500
+   },
+   "muzzle": "每个朝向一个发射点（画布坐标），弹道从这里出来",
+   "desc": "阿冰：企鹅；凉；冲（肚皮滑出去）"
+  },
+  {
+   "phase": 1,
+   "code": "art-code/shot_abing.js",
+   "key": "shot_abing",
+   "cat": "弹道",
+   "level": "L3",
+   "batch": 2,
+   "done": true,
+   "kind": "straight",
+   "desc": "阿冰的弹道（straight）：飞的样子 fly（2–4 帧循环，画朝右）+ 拖尾 trail（粒子配方，可选）+ 打中 hit（粒子配方）"
+  },
+  {
+   "phase": 1,
+   "boil": 1,
+   "code": "art-code/nm_eyes.js",
+   "key": "nm_eyes",
+   "cat": "噩梦 · 第 0 区",
+   "level": "L2",
+   "batch": 1,
+   "redo": 2,
+   "done": true,
+   "size": [
+    120,
+    120
+   ],
+   "anchor": [
+    60,
+    108
+   ],
+   "display": [
+    88,
+    88
+   ],
+   "anims": {
+    "walk": {
+     "frames": 8,
+     "fps": 10,
+     "loop": true
+    },
+    "hit": {
+     "frames": 4,
+     "fps": 12
+    },
+    "push": {
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "burst": {
+     "frames": 8,
+     "fps": 14
+    }
+   },
+   "variants": [
+    "normal",
+    "elite"
+   ],
+   "desc": "衣柜缝的眼睛：门缝挤出来的软黑影，一双大眼睛"
+  },
+  {
+   "phase": 1,
+   "boil": 1,
+   "code": "art-code/obj_sheep.js",
+   "key": "obj_sheep",
+   "cat": "羊",
+   "level": "L2",
+   "batch": 1,
+   "redo": 2,
+   "done": true,
+   "size": [
+    64,
+    60
+   ],
+   "anchor": [
+    32,
+    54
+   ],
+   "display": [
+    52,
+    48
+   ],
+   "anims": {
+    "cotton": {
+     "frames": 6,
+     "fps": 12
+    },
+    "pop": {
+     "frames": 5,
+     "fps": 14
+    },
+    "run": {
+     "frames": 6,
+     "fps": 12,
+     "loop": true
+    },
+    "jump": {
+     "frames": 6,
+     "fps": 12
+    }
+   },
+   "desc": "拍散的噩梦 → 棉花 → 白色小羊（脸深灰）→ 往左上角雾里的栅栏跑 → 跳过去（画朝左，开发需要时翻转）"
+  },
+  {
+   "phase": 1,
+   "code": "art-code/fx_warm.js",
+   "key": "fx_warm",
+   "cat": "特效",
+   "level": "L3",
+   "batch": 1,
+   "redo": 2,
+   "done": true,
+   "desc": "暖：热气团、火星、光斑；hit / burn（烘：目标身上往上冒的暖色小烟）"
+  },
+  {
+   "phase": 1,
+   "code": "art-code/bg_dream_0.js",
+   "key": "bg_dream_0",
+   "cat": "背景",
+   "level": "bg",
+   "batch": 1,
+   "redo": 2,
+   "done": true,
+   "size": [
+    750,
+    1624
+   ],
+   "display": [
+    750,
+    1624
+   ],
+   "desc": "刚闭眼：梦里的卧室（衣柜、窗户月光、玩具架在两边；中间平静、干净）"
+  }
+ ]
+}

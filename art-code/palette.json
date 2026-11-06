@@ -1,0 +1,48 @@
+{
+  "name": "枕头堡 · 水粉颗粒（夜色）",
+  "lightOrigin": [0.38, 0.28],
+  "grain": "#121733",
+  "grainLight": "#FFF6DC",
+  "rim": "#CFEFE6",
+  "rimAlpha": 0.62,
+  "cream": ["#FFF6DC", "#F6E2A4", "#DFC27A", "#C4A862"],
+  "blush": "#FF7FB0",
+  "blushTick": "#D9548A",
+  "faceInk": "#120A0B",
+  "eyeCream": "#FFF8EA",
+  "eyeStar": "#FDD5A8",
+  "mouth": ["#8A3346", "#55182A", "#2A0B16"],
+  "pool": "#0B1026",
+  "ramps": {
+    "moss": ["#D8EE9E", "#8DB060", "#557D4C", "#2F523A"],
+    "gold": ["#FFF1B8", "#FFD35E", "#E7A23C", "#B8742E"],
+    "orange": ["#FFC98A", "#F99A45", "#DC6E2C", "#A94E24"],
+    "coral": ["#FFB7A0", "#FF7E62", "#E0533F", "#A83A35"],
+    "teal": ["#D8FFF6", "#6FE3D3", "#2FA9A6", "#1C727A"],
+    "berry": ["#FF9EC0", "#E0578A", "#AE3866", "#7A2549"],
+    "piggy": ["#FFE8F0", "#FF9EC4", "#DE6492", "#9E3B64"],
+    "violet": ["#EBD6FF", "#B88EF2", "#8160CC", "#5A409E"],
+    "indigo": ["#7880D2", "#4D55AC", "#30367C", "#1E2254"],
+    "cream": ["#FFF6DC", "#F6E2A4", "#DFC27A", "#C4A862"],
+    "wool": ["#FFFDF6", "#F2EEE4", "#D6D2DE", "#ABA7BE"],
+    "sheepFace": ["#626076", "#48465A", "#323042", "#201E2C"],
+    "night": ["#3A3F6B", "#2B2F55", "#1F2242", "#171A33"],
+    "fog": ["#2A2448", "#221D3C", "#1A1630", "#120F24"],
+    "nightmare": ["#2A2850", "#1C1A3A", "#120F26", "#0C0A1C"],
+    "wood": ["#E5B582", "#B88454", "#8A5E36", "#5C3C20"]
+  },
+  "nmRim": "#B9A8FF",
+  "nmEye": {
+    "core": "#FFF3C4",
+    "outer": "#FFD86B",
+    "glow": "#FFE28A",
+    "pupil": "#120A0B"
+  },
+  "elements": {
+    "pillow": ["#FFFDF8", "#FFF1D6", "#E2CEB0", "#B59E82"],
+    "warm": ["#FFF3C4", "#FFD35E", "#FF9A45", "#D95B26"],
+    "cool": ["#E8FAFF", "#8FE3FF", "#48A9D6", "#256B94"],
+    "static": ["#FFFBE0", "#FFF27A", "#C9A8FF", "#7E52C4"],
+    "stink": ["#D8ED98", "#A6C35A", "#6D8C32", "#42591A"]
+  }
+}

@@ -55,3 +55,7 @@ npm run test:packaging
 ```
 
 20 分钟仿真是逻辑时间；三梦烟测采用合法养成与模拟离线；打包工具测试使用临时合成文件。三者都不证明真机性能、玩家通关时长或正式平台包通过。具体规则取舍见 [CORE-ASSUMPTIONS](docs/CORE-ASSUMPTIONS.md)。
+
+## 美术（ArtGen）
+
+美术交的出图代码在 `art-code/`，`npm run bundle:art` 打成 `assets/scripts/art/artcode.gen.ts`；游戏启动时在手机上出图、拼图集，没图的东西照旧是色块。浏览器预览 URL 加 `?art=0` 只看色块。接法、规则和还没做的见 `docs/ART.md`。

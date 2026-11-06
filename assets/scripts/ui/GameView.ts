@@ -3,6 +3,8 @@ import type { BattleUnit, Enemy, Point, ShotDef } from '../core/index';
 import { GameController } from './GameController';
 import { COLORS as C, ELEMENT, UNIT_COLOR, DrawCommand, HitRegion, Layer, timeText, wrapText } from './Draw';
 import { THEME } from './Theme';
+import type { ArtView } from '../art/ArtView';
+import type { Piece } from '../art/RigMath';
 
 type ShotKind = ShotDef['kind'];
 const SKILLS: Record<string, string> = {
@@ -14,8 +16,11 @@ const STATE: Record<string, string> = { idle: '守着', walk: '走向守点', at
 const FACE: Record<string, string> = { front: '正', back: '背', side: '侧' };
 export interface Frame { commands: DrawCommand[]; hitRegions: HitRegion[] }
 
-/** Draws only colored rectangles, lines, a triangular flashlight beam and text. No generated art. */
+/** Draws colored rectangles, lines, a triangular flashlight beam and text; once ArtGen is ready (`art`), dolls, nightmares, sheep, shots and the background become art sprites and the blocks stay as the fallback. */
 export class GameView {
+  /** 美术（ArtGen 画好以后由适配器挂上）；null = 全部色块 */
+  art: ArtView | null = null;
+  private put = (p: Piece): void => { this.commands.push({ kind: 'sprite', img: p.img, m: p.m, w: p.w, h: p.h, alpha: p.alpha, add: p.add, layer: this.layer }); };
   private commands: DrawCommand[] = [];
   private hits: HitRegion[] = [];
   private h = 1334;
@@ -27,6 +32,7 @@ export class GameView {
   render(height = 1334): Frame {
     this.h = Math.max(1334, height); this.extra = this.h - 1334; this.app.height = this.h;
     this.commands = []; this.hits = []; this.layer = 0;
+    this.art?.frame(this.app.uiTime, this.app.battle.projectiles);
     this.field(); this.hud(); this.tabs();
     if (this.app.panel) this.panel();
     if (this.app.modal) this.modal();
@@ -58,14 +64,18 @@ export class GameView {
   }
 
   private field(): void {
-    const a = this.app, d = a.data, b = a.battle, n = d.nest, e = this.extra;
-    this.rect(0, 0, 750, this.h, C.sky);
-    this.rect(0, n.hud.fog[1], 750, n.hud.fog[3] + e, C.fog);
-    this.rect(0, n.spawn.y - 26 + e, 750, 26, C.fogLight);
+    const a = this.app, d = a.data, b = a.battle, n = d.nest, e = this.extra, art = this.art;
+    const artBg = !!art && art.background(this.put, this.h);
+    if (!artBg) {
+      this.rect(0, 0, 750, this.h, C.sky);
+      this.rect(0, n.hud.fog[1], 750, n.hud.fog[3] + e, C.fog);
+      this.rect(0, n.spawn.y - 26 + e, 750, 26, C.fogLight);
+    }
     const [cx, cy] = n.center;
-    this.commands.push({ kind: 'poly', points: this.groundPoints(), color: C.bed, layer: 0 });
+    // 窝（obj_fort）是美术第 3 批：有背景图以后先用半透明的地和墙压在背景上
+    this.commands.push({ kind: 'poly', points: this.groundPoints(), color: artBg ? THEME.artGround : C.bed, layer: 0 });
     const wall = this.groundPoints(n.wall);
-    for (let i = 1; i < wall.length; i++) this.line(wall[i - 1][0], wall[i - 1][1], wall[i][0], wall[i][1], C.pad, THEME.wallWidth);
+    for (let i = 1; i < wall.length; i++) this.line(wall[i - 1][0], wall[i - 1][1], wall[i][0], wall[i][1], artBg ? THEME.artWall : C.pad, THEME.wallWidth);
     const selected = a.selectedActor ? b.units.find(u => u.id === a.selectedActor) : null;
     for (const unit of b.units) if (a.debugOverlay || selected === unit) this.ranges(unit.id, unit.home, [unit.x, unit.y]);
     if (a.drag?.started && a.drag.kind === 'toy') this.ranges(a.drag.id, Core.clampHome(d, a.drag.point), a.drag.point);
@@ -74,12 +84,13 @@ export class GameView {
       this.commands.push({ kind: 'poly', points: [[cx, cy + e], [cx + Math.cos(b.flash.aim - spread) * length, cy + Math.sin(b.flash.aim - spread) * length + e], [cx + Math.cos(b.flash.aim + spread) * length, cy + Math.sin(b.flash.aim + spread) * length + e]], color: '#fff0a55c', layer: 0 });
     }
     const [mx, my] = n.captain;
-    this.rect(mx - 48, my - 30 + e, 96, 60, C.cream);
+    if (!art || art.captain(this.put, mx, my + 30 + e, a.save.captain.star) === null) this.rect(mx - 48, my - 30 + e, 96, 60, C.cream);
     this.text(`${d.captain.name} ★${a.save.captain.star}`, mx - 90, my - THEME.captainLabelLift + e, 180, 24, C.cream, 'center');
     this.hit('captain', mx - 48, my - 30 + e, 96, 60, 'tab', 'toys');
     const active = b.enemies.filter(enemy => !enemy.dead && !enemy.leaked);
     for (const enemy of active.slice(0, THEME.enemyLimit)) this.enemy(enemy);
     if (active.length > THEME.enemyLimit) this.text(`还有${active.length - THEME.enemyLimit}只（合并显示）`, 130, n.spawn.y + e + 10, 490, 22, C.white, 'center');
+    art?.auras(this.put, b.units, e);
     for (const unit of [...b.units].sort((a, b) => a.y - b.y)) this.toy(unit);
     for (const shot of Core.actors(b).shots) {
       const progress = shot.kind === 'straight'
@@ -89,7 +100,7 @@ export class GameView {
       const [dx, dy] = a.projectileMuzzles.get(shot.id) ?? [0, -n.dollSize * 0.6];
       const origin: Point = [shot.from[0] + dx, shot.from[1] + dy];
       const position: Point = [shot.pos[0] + dx * (1 - progress), shot.pos[1] + dy * (1 - progress) - (shot.kind === 'lob' ? Math.sin(progress * Math.PI) * shot.arc : 0)];
-      this.projectile(shot.kind, shot.source, origin, position, shot.to, progress, ELEMENT[shot.element] ?? C.white);
+      this.projectile(shot.kind, shot.source, origin, position, shot.to, progress, ELEMENT[shot.element] ?? C.white, shot.id);
     }
     for (const c of b.clones) { this.rect(c.x - 20, c.y - 16 + e, 40, 32, C.cream); this.text('分身', c.x - 35, c.y - 40 + e, 70, 22, C.white, 'center'); }
     const [kx, ky] = n.kid.pos, [kw, kh] = n.kid.size;
@@ -104,6 +115,7 @@ export class GameView {
       this.hit(`device-${item.id}`, x - 48, y - 50 + e, 96, 80, 'fieldDevice', item.id);
     }
     this.effects();
+    art?.particles(this.put, e);
     if (selected) this.diamond(selected.home[0], selected.home[1] + e, THEME.homeColor);
     const [fx, fy, fw, fh] = n.fence.rect;
     this.rect(fx, fy, fw, fh, '#d9c7a4');
@@ -135,13 +147,16 @@ export class GameView {
     const shake = hit ? Math.sin(hit.age * 80) * 5 : 0;
     const x = enemy.x + shake, y = enemy.y + e;
     const color = enemy.freezeUntil > b.time ? C.cool : enemy.flashUntil > b.time ? '#e5a5ad' : enemy.burnUntil > b.time ? C.warm : enemy.closed ? '#64637b' : enemy.boss ? '#b496cf' : enemy.elite ? '#bf8da9' : '#8997bc';
-    this.rect(x - size / 2, y - size / 2, size, size, color);
-    this.rect(x - size / 2, y - size / 2 - 9, size, 5, '#3b4358');
-    this.rect(x - size / 2, y - size / 2 - 9, size * Math.max(0, enemy.hp / enemy.maxHp), 5, C.green);
+    // 美术：脚下放在色块的底边，血条放到图的头顶
+    const top = this.art ? this.art.enemy(this.put, enemy, y + size / 2, hit ? hit.age : null, b.time) : null;
+    if (top === null) this.rect(x - size / 2, y - size / 2, size, size, color);
+    const barY = top === null ? y - size / 2 - 9 : top - 9;
+    this.rect(x - size / 2, barY, size, 5, '#3b4358');
+    this.rect(x - size / 2, barY, size * Math.max(0, enemy.hp / enemy.maxHp), 5, C.green);
     if (enemy.boss) {
       this.text(enemy.closed ? '关门中' : enemy.name, x - 140, y - size / 2 - 44, 280, 24, C.white, 'center');
       this.text(`${Core.fmt(enemy.hp)} / ${Core.fmt(enemy.maxHp)}`, 80, 370 + e, 590, 24, C.white, 'center');
-    } else this.text(enemy.name.slice(0, 2), x - size / 2 - 12, y - 12, size + 24, 22, C.ink, 'center');
+    } else if (top === null) this.text(enemy.name.slice(0, 2), x - size / 2 - 12, y - 12, size + 24, 22, C.ink, 'center');
     let status = '';
     if (enemy.freezeUntil > b.time) status += '冻 '; else if (enemy.slowUntil > b.time) status += '慢 ';
     if (enemy.burnUntil > b.time) status += '烘 ';
@@ -195,18 +210,23 @@ export class GameView {
     const width = size * (unit.face === 'side' ? 0.48 : 0.69), height = down ? size * 0.22 : size * (winding ? 0.89 : 1);
     const x = unit.x + (frightened ? Math.sin(a.uiTime * 40) * 4 : 0), y = unit.y + e - bob;
     const selected = a.selectedActor === unit.id;
-    this.rect(x - width / 2 - 3, y - height - 3, width + 6, height + 6, selected ? C.yellow : '#1f2a3b');
-    this.rect(x - width / 2, y - height, width, height, ELEMENT[def.el]);
-    if (unit.face === 'back') this.rect(x - width / 2, y - height, width, height, '#18253e70');
-    // A simple direction marker keeps mirrored sides readable without introducing art assets.
-    if (unit.face !== 'back' && !down) this.rect(x + (unit.flip ? -width * 0.29 : width * 0.18), y - height * 0.72, 8, 8, C.ink);
-    const foot = walking ? Math.sin(a.uiTime * THEME.walkFrequency) * 5 : 0;
-    if (!down) { this.rect(x - width * 0.34, y - 7 + foot, width * 0.24, 9, C.ink); this.rect(x + width * 0.1, y - 7 - foot, width * 0.24, 9, C.ink); }
-    this.text(def.name, x - 55, y - height * 0.55, 110, 24, unit.face === 'back' ? C.white : C.ink, 'center');
-    this.text(`${def.stance} · ${FACE[unit.face]}`, x - 55, y + 7, 110, 22, C.white, 'center');
+    // 美术：有 toy_<id> 就画图（朝向、动作、出手帧都在 ArtView 里按 core 的状态选），色块只在没图时画
+    const top = this.art ? this.art.toy(this.put, unit, a.battle.time, e) : null;
+    if (top === null) {
+      this.rect(x - width / 2 - 3, y - height - 3, width + 6, height + 6, selected ? C.yellow : '#1f2a3b');
+      this.rect(x - width / 2, y - height, width, height, ELEMENT[def.el]);
+      if (unit.face === 'back') this.rect(x - width / 2, y - height, width, height, '#18253e70');
+      // A simple direction marker keeps mirrored sides readable without introducing art assets.
+      if (unit.face !== 'back' && !down) this.rect(x + (unit.flip ? -width * 0.29 : width * 0.18), y - height * 0.72, 8, 8, C.ink);
+      const foot = walking ? Math.sin(a.uiTime * THEME.walkFrequency) * 5 : 0;
+      if (!down) { this.rect(x - width * 0.34, y - 7 + foot, width * 0.24, 9, C.ink); this.rect(x + width * 0.1, y - 7 - foot, width * 0.24, 9, C.ink); }
+      this.text(def.name, x - 55, y - height * 0.55, 110, 24, unit.face === 'back' ? C.white : C.ink, 'center');
+    }
+    this.text(top === null ? `${def.stance} · ${FACE[unit.face]}` : def.name, x - 55, y + 7, 110, 22, C.white, 'center');
     this.hit(`actor-${unit.id}`, x - Math.max(45, width / 2), y - height - 8, Math.max(90, width), height + 38, 'actor', unit.id);
     if (def.stance === '挡') {
-      this.rect(x - 40, y - height - 14, 80, 6, '#4c5568'); this.rect(x - 40, y - height - 14, 80 * Math.max(0, unit.stamina / unit.maxStamina), 6, C.green);
+      const barY = top === null ? y - height - 14 : top - 10;
+      this.rect(x - 40, barY, 80, 6, '#4c5568'); this.rect(x - 40, barY, 80 * Math.max(0, unit.stamina / unit.maxStamina), 6, C.green);
       if (down) this.text(`${Math.ceil(unit.knockedUntil - a.battle.time)}秒爬起`, x - 65, y - height - 46, 130, 22, C.white, 'center');
     }
     if (frightened) this.text('！', x - 20, y - height - 42, 40, 30, C.yellow, 'center');
@@ -216,7 +236,8 @@ export class GameView {
       if (target) this.line(unit.x, unit.y + e, target.x, target.y + e, '#fff9ee70', 1);
     }
   }
-  private projectile(kind: ShotKind, id: string, from: Point, pos: Point, to: Point, progress: number, color: string): void {
+  private projectile(kind: ShotKind, id: string, from: Point, pos: Point, to: Point, progress: number, color: string, shotId?: number): void {
+    if (this.art?.projectile(this.put, kind, id, from, pos, to, progress, this.extra, shotId)) return;
     const e = this.extra, x = pos[0], y = pos[1] + e;
     if (kind === 'beam') { this.line(from[0], from[1] + e, to[0], to[1] + e, color + '99', 14); this.line(from[0], from[1] + e, to[0], to[1] + e, C.white, 3); return; }
     if (kind === 'chain') {
@@ -238,9 +259,10 @@ export class GameView {
     for (const f of this.app.effects) {
       const p = Math.min(1, f.age / f.life);
       if (f.type === 'shot') this.projectile(f.shotKind ?? 'chain', f.source ?? '', [f.x, f.y], [f.x, f.y], [f.tx, f.ty], p, f.color);
-      if (f.type === 'hit') { this.ring(f.x, f.y, 12 + p * 28, f.color, 4); }
+      if (f.type === 'hit' && !this.art) { this.ring(f.x, f.y, 12 + p * 28, f.color, 4); }
       if (f.type === 'damage') this.text(Core.fmt(f.value), f.x - 85, f.y - 30 - p * 50 + e, 170, 26, UNIT_COLOR[Math.min(Core.unitIndex(f.value), 5)], 'center');
       if (f.type === 'cotton') {
+        if (this.art && this.art.cotton(this.put, f.x, f.y, f.age, f.life, target, e)) continue;
         if (f.age < 0) { this.rect(f.x - 25, f.y + e - 25, 50, 50, '#8997bc'); continue; }
         let x: number, y: number;
         if (p < 0.75) { const t = p / 0.75; x = f.x + (target[0] - f.x) * t; y = f.y + e + (target[1] - f.y - e) * t - Math.sin(t * Math.PI) * 40; }

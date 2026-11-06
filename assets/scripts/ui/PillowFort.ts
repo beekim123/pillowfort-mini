@@ -1,15 +1,22 @@
 import {
   _decorator, Component, Node, Graphics, Label, Color, UITransform, view, ResolutionPolicy,
   resources, JsonAsset, sys, game, Game, input, Input, EventTouch, EventMouse,
-  Layers, HorizontalTextAlignment, VerticalTextAlignment,
+  Layers, HorizontalTextAlignment, VerticalTextAlignment, Sprite, SpriteFrame, Texture2D, ImageAsset, Rect, Size, Vec2, screen,
 } from 'cc';
 import { DEV } from 'cc/env';
 import { GameController } from './GameController';
 import { GameView } from './GameView';
 import type { DrawCommand } from './Draw';
+import { THEME } from './Theme';
+import { ARTCODE } from '../art/artcode.gen';
+import { ArtBook, artScale, generate, runSliced } from '../art/ArtGen';
+import { ArtView } from '../art/ArtView';
+import type { CanvasLike } from '../art/ArtTypes';
 
 const { ccclass } = _decorator;
-interface RenderLayer { root: Node; graphics: Graphics; labels: Label[]; used: number }
+/** 一层里按绘制顺序排的节点：连着的线 / 多边形共用一个 Graphics；色块和美术图都是 Sprite（同一张图集，能合批）；文字在最上面 */
+interface DrawItem { node: Node; g: Graphics | null; s: Sprite | null }
+interface RenderLayer { root: Node; items: Node; text: Node; list: DrawItem[]; k: number; open: boolean; labels: Label[]; used: number }
 interface MiniGameFileSystem { writeFileSync(path: string, data: string, encoding: string): void }
 interface MiniGameAPI {
   env?: { USER_DATA_PATH?: string };
@@ -28,6 +35,10 @@ export class PillowFort extends Component {
   private safeTop = 0;
   private safeBottom = 0;
   private touchId: number | null = null;
+  private book: ArtBook | null = null;
+  private frames = new Map<string, SpriteFrame>();
+  private textures: Texture2D[] = [];
+  private white: SpriteFrame | null = null;
 
   onLoad(): void {
     view.setDesignResolutionSize(750, 1334, ResolutionPolicy.FIXED_WIDTH);
@@ -36,11 +47,11 @@ export class PillowFort extends Component {
     for (let index = 0; index < 5; index++) {
       const root = new Node(`DrawLayer${index}`); root.layer = Layers.Enum.UI_2D; root.parent = this.node;
       root.addComponent(UITransform);
-      const graphicNode = new Node('Blocks'); graphicNode.layer = Layers.Enum.UI_2D; graphicNode.parent = root;
-      graphicNode.addComponent(UITransform);
-      const graphics = graphicNode.addComponent(Graphics);
-      this.renderLayers.push({ root, graphics, labels: [], used: 0 });
+      const items = new Node('Items'); items.layer = Layers.Enum.UI_2D; items.parent = root; items.addComponent(UITransform);
+      const text = new Node('Text'); text.layer = Layers.Enum.UI_2D; text.parent = root; text.addComponent(UITransform);
+      this.renderLayers.push({ root, items, text, list: [], k: 0, open: false, labels: [], used: 0 });
     }
+    this.white = this.whiteFrame();
     this.resize();
     this.paintLoading('枕头堡\n正在铺好小被子……');
     resources.load('data/levels', JsonAsset, (error, asset) => {
@@ -50,6 +61,7 @@ export class PillowFort extends Component {
         this.app = new GameController(asset.json, sys.localStorage, DEV);
         this.gameView = new GameView(this.app);
         this.app.onExport = csv => this.exportCsv(csv);
+        this.startArt(this.app, this.gameView);
       } catch (failure) { this.paintLoading('启动失败，请查看开发控制台'); console.error(failure); }
     });
     input.on(Input.EventType.TOUCH_START, this.onTouchStart, this);
@@ -101,17 +113,34 @@ export class PillowFort extends Component {
     this.colors.set(hex, color); return color;
   }
   private paint(commands: DrawCommand[]): void {
-    for (const layer of this.renderLayers) { layer.graphics.clear(); layer.used = 0; }
+    for (const layer of this.renderLayers) { layer.k = 0; layer.open = false; layer.used = 0; }
     const y = (v: number) => this.designHeight / 2 - v - this.safeTop;
     for (const command of commands) {
-      const layer = this.renderLayers[command.layer], g = layer.graphics;
-      if (command.kind === 'rect') { g.fillColor = this.color(command.color); g.rect(command.x - 375, y(command.y + command.h), command.w, command.h); g.fill(); }
-      else if (command.kind === 'line') { g.strokeColor = this.color(command.color); g.lineWidth = command.width; g.moveTo(command.x - 375, y(command.y)); g.lineTo(command.x2 - 375, y(command.y2)); g.stroke(); }
-      else if (command.kind === 'poly') { g.fillColor = this.color(command.color); command.points.forEach(([x, v], index) => index ? g.lineTo(x - 375, y(v)) : g.moveTo(x - 375, y(v))); g.close(); g.fill(); }
-      else {
+      const layer = this.renderLayers[command.layer];
+      if (command.kind === 'line' || command.kind === 'poly') {
+        const g = this.graphicsAt(layer);
+        if (command.kind === 'line') { g.strokeColor = this.color(command.color); g.lineWidth = command.width; g.moveTo(command.x - 375, y(command.y)); g.lineTo(command.x2 - 375, y(command.y2)); g.stroke(); }
+        else { g.fillColor = this.color(command.color); command.points.forEach(([x, v], index) => index ? g.lineTo(x - 375, y(v)) : g.moveTo(x - 375, y(v))); g.close(); g.fill(); }
+      } else if (command.kind === 'rect') {
+        const frame = this.frameOf('white') ?? this.white; if (!frame) continue;
+        const sp = this.spriteAt(layer), node = sp.node;
+        if (sp.spriteFrame !== frame) sp.spriteFrame = frame;
+        sp.color = this.color(command.color);
+        node.getComponent(UITransform)!.setContentSize(command.w, command.h);
+        node.setPosition(command.x - 375, y(command.y), 0); node.setRotationFromEuler(0, 0, 0); node.setScale(1, 1, 1);
+      } else if (command.kind === 'sprite') {
+        const frame = this.frameOf(command.img); if (!frame) continue;
+        const sp = this.spriteAt(layer), node = sp.node, [a, b, c, d, e, f] = command.m;
+        if (sp.spriteFrame !== frame) sp.spriteFrame = frame;
+        sp.color = this.alphaColor(command.alpha);
+        // 设计坐标（y 朝下、左上原点）的矩阵 → Cocos 节点（y 朝上、锚点左上）：位置 + 旋转 + 缩放（部件链里极少的斜切忽略）
+        const sx = Math.hypot(a, b) || 1e-6, sy = (a * d - b * c) / sx;
+        node.getComponent(UITransform)!.setContentSize(command.w, command.h);
+        node.setPosition(e - 375, y(f), 0); node.setRotationFromEuler(0, 0, Math.atan2(-b, a) * 180 / Math.PI); node.setScale(sx, sy, 1);
+      } else {
         let label = layer.labels[layer.used];
         if (!label) {
-          const node = new Node(`Text${layer.used}`); node.layer = Layers.Enum.UI_2D; node.parent = layer.root; node.addComponent(UITransform);
+          const node = new Node(`Text${layer.used}`); node.layer = Layers.Enum.UI_2D; node.parent = layer.text; node.addComponent(UITransform);
           label = node.addComponent(Label); label.useSystemFont = true; label.fontFamily = 'sans-serif'; label.overflow = Label.Overflow.CLAMP;
           label.verticalAlign = VerticalTextAlignment.CENTER; label.enableWrapText = false; layer.labels.push(label);
         }
@@ -123,7 +152,75 @@ export class PillowFort extends Component {
         label.node.setPosition(command.x + command.width / 2 - 375, y(command.y + command.size * 0.65), 0);
       }
     }
-    for (const layer of this.renderLayers) for (let i = layer.used; i < layer.labels.length; i++) layer.labels[i].node.active = false;
+    for (const layer of this.renderLayers) {
+      for (let i = layer.k; i < layer.list.length; i++) { const it = layer.list[i]; if (it.g) it.g.clear(); it.node.active = false; }
+      for (let i = layer.used; i < layer.labels.length; i++) layer.labels[i].node.active = false;
+    }
+  }
+  /** 第 k 个位置要一个 Graphics：接着上一个线 / 多边形就共用，否则在这个位置放一个 */
+  private graphicsAt(layer: RenderLayer): Graphics {
+    if (layer.open) return layer.list[layer.k - 1].g!;
+    let it = layer.list[layer.k];
+    if (!it || !it.g) {
+      const node = new Node('Shapes'); node.layer = Layers.Enum.UI_2D; node.addComponent(UITransform);
+      it = { node, g: node.addComponent(Graphics), s: null };
+      node.parent = layer.items; node.setSiblingIndex(layer.k); layer.list.splice(layer.k, 0, it);
+    }
+    it.g!.clear(); it.node.active = true; layer.k++; layer.open = true;
+    return it.g!;
+  }
+  private spriteAt(layer: RenderLayer): Sprite {
+    layer.open = false;
+    let it = layer.list[layer.k];
+    if (!it || !it.s) {
+      const node = new Node('Sprite'); node.layer = Layers.Enum.UI_2D;
+      node.addComponent(UITransform).setAnchorPoint(0, 1);
+      const s = node.addComponent(Sprite); s.sizeMode = Sprite.SizeMode.CUSTOM; s.trim = false; s.type = Sprite.Type.SIMPLE;
+      it = { node, g: null, s };
+      node.parent = layer.items; node.setSiblingIndex(layer.k); layer.list.splice(layer.k, 0, it);
+    }
+    it.node.active = true; layer.k++;
+    return it.s!;
+  }
+  private alphaColor(alpha: number): Color { return this.color(`#ffffff${Math.round(Math.max(0, Math.min(1, alpha)) * 255).toString(16).padStart(2, '0')}`); }
+
+  // ---------- 美术（ArtGen）：手机上调出图代码画进图集，图集画布直接做贴图 ----------
+  private makeCanvas(w: number, h: number): CanvasLike {
+    const wx = (globalThis as unknown as { wx?: { createCanvas?: () => CanvasLike } }).wx;
+    const c: CanvasLike = typeof document !== 'undefined' && document.createElement ? document.createElement('canvas') : wx!.createCanvas!();
+    c.width = w; c.height = h; return c;
+  }
+  private textureOf(canvas: CanvasLike): Texture2D {
+    const tex = new Texture2D(); tex.image = new ImageAsset(canvas as unknown as HTMLCanvasElement); return tex;
+  }
+  private whiteFrame(): SpriteFrame | null {
+    try {
+      const c = this.makeCanvas(4, 4), g = c.getContext('2d'); if (!g) return null;
+      g.fillStyle = '#ffffff'; g.fillRect(0, 0, 4, 4);
+      const sf = new SpriteFrame(); sf.reset({ texture: this.textureOf(c), rect: new Rect(1, 1, 2, 2), originalSize: new Size(2, 2), offset: new Vec2(0, 0), isRotate: false });
+      return sf;
+    } catch (e) { console.error('白块贴图建不出来，色块画不了', e); return null; }
+  }
+  private frameOf(name: string): SpriteFrame | null {
+    const hit = this.frames.get(name); if (hit) return hit;
+    const book = this.book, r = book?.get(name); if (!book || !r) return null;
+    const tex = this.textures[r.page] ?? (this.textures[r.page] = this.textureOf(book.pages[r.page]));
+    // 白块取中间，避免采样到边上的透明像素
+    const rect = name === 'white' ? new Rect(r.x + 1, r.y + 1, Math.max(1, r.w - 2), Math.max(1, r.h - 2)) : new Rect(r.x, r.y, r.w, r.h);
+    const sf = new SpriteFrame(); sf.reset({ texture: tex, rect, originalSize: new Size(rect.width, rect.height), offset: new Vec2(0, 0), isRotate: false });
+    this.frames.set(name, sf); return sf;
+  }
+  private startArt(app: GameController, gameView: GameView): void {
+    const scale = artScale(screen.windowSize.width);
+    runSliced(generate(ARTCODE, { scale, makeCanvas: (w, h) => this.makeCanvas(w, h), grain: THEME.artGrain }), THEME.artSliceMs)
+      .then(book => {
+        if (!this.isValid) return;
+        this.book = book;
+        const art = gameView.art = new ArtView(book, app.data);
+        app.muzzleOf = unit => art.muzzle(unit, app.battle.time);
+        console.log(`ArtGen：${book.regions.size} 张，${book.pages.length} 页图集，出图 ${book.ms} 毫秒，倍数 ${book.scale}，美术代码 ${book.version}`);
+      })
+      .catch(error => console.error('ArtGen 出图失败，继续用色块', error));
   }
   private paintLoading(message: string): void {
     this.paint([{ kind: 'rect', x: 0, y: 0, w: 750, h: this.designHeight, color: '#172333', layer: 0 }, ...message.split('\n').map((text, i): DrawCommand => ({ kind: 'text', text, x: 60, y: this.designHeight / 2 - 50 + i * 54, width: 630, size: 30, color: '#fff9ee', align: 'center', layer: 1 }))]);

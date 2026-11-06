@@ -14,6 +14,7 @@
     "typecheck:cocos": "node tools/check-cocos-types.mjs",
     "check:spec": "node tools/check-spec.mjs",
     "check:source": "node tools/check-source.mjs",
+    "bundle:art": "node tools/bundle-art.mjs",
     "check": "npm test && npm run typecheck && npm run check:spec && npm run check:source",
     "build:preview": "node tools/build-preview.mjs",
     "preview": "node tools/serve.mjs preview 7456",

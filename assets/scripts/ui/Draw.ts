@@ -1,10 +1,12 @@
-/** Renderer-neutral, block-only presentation. All coordinates use a top-left origin. */
+/** Renderer-neutral presentation: color blocks + text, plus art sprites once ArtGen has drawn them. All coordinates use a top-left origin. */
 export type Layer = 0 | 1 | 2 | 3 | 4;
 export type DrawCommand =
   | { kind: 'rect'; x: number; y: number; w: number; h: number; color: string; layer: Layer }
   | { kind: 'line'; x: number; y: number; x2: number; y2: number; width: number; color: string; layer: Layer }
   | { kind: 'poly'; points: [number, number][]; color: string; layer: Layer }
-  | { kind: 'text'; text: string; x: number; y: number; width: number; size: number; color: string; align: 'left' | 'center' | 'right'; layer: Layer };
+  | { kind: 'text'; text: string; x: number; y: number; width: number; size: number; color: string; align: 'left' | 'center' | 'right'; layer: Layer }
+  /** 美术贴图（ArtGen 图集里的一张）：本地矩形 [0,w]×[0,h] 经矩阵 m（同 Canvas setTransform）放到设计坐标；add = 叠加发光 */
+  | { kind: 'sprite'; img: string; m: [number, number, number, number, number, number]; w: number; h: number; alpha: number; add?: boolean; layer: Layer };
 export interface HitRegion {
   id: string; x: number; y: number; w: number; h: number;
   action: string; value?: string | number; repeat?: boolean; enabled?: boolean;

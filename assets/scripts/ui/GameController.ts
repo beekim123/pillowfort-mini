@@ -1,5 +1,5 @@
 import * as Core from '../core/index';
-import type { Battle, BattleEvent, GameData, MorningCard, Save, WaveResult, Point, ShotDef } from '../core/index';
+import type { Battle, BattleEvent, GameData, MorningCard, Save, WaveResult, Point, ShotDef, BattleUnit } from '../core/index';
 import { contains, HitRegion } from './Draw';
 import { THEME } from './Theme';
 
@@ -29,6 +29,8 @@ export class GameController {
   notices: Modal[] = [];
   effects: Effect[] = [];
   readonly projectileMuzzles = new Map<number, Point>();
+  /** 美术给的发射点（相对玩偶脚下）：适配器在 ArtGen 画好以后挂上；没有就用下面按朝向估的 */
+  muzzleOf: ((unit: BattleUnit) => Point | null) | null = null;
   rows: WaveResult[] = [];
   uiTime = 0;
   toast = '';
@@ -169,7 +171,7 @@ export class GameController {
       const color = ({ '枕': '#fff1d1', '暖': '#f3a16e', '凉': '#8bd8f2', '电': '#d1abf0', '臭': '#bed18c' } as Record<string, string>)[String(e.el ?? e.element)] ?? '#ffffff';
       if (type === 'shot' && unit) {
         const size = this.data.nest.dollSize;
-        this.projectileMuzzles.set(Number(e.projectileId), [unit.face === 'side' ? (unit.flip ? -size * 0.31 : size * 0.31) : 0, -size * (unit.face === 'back' ? 0.7 : 0.48)]);
+        this.projectileMuzzles.set(Number(e.projectileId), this.muzzleOf?.(unit) ?? [unit.face === 'side' ? (unit.flip ? -size * 0.31 : size * 0.31) : 0, -size * (unit.face === 'back' ? 0.7 : 0.48)]);
       }
       if (type === 'chain') {
         const fromEnemy = this.battle.enemies.find(n => n.id === Number(e.from));
