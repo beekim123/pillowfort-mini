@@ -1,0 +1,8 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> pillowfort-mini@0.1.0 build:wechat
+> node tools/build.mjs wechat
+
+尚未配置 Cocos Creator 3.8.8 可执行文件。请按 docs/BUILD.md 设置 COCOS_CREATOR。引擎构建未执行。
+
+EXIT_STATUS=2

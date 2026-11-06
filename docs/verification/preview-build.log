@@ -1,0 +1,6 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> pillowfort-mini@0.1.0 build:preview
+> node tools/build-preview.mjs
+
+PASS: 引擎外 Canvas 预览已生成到 preview/。它不是 Cocos 或 TapTap 构建。npm run preview 启动。

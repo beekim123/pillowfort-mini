@@ -1,0 +1,57 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> pillowfort-mini@0.1.0 check
+> npm test && npm run typecheck && npm run check:spec && npm run check:source
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> pillowfort-mini@0.1.0 test
+> vitest run
+
+▲ [WARNING] Cannot find base config file "./temp/tsconfig.cocos.json" [tsconfig.json]
+
+    tsconfig.json:2:13:
+      2 │   "extends": "./temp/tsconfig.cocos.json",
+        ╵              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+ RUN  v3.2.4 /workspace/shared/pillowfort-work/scaffold
+
+ ✓ tests/interface-regression.test.ts (6 tests) 88ms
+ ✓ tests/ui-interaction.test.ts (22 tests) 206ms
+ ✓ tests/independent-regression.test.ts (10 tests) 25ms
+ ✓ tests/core.test.ts (68 tests) 98ms
+ ✓ tests/platform.test.ts (1 test) 4ms
+
+ Test Files  5 passed (5)
+      Tests  107 passed (107)
+   Start at  00:56:16
+   Duration  1.99s (transform 303ms, setup 0ms, collect 497ms, tests 421ms, environment 1ms, prepare 328ms)
+
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.2
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.2
+npm notice To update run: npm install -g npm@12.2.2
+npm notice
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> pillowfort-mini@0.1.0 typecheck
+> tsc --noEmit -p tsconfig.check.json
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> pillowfort-mini@0.1.0 check:spec
+> node tools/check-spec.mjs
+
+PASS: 10 份规格文件完整；运行时两份 JSON 与原件逐字节一致。
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> pillowfort-mini@0.1.0 check:source
+> node tools/check-source.mjs
+
+PASS: 18 份 TypeScript 源码边界检查。此检查不代替引擎编译。
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.2
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.2
+npm notice To update run: npm install -g npm@12.2.2
+npm notice

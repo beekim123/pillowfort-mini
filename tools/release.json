@@ -1,0 +1,7 @@
+{
+  "title": "枕头堡", "code": "zhentou", "phase": "P1",
+  "h5Source": "build/web-mobile", "h5Output": "build/taptap-h5",
+  "wechatSource": "build/wechatgame", "wechatOutput": "build/wechat",
+  "wechatMainPackageReferenceBytes": 4000000,
+  "note": "这里只提供自包含候选工具。未接入用户本地 design/tools/build-kit；引擎运行包未在云端生成或验证。包体只记录，不删除资源。"
+}

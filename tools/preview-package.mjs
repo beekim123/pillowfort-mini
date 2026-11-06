@@ -1,0 +1,12 @@
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import { spawn,spawnSync } from 'node:child_process';
+const check=spawnSync(process.execPath,['tools/check-package.mjs','h5'],{stdio:'inherit'});if(check.status!==0)process.exit(check.status??1);
+const cfg=JSON.parse(fs.readFileSync('tools/release.json','utf8'));
+const name=fs.readFileSync(path.join(cfg.h5Output,'SHA256SUMS.txt'),'utf8').trim().split(/  /)[1];
+const dir=fs.mkdtempSync(path.join(os.tmpdir(),'pillowfort-h5-'));
+const unzip=spawnSync('unzip',['-q',path.resolve(cfg.h5Output,name),'-d',dir],{stdio:'inherit'});if(unzip.status!==0)throw new Error('解压失败');
+const child=spawn(process.execPath,['tools/serve.mjs',path.join(dir,'zhentou'),'7457'],{stdio:'inherit'});
+const clean=()=>fs.rmSync(dir,{recursive:true,force:true});child.on('exit',code=>{clean();process.exit(code??0);});
+process.on('SIGINT',()=>child.kill('SIGINT'));process.on('SIGTERM',()=>child.kill('SIGTERM'));

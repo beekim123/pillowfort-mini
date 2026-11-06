@@ -1,0 +1,9 @@
+{
+  "trackedFiles": 164,
+  "totalBytes": 5589593,
+  "forbiddenPaths": [],
+  "knownSecretPatternMatches": [],
+  "runtimeArtFiles": [],
+  "symlinks": [],
+  "excludedSelfReport": "docs/verification/source-boundary-check.json"
+}

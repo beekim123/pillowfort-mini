@@ -1,0 +1,124 @@
+[
+  {
+    "name": "Intro blocks field taps and pauses battle",
+    "pass": true
+  },
+  {
+    "name": "Dismiss intro via hit region",
+    "pass": true
+  },
+  {
+    "name": "Stay toggle responds and rejects immediate duplicate tap",
+    "pass": true
+  },
+  {
+    "name": "Open and close toys panel",
+    "pass": true
+  },
+  {
+    "name": "Open and close fort panel",
+    "pass": true
+  },
+  {
+    "name": "Open and close daily panel",
+    "pass": true
+  },
+  {
+    "name": "Open and close boxes panel",
+    "pass": true
+  },
+  {
+    "name": "Open and close settings panel",
+    "pass": true
+  },
+  {
+    "name": "Hold upgrade repeats and deducts currency",
+    "pass": true
+  },
+  {
+    "name": "Long press occupied slot shows breakdown and release does not place",
+    "pass": true
+  },
+  {
+    "name": "Slot placement swaps occupied toys",
+    "pass": true
+  },
+  {
+    "name": "Two-position swap route works",
+    "pass": true
+  },
+  {
+    "name": "Blank panel region does not trigger field beneath",
+    "pass": true
+  },
+  {
+    "name": "Flashlight drag changes mode and fires on charge",
+    "pass": true
+  },
+  {
+    "name": "Pointer cancel releases held controls",
+    "pass": true
+  },
+  {
+    "name": "Debug entry has three pages",
+    "pass": true
+  },
+  {
+    "name": "Reset cancellation preserves game",
+    "pass": true
+  },
+  {
+    "name": "Debug progression unlocks only P1 actors",
+    "pass": true
+  },
+  {
+    "name": "Free box modal and wishes use controller actions",
+    "pass": true
+  },
+  {
+    "name": "Boss entry and retreat keep wave 49 available",
+    "pass": true
+  },
+  {
+    "name": "20-hour offline action caps at 8 hours and collection is one-time",
+    "pass": true
+  },
+  {
+    "name": "Suspend/resume avoids counting active time twice",
+    "pass": true
+  },
+  {
+    "name": "Tall layout moves nests and tabs by exactly 290",
+    "pass": true
+  },
+  {
+    "name": "Production preview omits developer entry",
+    "pass": true
+  },
+  {
+    "name": "Stored progress survives a new controller instance",
+    "pass": true
+  },
+  {
+    "name": "CSV is structured and has required header",
+    "pass": true
+  }
+]
+SUPPLEMENTAL [
+  {
+    "name": "Support first click keeps field visible and draws only adjacent lines",
+    "pass": true
+  },
+  {
+    "name": "Breakdown displays last real hit rather than only base estimate",
+    "pass": true
+  },
+  {
+    "name": "Long breakdown pagination preserves readable controls",
+    "pass": true
+  },
+  {
+    "name": "Captain star label stays outside O3 toy bounds",
+    "pass": true
+  }
+]

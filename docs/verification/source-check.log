@@ -1,0 +1,6 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> pillowfort-mini@0.1.0 check:source
+> node tools/check-source.mjs
+
+PASS: 18 份 TypeScript 源码边界检查。此检查不代替引擎编译。

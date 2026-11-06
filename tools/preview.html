@@ -1,0 +1,6 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><title>枕头堡 · P1 色块玩法预览</title>
+<style>html,body{margin:0;height:100%;overflow:hidden;background:#111924}body{display:flex;justify-content:center;align-items:center}canvas{display:block;max-width:100%;max-height:100%;touch-action:none}#error{position:fixed;inset:20px;color:#fff;background:#8e3434;padding:20px;display:none;white-space:pre-wrap;font:16px sans-serif}</style></head>
+<body><canvas id="game" data-src="./levels.json" width="750" height="1334" aria-label="枕头堡色块玩法"></canvas><div id="error"></div>
+<script>function showError(message){const n=document.getElementById('error');n.style.display='block';n.textContent='预览加载失败\n'+message;}window.addEventListener('error',e=>showError(e.message));window.addEventListener('unhandledrejection',e=>showError(String(e.reason)));</script>
+<script type="module" src="./scripts/ui/CanvasPreview.js"></script></body></html>

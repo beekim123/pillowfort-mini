@@ -1,0 +1,13 @@
+{
+  "method": "Node hit-region driven controller checks and independent DrawCommand offline rendering. Not browser, Cocos or device screenshots.",
+  "baseline_checks": 26,
+  "supplemental_checks": 4,
+  "passed": 30,
+  "failed": 0,
+  "rendered_frames": 32,
+  "text_commands": 1781,
+  "hit_regions": 761,
+  "hit_regions_out_of_bounds": [],
+  "text_width_or_screen_issues": [],
+  "blocking_findings": []
+}

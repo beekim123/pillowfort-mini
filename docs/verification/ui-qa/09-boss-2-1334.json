@@ -1,0 +1,1264 @@
+{
+  "width": 750,
+  "height": 1334,
+  "frame": {
+    "commands": [
+      {
+        "kind": "rect",
+        "x": 0,
+        "y": 0,
+        "w": 750,
+        "h": 1334,
+        "color": "#172333",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 0,
+        "y": 152,
+        "w": 750,
+        "h": 110,
+        "color": "#3d4963",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 0,
+        "y": 236,
+        "w": 750,
+        "h": 26,
+        "color": "#52617b",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 126,
+        "y": 250,
+        "w": 26,
+        "h": 12,
+        "color": "#78869c",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 244,
+        "y": 250,
+        "w": 26,
+        "h": 12,
+        "color": "#78869c",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 362,
+        "y": 250,
+        "w": 26,
+        "h": 12,
+        "color": "#78869c",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 480,
+        "y": 250,
+        "w": 26,
+        "h": 12,
+        "color": "#78869c",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 598,
+        "y": 250,
+        "w": 26,
+        "h": 12,
+        "color": "#78869c",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 0,
+        "y": 780,
+        "w": 750,
+        "h": 410,
+        "color": "#77869c",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 90,
+        "y": 938,
+        "w": 570,
+        "h": 262,
+        "color": "#8d9bb0",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 214,
+        "y": 1035,
+        "w": 322,
+        "h": 167,
+        "color": "#a8b2c3",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 320,
+        "y": 219.82050000000015,
+        "w": 110,
+        "h": 110,
+        "color": "#b496cf",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 320,
+        "y": 210.82050000000015,
+        "w": 110,
+        "h": 5,
+        "color": "#3b4358",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 320,
+        "y": 210.82050000000015,
+        "w": 109.99999999965077,
+        "h": 5,
+        "color": "#9bc7a3",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "期末大考卷",
+        "x": 235,
+        "y": 175.82050000000015,
+        "width": 280,
+        "size": 24,
+        "color": "#ffffff",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "415兆 / 415兆",
+        "x": 80,
+        "y": 370,
+        "width": 590,
+        "size": 24,
+        "color": "#ffffff",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "慢 ",
+        "x": 295,
+        "y": 333.82050000000015,
+        "width": 160,
+        "size": 22,
+        "color": "#ffffff",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 19,
+        "y": 1011,
+        "w": 92,
+        "h": 92,
+        "color": "#b4bfd0",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 24,
+        "y": 1016,
+        "w": 82,
+        "h": 82,
+        "color": "#d1d8e1",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "+",
+        "x": 21,
+        "y": 1045,
+        "width": 88,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 140,
+        "y": 854,
+        "w": 92,
+        "h": 92,
+        "color": "#b4bfd0",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 145,
+        "y": 859,
+        "w": 82,
+        "h": 82,
+        "color": "#d1d8e1",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "+",
+        "x": 142,
+        "y": 888,
+        "width": 88,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 329,
+        "y": 794,
+        "w": 92,
+        "h": 92,
+        "color": "#b4bfd0",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 334,
+        "y": 799,
+        "w": 82,
+        "h": 82,
+        "color": "#d1d8e1",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 518,
+        "y": 854,
+        "w": 92,
+        "h": 92,
+        "color": "#b4bfd0",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 523,
+        "y": 859,
+        "w": 82,
+        "h": 82,
+        "color": "#d1d8e1",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "+",
+        "x": 520,
+        "y": 888,
+        "width": 88,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 639,
+        "y": 1011,
+        "w": 92,
+        "h": 92,
+        "color": "#b4bfd0",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 644,
+        "y": 1016,
+        "w": 82,
+        "h": 82,
+        "color": "#d1d8e1",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "+",
+        "x": 641,
+        "y": 1045,
+        "width": 88,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 128,
+        "y": 1008,
+        "w": 92,
+        "h": 92,
+        "color": "#b4bfd0",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 133,
+        "y": 1013,
+        "w": 82,
+        "h": 82,
+        "color": "#d1d8e1",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "+",
+        "x": 130,
+        "y": 1042,
+        "width": 88,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 250,
+        "y": 906,
+        "w": 92,
+        "h": 92,
+        "color": "#b4bfd0",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 255,
+        "y": 911,
+        "w": 82,
+        "h": 82,
+        "color": "#d1d8e1",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 408,
+        "y": 906,
+        "w": 92,
+        "h": 92,
+        "color": "#b4bfd0",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 413,
+        "y": 911,
+        "w": 82,
+        "h": 82,
+        "color": "#d1d8e1",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 530,
+        "y": 1008,
+        "w": 92,
+        "h": 92,
+        "color": "#b4bfd0",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 535,
+        "y": 1013,
+        "w": 82,
+        "h": 82,
+        "color": "#d1d8e1",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "+",
+        "x": 532,
+        "y": 1042,
+        "width": 88,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 226,
+        "y": 1037,
+        "w": 92,
+        "h": 92,
+        "color": "#b4bfd0",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 231,
+        "y": 1042,
+        "w": 82,
+        "h": 82,
+        "color": "#d1d8e1",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "+",
+        "x": 228,
+        "y": 1071,
+        "width": 88,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 329,
+        "y": 989,
+        "w": 92,
+        "h": 92,
+        "color": "#b4bfd0",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 334,
+        "y": 994,
+        "w": 82,
+        "h": 82,
+        "color": "#d1d8e1",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "+",
+        "x": 331,
+        "y": 1023,
+        "width": 88,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 432,
+        "y": 1037,
+        "w": 92,
+        "h": 92,
+        "color": "#b4bfd0",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 437,
+        "y": 1042,
+        "w": 82,
+        "h": 82,
+        "color": "#d1d8e1",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "+",
+        "x": 434,
+        "y": 1071,
+        "width": 88,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 340.5,
+        "y": 805.5,
+        "w": 69,
+        "h": 69,
+        "color": "#f6eedc",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "方方",
+        "x": 335,
+        "y": 825,
+        "width": 80,
+        "size": 24,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "挡 · 5",
+        "x": 325,
+        "y": 876,
+        "width": 100,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 341,
+        "y": 793,
+        "w": 68,
+        "h": 7,
+        "color": "#4c5568",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 341,
+        "y": 793,
+        "w": 68,
+        "h": 7,
+        "color": "#9bc7a3",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 261.5,
+        "y": 917.5,
+        "w": 69,
+        "h": 69,
+        "color": "#e8a071",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "呼呼",
+        "x": 256,
+        "y": 937,
+        "width": 80,
+        "size": 24,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "打 · 1",
+        "x": 246,
+        "y": 988,
+        "width": 100,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 419.5,
+        "y": 917.5,
+        "w": 69,
+        "h": 69,
+        "color": "#7bc0de",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "嘎嘎",
+        "x": 414,
+        "y": 937,
+        "width": 80,
+        "size": 24,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "打 · 1",
+        "x": 404,
+        "y": 988,
+        "width": 100,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 327,
+        "y": 740,
+        "w": 96,
+        "h": 60,
+        "color": "#f6eedc",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "绵绵",
+        "x": 327,
+        "y": 754,
+        "width": 96,
+        "size": 26,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "★1",
+        "x": 435,
+        "y": 758,
+        "width": 80,
+        "size": 22,
+        "color": "#ffffff",
+        "align": "left",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 295,
+        "y": 1116,
+        "w": 160,
+        "h": 88,
+        "color": "#c8b0e7",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "糯糯在睡觉",
+        "x": 305,
+        "y": 1148,
+        "width": 140,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 431,
+        "y": 1126,
+        "w": 18,
+        "h": 42,
+        "color": "#f4ce73",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 20,
+        "y": 1120,
+        "w": 80,
+        "h": 90,
+        "color": "#f4ce73",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "小夜",
+        "x": 32,
+        "y": 1140,
+        "width": 56,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "灯",
+        "x": 32,
+        "y": 1168.6,
+        "width": 56,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 650,
+        "y": 1120,
+        "w": 80,
+        "h": 90,
+        "color": "#b4bfd0",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "设施",
+        "x": 662,
+        "y": 1140,
+        "width": 56,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 130,
+        "y": 1135,
+        "w": 80,
+        "h": 80,
+        "color": "#b4bfd0",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "设施",
+        "x": 142,
+        "y": 1155,
+        "width": 56,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 370,
+        "y": 835,
+        "w": 10,
+        "h": 10,
+        "color": "#fff1d1",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "1,317",
+        "x": 290,
+        "y": 244.82050000000015,
+        "width": 170,
+        "size": 26,
+        "color": "#ffffff",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 449,
+        "y": 947,
+        "w": 10,
+        "h": 10,
+        "color": "#8bd8f2",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 20,
+        "y": 170,
+        "w": 120,
+        "h": 50,
+        "color": "#d9c7a4",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "羊回家",
+        "x": 32,
+        "y": 182,
+        "width": 96,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 0,
+        "y": 0,
+        "w": 750,
+        "h": 96,
+        "color": "#fff9ee",
+        "layer": 1
+      },
+      {
+        "kind": "text",
+        "text": "学校的梦 · 大噩梦",
+        "x": 24,
+        "y": 9,
+        "width": 482,
+        "size": 28,
+        "color": "#273247",
+        "align": "left",
+        "layer": 1
+      },
+      {
+        "kind": "text",
+        "text": "羊 10万",
+        "x": 24,
+        "y": 52,
+        "width": 310,
+        "size": 24,
+        "color": "#273247",
+        "align": "left",
+        "layer": 1
+      },
+      {
+        "kind": "text",
+        "text": "糖 980",
+        "x": 338,
+        "y": 52,
+        "width": 182,
+        "size": 22,
+        "color": "#7a5d80",
+        "align": "left",
+        "layer": 1
+      },
+      {
+        "kind": "rect",
+        "x": 0,
+        "y": 96,
+        "w": 750,
+        "h": 56,
+        "color": "#dfe6eb",
+        "layer": 1
+      },
+      {
+        "kind": "text",
+        "text": "厚度 3/3",
+        "x": 22,
+        "y": 110,
+        "width": 175,
+        "size": 22,
+        "color": "#273247",
+        "align": "left",
+        "layer": 1
+      },
+      {
+        "kind": "text",
+        "text": "大噩梦来啦",
+        "x": 194,
+        "y": 110,
+        "width": 170,
+        "size": 22,
+        "color": "#273247",
+        "align": "left",
+        "layer": 1
+      },
+      {
+        "kind": "rect",
+        "x": 369,
+        "y": 102,
+        "w": 177,
+        "h": 44,
+        "color": "#9bc7a3",
+        "layer": 1
+      },
+      {
+        "kind": "text",
+        "text": "已停在这波",
+        "x": 381,
+        "y": 108.4,
+        "width": 153,
+        "size": 24,
+        "color": "#273247",
+        "align": "center",
+        "layer": 1
+      },
+      {
+        "kind": "rect",
+        "x": 560,
+        "y": 102,
+        "w": 170,
+        "h": 44,
+        "color": "#f4ce73",
+        "layer": 1
+      },
+      {
+        "kind": "text",
+        "text": "先回去",
+        "x": 572,
+        "y": 108.4,
+        "width": 146,
+        "size": 24,
+        "color": "#273247",
+        "align": "center",
+        "layer": 1
+      },
+      {
+        "kind": "rect",
+        "x": 644,
+        "y": 784,
+        "w": 92,
+        "h": 92,
+        "color": "#99aabd",
+        "layer": 1
+      },
+      {
+        "kind": "text",
+        "text": "手电",
+        "x": 656,
+        "y": 802,
+        "width": 68,
+        "size": 24,
+        "color": "#273247",
+        "align": "center",
+        "layer": 1
+      },
+      {
+        "kind": "text",
+        "text": "5%",
+        "x": 654,
+        "y": 834,
+        "width": 72,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 1
+      },
+      {
+        "kind": "rect",
+        "x": 644,
+        "y": 870,
+        "w": 4.6,
+        "h": 6,
+        "color": "#f6eedc",
+        "layer": 1
+      },
+      {
+        "kind": "text",
+        "text": "拖动瞄准",
+        "x": 610,
+        "y": 885,
+        "width": 128,
+        "size": 22,
+        "color": "#ffffff",
+        "align": "center",
+        "layer": 1
+      },
+      {
+        "kind": "rect",
+        "x": 0,
+        "y": 1224,
+        "w": 750,
+        "h": 110,
+        "color": "#fff9ee",
+        "layer": 1
+      },
+      {
+        "kind": "text",
+        "text": "玩偶",
+        "x": 12,
+        "y": 1259,
+        "width": 126,
+        "size": 28,
+        "color": "#273247",
+        "align": "center",
+        "layer": 1
+      },
+      {
+        "kind": "text",
+        "text": "枕头堡",
+        "x": 162,
+        "y": 1259,
+        "width": 126,
+        "size": 28,
+        "color": "#273247",
+        "align": "center",
+        "layer": 1
+      },
+      {
+        "kind": "text",
+        "text": "白天",
+        "x": 312,
+        "y": 1259,
+        "width": 126,
+        "size": 28,
+        "color": "#273247",
+        "align": "center",
+        "layer": 1
+      },
+      {
+        "kind": "text",
+        "text": "纸箱",
+        "x": 462,
+        "y": 1259,
+        "width": 126,
+        "size": 28,
+        "color": "#273247",
+        "align": "center",
+        "layer": 1
+      },
+      {
+        "kind": "text",
+        "text": "设置",
+        "x": 612,
+        "y": 1259,
+        "width": 126,
+        "size": 28,
+        "color": "#273247",
+        "align": "center",
+        "layer": 1
+      }
+    ],
+    "hitRegions": [
+      {
+        "id": "slot-0",
+        "x": 19,
+        "y": 1011,
+        "w": 92,
+        "h": 92,
+        "action": "slot",
+        "value": 0,
+        "enabled": true,
+        "repeat": false
+      },
+      {
+        "id": "slot-1",
+        "x": 140,
+        "y": 854,
+        "w": 92,
+        "h": 92,
+        "action": "slot",
+        "value": 1,
+        "enabled": true,
+        "repeat": false
+      },
+      {
+        "id": "slot-2",
+        "x": 329,
+        "y": 794,
+        "w": 92,
+        "h": 92,
+        "action": "slot",
+        "value": 2,
+        "enabled": true,
+        "repeat": false
+      },
+      {
+        "id": "slot-3",
+        "x": 518,
+        "y": 854,
+        "w": 92,
+        "h": 92,
+        "action": "slot",
+        "value": 3,
+        "enabled": true,
+        "repeat": false
+      },
+      {
+        "id": "slot-4",
+        "x": 639,
+        "y": 1011,
+        "w": 92,
+        "h": 92,
+        "action": "slot",
+        "value": 4,
+        "enabled": true,
+        "repeat": false
+      },
+      {
+        "id": "slot-5",
+        "x": 128,
+        "y": 1008,
+        "w": 92,
+        "h": 92,
+        "action": "slot",
+        "value": 5,
+        "enabled": true,
+        "repeat": false
+      },
+      {
+        "id": "slot-6",
+        "x": 250,
+        "y": 906,
+        "w": 92,
+        "h": 92,
+        "action": "slot",
+        "value": 6,
+        "enabled": true,
+        "repeat": false
+      },
+      {
+        "id": "slot-7",
+        "x": 408,
+        "y": 906,
+        "w": 92,
+        "h": 92,
+        "action": "slot",
+        "value": 7,
+        "enabled": true,
+        "repeat": false
+      },
+      {
+        "id": "slot-8",
+        "x": 530,
+        "y": 1008,
+        "w": 92,
+        "h": 92,
+        "action": "slot",
+        "value": 8,
+        "enabled": true,
+        "repeat": false
+      },
+      {
+        "id": "slot-9",
+        "x": 226,
+        "y": 1037,
+        "w": 92,
+        "h": 92,
+        "action": "slot",
+        "value": 9,
+        "enabled": true,
+        "repeat": false
+      },
+      {
+        "id": "slot-10",
+        "x": 329,
+        "y": 989,
+        "w": 92,
+        "h": 92,
+        "action": "slot",
+        "value": 10,
+        "enabled": true,
+        "repeat": false
+      },
+      {
+        "id": "slot-11",
+        "x": 432,
+        "y": 1037,
+        "w": 92,
+        "h": 92,
+        "action": "slot",
+        "value": 11,
+        "enabled": true,
+        "repeat": false
+      },
+      {
+        "id": "captain",
+        "x": 327,
+        "y": 740,
+        "w": 96,
+        "h": 60,
+        "action": "tab",
+        "value": "toys",
+        "enabled": true,
+        "repeat": false
+      },
+      {
+        "id": "device-0",
+        "x": 20,
+        "y": 1120,
+        "w": 80,
+        "h": 90,
+        "action": "tab",
+        "value": "fort",
+        "enabled": true,
+        "repeat": false
+      },
+      {
+        "id": "device-1",
+        "x": 650,
+        "y": 1120,
+        "w": 80,
+        "h": 90,
+        "action": "tab",
+        "value": "fort",
+        "enabled": true,
+        "repeat": false
+      },
+      {
+        "id": "device-2",
+        "x": 130,
+        "y": 1135,
+        "w": 80,
+        "h": 80,
+        "action": "tab",
+        "value": "fort",
+        "enabled": true,
+        "repeat": false
+      },
+      {
+        "id": "stay",
+        "x": 369,
+        "y": 102,
+        "w": 177,
+        "h": 44,
+        "action": "stay",
+        "enabled": true,
+        "repeat": false
+      },
+      {
+        "id": "boss",
+        "x": 560,
+        "y": 102,
+        "w": 170,
+        "h": 44,
+        "action": "retreat",
+        "enabled": true,
+        "repeat": false
+      },
+      {
+        "id": "flash",
+        "x": 644,
+        "y": 784,
+        "w": 92,
+        "h": 92,
+        "action": "flash",
+        "enabled": true,
+        "repeat": false
+      },
+      {
+        "id": "tab-toys",
+        "x": 0,
+        "y": 1224,
+        "w": 150,
+        "h": 110,
+        "action": "tab",
+        "value": "toys",
+        "enabled": true,
+        "repeat": false
+      },
+      {
+        "id": "tab-fort",
+        "x": 150,
+        "y": 1224,
+        "w": 150,
+        "h": 110,
+        "action": "tab",
+        "value": "fort",
+        "enabled": true,
+        "repeat": false
+      },
+      {
+        "id": "tab-daily",
+        "x": 300,
+        "y": 1224,
+        "w": 150,
+        "h": 110,
+        "action": "tab",
+        "value": "daily",
+        "enabled": true,
+        "repeat": false
+      },
+      {
+        "id": "tab-boxes",
+        "x": 450,
+        "y": 1224,
+        "w": 150,
+        "h": 110,
+        "action": "tab",
+        "value": "boxes",
+        "enabled": true,
+        "repeat": false
+      },
+      {
+        "id": "tab-settings",
+        "x": 600,
+        "y": 1224,
+        "w": 150,
+        "h": 110,
+        "action": "tab",
+        "value": "settings",
+        "enabled": true,
+        "repeat": false
+      }
+    ]
+  }
+}

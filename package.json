@@ -1,0 +1,37 @@
+{
+  "name": "pillowfort-mini",
+  "version": "0.1.0",
+  "private": true,
+  "uuid": "3e29d1c9-7a1f-4c6b-a4c9-4d23d4db19ce",
+  "creator": {
+    "version": "3.8.8"
+  },
+  "description": "枕头堡 P1 · 纯色块玩法候选工程",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit -p tsconfig.check.json",
+    "typecheck:cocos": "node tools/check-cocos-types.mjs",
+    "check:spec": "node tools/check-spec.mjs",
+    "check:source": "node tools/check-source.mjs",
+    "check": "npm test && npm run typecheck && npm run check:spec && npm run check:source",
+    "build:preview": "node tools/build-preview.mjs",
+    "preview": "node tools/serve.mjs preview 7456",
+    "build:h5": "node tools/build.mjs h5",
+    "build:wechat": "node tools/build.mjs wechat",
+    "build:all": "npm run build:h5 && npm run build:wechat",
+    "package:h5": "node tools/package.mjs h5",
+    "package:wechat": "node tools/package.mjs wechat",
+    "package:all": "npm run package:h5 && npm run package:wechat",
+    "check:h5": "node tools/check-package.mjs h5",
+    "check:packages": "node tools/check-package.mjs all",
+    "preview:h5": "node tools/preview-package.mjs",
+    "simulate:20m": "node tools/simulate.mjs",
+    "test:packaging": "node tools/test-packaging.mjs",
+    "smoke:progression": "npm run build:preview && node tools/progression-smoke.mjs"
+  },
+  "devDependencies": {
+    "typescript": "5.8.3",
+    "vitest": "3.2.4"
+  }
+}

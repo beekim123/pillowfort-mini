@@ -1,0 +1,1525 @@
+{
+  "width": 750,
+  "height": 1334,
+  "frame": {
+    "commands": [
+      {
+        "kind": "rect",
+        "x": 0,
+        "y": 0,
+        "w": 750,
+        "h": 1334,
+        "color": "#172333",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 0,
+        "y": 152,
+        "w": 750,
+        "h": 110,
+        "color": "#3d4963",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 0,
+        "y": 236,
+        "w": 750,
+        "h": 26,
+        "color": "#52617b",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 126,
+        "y": 250,
+        "w": 26,
+        "h": 12,
+        "color": "#78869c",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 244,
+        "y": 250,
+        "w": 26,
+        "h": 12,
+        "color": "#78869c",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 362,
+        "y": 250,
+        "w": 26,
+        "h": 12,
+        "color": "#78869c",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 480,
+        "y": 250,
+        "w": 26,
+        "h": 12,
+        "color": "#78869c",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 598,
+        "y": 250,
+        "w": 26,
+        "h": 12,
+        "color": "#78869c",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 0,
+        "y": 780,
+        "w": 750,
+        "h": 410,
+        "color": "#77869c",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 90,
+        "y": 938,
+        "w": 570,
+        "h": 262,
+        "color": "#8d9bb0",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 214,
+        "y": 1035,
+        "w": 322,
+        "h": 167,
+        "color": "#a8b2c3",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 605.6192442559138,
+        "y": 365.1323840420407,
+        "w": 50,
+        "h": 50,
+        "color": "#8997bc",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 605.6192442559138,
+        "y": 356.1323840420407,
+        "w": 50,
+        "h": 5,
+        "color": "#3b4358",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 605.6192442559138,
+        "y": 356.1323840420407,
+        "w": 50,
+        "h": 5,
+        "color": "#9bc7a3",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "滴答",
+        "x": 593.6192442559138,
+        "y": 378.1323840420407,
+        "width": 74,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 70.70786895374215,
+        "y": 335.8489573735757,
+        "w": 50,
+        "h": 50,
+        "color": "#8997bc",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 70.70786895374215,
+        "y": 326.8489573735757,
+        "w": 50,
+        "h": 5,
+        "color": "#3b4358",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 70.70786895374215,
+        "y": 326.8489573735757,
+        "w": 50,
+        "h": 5,
+        "color": "#9bc7a3",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "楼梯",
+        "x": 58.70786895374215,
+        "y": 348.8489573735757,
+        "width": 74,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 334.4217740532143,
+        "y": 283.99097198469184,
+        "w": 50,
+        "h": 50,
+        "color": "#e8a071",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 334.4217740532143,
+        "y": 274.99097198469184,
+        "w": 50,
+        "h": 5,
+        "color": "#3b4358",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 334.4217740532143,
+        "y": 274.99097198469184,
+        "w": 49.999766673183395,
+        "h": 5,
+        "color": "#9bc7a3",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "滴答",
+        "x": 322.4217740532143,
+        "y": 296.99097198469184,
+        "width": 74,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "慢 烘 ",
+        "x": 279.4217740532143,
+        "y": 337.99097198469184,
+        "width": 160,
+        "size": 22,
+        "color": "#ffffff",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 67.08876476741489,
+        "y": 271.448264659688,
+        "w": 50,
+        "h": 50,
+        "color": "#8997bc",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 67.08876476741489,
+        "y": 262.448264659688,
+        "w": 50,
+        "h": 5,
+        "color": "#3b4358",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 67.08876476741489,
+        "y": 262.448264659688,
+        "w": 50,
+        "h": 5,
+        "color": "#9bc7a3",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "滴答",
+        "x": 55.08876476741489,
+        "y": 284.448264659688,
+        "width": 74,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 130.1718652260031,
+        "y": 239.12868623794765,
+        "w": 50,
+        "h": 50,
+        "color": "#8997bc",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 130.1718652260031,
+        "y": 230.12868623794765,
+        "w": 50,
+        "h": 5,
+        "color": "#3b4358",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 130.1718652260031,
+        "y": 230.12868623794765,
+        "w": 50,
+        "h": 5,
+        "color": "#9bc7a3",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "滴答",
+        "x": 118.17186522600309,
+        "y": 252.12868623794765,
+        "width": 74,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 19,
+        "y": 1011,
+        "w": 92,
+        "h": 92,
+        "color": "#b4bfd0",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 24,
+        "y": 1016,
+        "w": 82,
+        "h": 82,
+        "color": "#d1d8e1",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "+",
+        "x": 21,
+        "y": 1045,
+        "width": 88,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 140,
+        "y": 854,
+        "w": 92,
+        "h": 92,
+        "color": "#b4bfd0",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 145,
+        "y": 859,
+        "w": 82,
+        "h": 82,
+        "color": "#d1d8e1",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "+",
+        "x": 142,
+        "y": 888,
+        "width": 88,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 329,
+        "y": 794,
+        "w": 92,
+        "h": 92,
+        "color": "#b4bfd0",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 334,
+        "y": 799,
+        "w": 82,
+        "h": 82,
+        "color": "#d1d8e1",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 518,
+        "y": 854,
+        "w": 92,
+        "h": 92,
+        "color": "#b4bfd0",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 523,
+        "y": 859,
+        "w": 82,
+        "h": 82,
+        "color": "#d1d8e1",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "+",
+        "x": 520,
+        "y": 888,
+        "width": 88,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 639,
+        "y": 1011,
+        "w": 92,
+        "h": 92,
+        "color": "#b4bfd0",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 644,
+        "y": 1016,
+        "w": 82,
+        "h": 82,
+        "color": "#d1d8e1",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "+",
+        "x": 641,
+        "y": 1045,
+        "width": 88,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 128,
+        "y": 1008,
+        "w": 92,
+        "h": 92,
+        "color": "#b4bfd0",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 133,
+        "y": 1013,
+        "w": 82,
+        "h": 82,
+        "color": "#d1d8e1",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "+",
+        "x": 130,
+        "y": 1042,
+        "width": 88,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 250,
+        "y": 906,
+        "w": 92,
+        "h": 92,
+        "color": "#b4bfd0",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 255,
+        "y": 911,
+        "w": 82,
+        "h": 82,
+        "color": "#d1d8e1",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 408,
+        "y": 906,
+        "w": 92,
+        "h": 92,
+        "color": "#b4bfd0",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 413,
+        "y": 911,
+        "w": 82,
+        "h": 82,
+        "color": "#d1d8e1",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 530,
+        "y": 1008,
+        "w": 92,
+        "h": 92,
+        "color": "#b4bfd0",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 535,
+        "y": 1013,
+        "w": 82,
+        "h": 82,
+        "color": "#d1d8e1",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 226,
+        "y": 1037,
+        "w": 92,
+        "h": 92,
+        "color": "#b4bfd0",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 231,
+        "y": 1042,
+        "w": 82,
+        "h": 82,
+        "color": "#d1d8e1",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "+",
+        "x": 228,
+        "y": 1071,
+        "width": 88,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 329,
+        "y": 989,
+        "w": 92,
+        "h": 92,
+        "color": "#b4bfd0",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 334,
+        "y": 994,
+        "w": 82,
+        "h": 82,
+        "color": "#d1d8e1",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "+",
+        "x": 331,
+        "y": 1023,
+        "width": 88,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 432,
+        "y": 1037,
+        "w": 92,
+        "h": 92,
+        "color": "#b4bfd0",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 437,
+        "y": 1042,
+        "w": 82,
+        "h": 82,
+        "color": "#d1d8e1",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "+",
+        "x": 434,
+        "y": 1071,
+        "width": 88,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 340.5,
+        "y": 805.5,
+        "w": 69,
+        "h": 69,
+        "color": "#f6eedc",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "方方",
+        "x": 335,
+        "y": 825,
+        "width": 80,
+        "size": 24,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "挡 · 5",
+        "x": 325,
+        "y": 876,
+        "width": 100,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 341,
+        "y": 793,
+        "w": 68,
+        "h": 7,
+        "color": "#4c5568",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 341,
+        "y": 793,
+        "w": 68,
+        "h": 7,
+        "color": "#9bc7a3",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 261.5,
+        "y": 917.5,
+        "w": 69,
+        "h": 69,
+        "color": "#f6eedc",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "叮当",
+        "x": 256,
+        "y": 937,
+        "width": 80,
+        "size": 24,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "帮 · 1",
+        "x": 246,
+        "y": 988,
+        "width": 100,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 419.5,
+        "y": 917.5,
+        "w": 69,
+        "h": 69,
+        "color": "#e8a071",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "呼呼",
+        "x": 414,
+        "y": 937,
+        "width": 80,
+        "size": 24,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "打 · 1",
+        "x": 404,
+        "y": 988,
+        "width": 100,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 541.5,
+        "y": 1019.5,
+        "w": 69,
+        "h": 69,
+        "color": "#7bc0de",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "嘎嘎",
+        "x": 536,
+        "y": 1039,
+        "width": 80,
+        "size": 24,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "打 · 1",
+        "x": 526,
+        "y": 1090,
+        "width": 100,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 327,
+        "y": 740,
+        "w": 96,
+        "h": 60,
+        "color": "#f6eedc",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "绵绵",
+        "x": 327,
+        "y": 754,
+        "width": 96,
+        "size": 26,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "★1",
+        "x": 435,
+        "y": 758,
+        "width": 80,
+        "size": 22,
+        "color": "#ffffff",
+        "align": "left",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 295,
+        "y": 1116,
+        "w": 160,
+        "h": 88,
+        "color": "#c8b0e7",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "糯糯在睡觉",
+        "x": 305,
+        "y": 1148,
+        "width": 140,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 431,
+        "y": 1126,
+        "w": 18,
+        "h": 42,
+        "color": "#f4ce73",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 20,
+        "y": 1120,
+        "w": 80,
+        "h": 90,
+        "color": "#f4ce73",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "小夜",
+        "x": 32,
+        "y": 1140,
+        "width": 56,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "灯",
+        "x": 32,
+        "y": 1168.6,
+        "width": 56,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 650,
+        "y": 1120,
+        "w": 80,
+        "h": 90,
+        "color": "#b4bfd0",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "设施",
+        "x": 662,
+        "y": 1140,
+        "width": 56,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 130,
+        "y": 1135,
+        "w": 80,
+        "h": 80,
+        "color": "#b4bfd0",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "设施",
+        "x": 142,
+        "y": 1155,
+        "width": 56,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "2,146",
+        "x": 272.91772238315997,
+        "y": 183.5158378059578,
+        "width": 170,
+        "size": 26,
+        "color": "#ffffff",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "46",
+        "x": 273.970558552198,
+        "y": 246.59843173107163,
+        "width": 170,
+        "size": 26,
+        "color": "#ffffff",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 370,
+        "y": 835,
+        "w": 10,
+        "h": 10,
+        "color": "#fff1d1",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "1,680",
+        "x": 274.4217740532143,
+        "y": 278.99097198469184,
+        "width": 170,
+        "size": 26,
+        "color": "#ffffff",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 291,
+        "y": 947,
+        "w": 10,
+        "h": 10,
+        "color": "#fff1d1",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 571,
+        "y": 1049,
+        "w": 10,
+        "h": 10,
+        "color": "#8bd8f2",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 20,
+        "y": 170,
+        "w": 120,
+        "h": 50,
+        "color": "#d9c7a4",
+        "layer": 0
+      },
+      {
+        "kind": "text",
+        "text": "羊回家",
+        "x": 32,
+        "y": 182,
+        "width": 96,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 0
+      },
+      {
+        "kind": "rect",
+        "x": 0,
+        "y": 0,
+        "w": 750,
+        "h": 96,
+        "color": "#fff9ee",
+        "layer": 1
+      },
+      {
+        "kind": "text",
+        "text": "夜里的家 · 49",
+        "x": 24,
+        "y": 9,
+        "width": 482,
+        "size": 28,
+        "color": "#273247",
+        "align": "left",
+        "layer": 1
+      },
+      {
+        "kind": "text",
+        "text": "羊 38.92万",
+        "x": 24,
+        "y": 52,
+        "width": 310,
+        "size": 24,
+        "color": "#273247",
+        "align": "left",
+        "layer": 1
+      },
+      {
+        "kind": "text",
+        "text": "糖 996",
+        "x": 338,
+        "y": 52,
+        "width": 182,
+        "size": 22,
+        "color": "#7a5d80",
+        "align": "left",
+        "layer": 1
+      },
+      {
+        "kind": "rect",
+        "x": 0,
+        "y": 96,
+        "w": 750,
+        "h": 56,
+        "color": "#dfe6eb",
+        "layer": 1
+      },
+      {
+        "kind": "text",
+        "text": "厚度 3/3",
+        "x": 22,
+        "y": 110,
+        "width": 175,
+        "size": 22,
+        "color": "#273247",
+        "align": "left",
+        "layer": 1
+      },
+      {
+        "kind": "text",
+        "text": "还剩 8只",
+        "x": 194,
+        "y": 110,
+        "width": 170,
+        "size": 22,
+        "color": "#273247",
+        "align": "left",
+        "layer": 1
+      },
+      {
+        "kind": "rect",
+        "x": 369,
+        "y": 102,
+        "w": 177,
+        "h": 44,
+        "color": "#9bc7a3",
+        "layer": 1
+      },
+      {
+        "kind": "text",
+        "text": "已停在这波",
+        "x": 381,
+        "y": 108.4,
+        "width": 153,
+        "size": 24,
+        "color": "#273247",
+        "align": "center",
+        "layer": 1
+      },
+      {
+        "kind": "rect",
+        "x": 560,
+        "y": 102,
+        "w": 170,
+        "h": 44,
+        "color": "#f4ce73",
+        "layer": 1
+      },
+      {
+        "kind": "text",
+        "text": "打大噩梦",
+        "x": 572,
+        "y": 108.4,
+        "width": 146,
+        "size": 24,
+        "color": "#273247",
+        "align": "center",
+        "layer": 1
+      },
+      {
+        "kind": "rect",
+        "x": 644,
+        "y": 784,
+        "w": 92,
+        "h": 92,
+        "color": "#99aabd",
+        "layer": 1
+      },
+      {
+        "kind": "text",
+        "text": "手电",
+        "x": 656,
+        "y": 802,
+        "width": 68,
+        "size": 24,
+        "color": "#273247",
+        "align": "center",
+        "layer": 1
+      },
+      {
+        "kind": "text",
+        "text": "10%",
+        "x": 654,
+        "y": 834,
+        "width": 72,
+        "size": 22,
+        "color": "#273247",
+        "align": "center",
+        "layer": 1
+      },
+      {
+        "kind": "rect",
+        "x": 644,
+        "y": 870,
+        "w": 9.200000000000012,
+        "h": 6,
+        "color": "#f6eedc",
+        "layer": 1
+      },
+      {
+        "kind": "text",
+        "text": "拖动瞄准",
+        "x": 610,
+        "y": 885,
+        "width": 128,
+        "size": 22,
+        "color": "#ffffff",
+        "align": "center",
+        "layer": 1
+      },
+      {
+        "kind": "rect",
+        "x": 0,
+        "y": 1224,
+        "w": 750,
+        "h": 110,
+        "color": "#fff9ee",
+        "layer": 1
+      },
+      {
+        "kind": "text",
+        "text": "玩偶",
+        "x": 12,
+        "y": 1259,
+        "width": 126,
+        "size": 28,
+        "color": "#273247",
+        "align": "center",
+        "layer": 1
+      },
+      {
+        "kind": "text",
+        "text": "枕头堡",
+        "x": 162,
+        "y": 1259,
+        "width": 126,
+        "size": 28,
+        "color": "#273247",
+        "align": "center",
+        "layer": 1
+      },
+      {
+        "kind": "text",
+        "text": "白天",
+        "x": 312,
+        "y": 1259,
+        "width": 126,
+        "size": 28,
+        "color": "#273247",
+        "align": "center",
+        "layer": 1
+      },
+      {
+        "kind": "text",
+        "text": "纸箱",
+        "x": 462,
+        "y": 1259,
+        "width": 126,
+        "size": 28,
+        "color": "#273247",
+        "align": "center",
+        "layer": 1
+      },
+      {
+        "kind": "text",
+        "text": "设置",
+        "x": 612,
+        "y": 1259,
+        "width": 126,
+        "size": 28,
+        "color": "#273247",
+        "align": "center",
+        "layer": 1
+      },
+      {
+        "kind": "rect",
+        "x": 0,
+        "y": 0,
+        "w": 750,
+        "h": 1334,
+        "color": "#111a29c9",
+        "layer": 3
+      },
+      {
+        "kind": "rect",
+        "x": 54,
+        "y": 111.20000000000005,
+        "w": 642,
+        "h": 1111.6,
+        "color": "#fff9ee",
+        "layer": 3
+      },
+      {
+        "kind": "text",
+        "text": "方方 · 伤害分解",
+        "x": 90,
+        "y": 143.20000000000005,
+        "width": 570,
+        "size": 32,
+        "color": "#273247",
+        "align": "center",
+        "layer": 3
+      },
+      {
+        "kind": "text",
+        "text": "最近真实命中 · 本波2.00秒",
+        "x": 90,
+        "y": 216.20000000000005,
+        "width": 570,
+        "size": 24,
+        "color": "#273247",
+        "align": "center",
+        "layer": 3
+      },
+      {
+        "kind": "text",
+        "text": "目标：滴答水滴",
+        "x": 90,
+        "y": 262.40000000000003,
+        "width": 570,
+        "size": 24,
+        "color": "#273247",
+        "align": "center",
+        "layer": 3
+      },
+      {
+        "kind": "text",
+        "text": "基础攻击 ×5.441955840000001",
+        "x": 90,
+        "y": 308.6,
+        "width": 570,
+        "size": 24,
+        "color": "#273247",
+        "align": "center",
+        "layer": 3
+      },
+      {
+        "kind": "text",
+        "text": "不怕了 ×6.25",
+        "x": 90,
+        "y": 354.8,
+        "width": 570,
+        "size": 24,
+        "color": "#273247",
+        "align": "center",
+        "layer": 3
+      },
+      {
+        "kind": "text",
+        "text": "枕头堡 ×16.194483084250244",
+        "x": 90,
+        "y": 401,
+        "width": 570,
+        "size": 24,
+        "color": "#273247",
+        "align": "center",
+        "layer": 3
+      },
+      {
+        "kind": "text",
+        "text": "绵绵光环 ×1.2",
+        "x": 90,
+        "y": 447.2,
+        "width": 570,
+        "size": 24,
+        "color": "#273247",
+        "align": "center",
+        "layer": 3
+      },
+      {
+        "kind": "text",
+        "text": "每天的小事 ×1",
+        "x": 90,
+        "y": 493.4,
+        "width": 570,
+        "size": 24,
+        "color": "#273247",
+        "align": "center",
+        "layer": 3
+      },
+      {
+        "kind": "text",
+        "text": "小夜灯 ×1.2",
+        "x": 90,
+        "y": 539.6,
+        "width": 570,
+        "size": 24,
+        "color": "#273247",
+        "align": "center",
+        "layer": 3
+      },
+      {
+        "kind": "text",
+        "text": "辅助自身 ×1",
+        "x": 90,
+        "y": 585.8000000000001,
+        "width": 570,
+        "size": 24,
+        "color": "#273247",
+        "align": "center",
+        "layer": 3
+      },
+      {
+        "kind": "text",
+        "text": "邻位攻击辅助（含叮当响） ×1.2",
+        "x": 90,
+        "y": 632.0000000000001,
+        "width": 570,
+        "size": 24,
+        "color": "#273247",
+        "align": "center",
+        "layer": 3
+      },
+      {
+        "kind": "text",
+        "text": "技能倍率 ×1",
+        "x": 90,
+        "y": 678.2000000000002,
+        "width": 570,
+        "size": 24,
+        "color": "#273247",
+        "align": "center",
+        "layer": 3
+      },
+      {
+        "kind": "text",
+        "text": "非暴击 ×1",
+        "x": 90,
+        "y": 724.4000000000002,
+        "width": 570,
+        "size": 24,
+        "color": "#273247",
+        "align": "center",
+        "layer": 3
+      },
+      {
+        "kind": "text",
+        "text": "冻住易伤 ×1",
+        "x": 90,
+        "y": 770.6000000000003,
+        "width": 570,
+        "size": 24,
+        "color": "#273247",
+        "align": "center",
+        "layer": 3
+      },
+      {
+        "kind": "text",
+        "text": "手电易伤 ×1",
+        "x": 90,
+        "y": 816.8000000000003,
+        "width": 570,
+        "size": 24,
+        "color": "#273247",
+        "align": "center",
+        "layer": 3
+      },
+      {
+        "kind": "text",
+        "text": "暖打烘着 ×1",
+        "x": 90,
+        "y": 863.0000000000003,
+        "width": 570,
+        "size": 24,
+        "color": "#273247",
+        "align": "center",
+        "layer": 3
+      },
+      {
+        "kind": "text",
+        "text": "结算伤害 951",
+        "x": 90,
+        "y": 909.2000000000004,
+        "width": 570,
+        "size": 24,
+        "color": "#273247",
+        "align": "center",
+        "layer": 3
+      },
+      {
+        "kind": "text",
+        "text": "原始值 951.8003473980618",
+        "x": 90,
+        "y": 955.4000000000004,
+        "width": 570,
+        "size": 24,
+        "color": "#273247",
+        "align": "center",
+        "layer": 3
+      },
+      {
+        "kind": "text",
+        "text": "最近一次真实直接命中的结算快照，含当时技能、暴",
+        "x": 90,
+        "y": 1001.6000000000005,
+        "width": 570,
+        "size": 24,
+        "color": "#273247",
+        "align": "center",
+        "layer": 3
+      },
+      {
+        "kind": "rect",
+        "x": 90,
+        "y": 1064.8,
+        "w": 170,
+        "h": 56,
+        "color": "#c7c9cb",
+        "layer": 3
+      },
+      {
+        "kind": "text",
+        "text": "上一页",
+        "x": 102,
+        "y": 1077.2,
+        "width": 146,
+        "size": 24,
+        "color": "#273247",
+        "align": "center",
+        "layer": 3
+      },
+      {
+        "kind": "text",
+        "text": "1 / 2",
+        "x": 278,
+        "y": 1078.8,
+        "width": 194,
+        "size": 24,
+        "color": "#273247",
+        "align": "center",
+        "layer": 3
+      },
+      {
+        "kind": "rect",
+        "x": 490,
+        "y": 1064.8,
+        "w": 170,
+        "h": 56,
+        "color": "#dce3e8",
+        "layer": 3
+      },
+      {
+        "kind": "text",
+        "text": "下一页",
+        "x": 502,
+        "y": 1077.2,
+        "width": 146,
+        "size": 24,
+        "color": "#273247",
+        "align": "center",
+        "layer": 3
+      },
+      {
+        "kind": "rect",
+        "x": 90,
+        "y": 1132.8,
+        "w": 570,
+        "h": 56,
+        "color": "#9bc7a3",
+        "layer": 3
+      },
+      {
+        "kind": "text",
+        "text": "知道了",
+        "x": 102,
+        "y": 1145.2,
+        "width": 546,
+        "size": 24,
+        "color": "#273247",
+        "align": "center",
+        "layer": 3
+      }
+    ],
+    "hitRegions": [
+      {
+        "id": "modal-prev",
+        "x": 90,
+        "y": 1064.8,
+        "w": 170,
+        "h": 56,
+        "action": "modalPage",
+        "value": -1,
+        "enabled": false,
+        "repeat": false
+      },
+      {
+        "id": "modal-next",
+        "x": 490,
+        "y": 1064.8,
+        "w": 170,
+        "h": 56,
+        "action": "modalPage",
+        "value": 1,
+        "enabled": true,
+        "repeat": false
+      },
+      {
+        "id": "modal-dismiss",
+        "x": 90,
+        "y": 1132.8,
+        "w": 570,
+        "h": 56,
+        "action": "dismiss",
+        "enabled": true,
+        "repeat": false
+      }
+    ]
+  }
+}

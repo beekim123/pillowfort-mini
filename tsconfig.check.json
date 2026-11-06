@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": [
+      "ES2020",
+      "DOM"
+    ]
+  },
+  "include": [
+    "assets/scripts/core/**/*.ts",
+    "assets/scripts/ui/**/*.ts",
+    "tests/**/*.ts",
+    "assets/scripts/fw/**/*.ts"
+  ],
+  "exclude": [
+    "assets/scripts/ui/PillowFort.ts",
+    "assets/scripts/core/tests/**"
+  ]
+}

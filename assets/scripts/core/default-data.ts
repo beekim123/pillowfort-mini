@@ -1,0 +1,2688 @@
+import { loadData } from "./data.ts";
+export const RAW_DATA = {
+ "version": 1,
+ "code": "zhentou",
+ "phase": 1,
+ "note": "《枕头堡》（暂名）的全部内容表。由 design/小游戏/枕头堡/calc/export.mjs 生成，别手改；要改改 content.mjs 再生成。每一项的 phase 是它从第几阶段开始有；游戏只用 phase ≤ 顶层 phase 的东西。大数字一律双精度，表里能整数就整数；游戏里不用 pow / log 算规则（见 开发文档 第 3 节）。",
+ "big": {
+  "unit": [
+   1,
+   10000,
+   100000000,
+   1000000000000,
+   10000000000000000,
+   100000000000000000000,
+   1e+24,
+   1e+28,
+   1e+32,
+   1e+36,
+   1e+40,
+   1e+44,
+   1e+48,
+   1e+52,
+   1e+56,
+   1e+60,
+   1e+64,
+   1e+68
+  ],
+  "unitName": [
+   "",
+   "万",
+   "亿",
+   "兆",
+   "京",
+   "垓",
+   "秭",
+   "穰",
+   "沟",
+   "涧",
+   "正",
+   "载",
+   "极",
+   "恒河沙",
+   "阿僧祇",
+   "那由他",
+   "不可思议",
+   "无量大数"
+  ],
+  "max": 1e+300,
+  "zoneUnit": 10000
+ },
+ "wave": {
+  "perZone": 50,
+  "hp0": 10,
+  "count": 8,
+  "spawnGap": 0.5,
+  "walk": 10,
+  "gapAfter": 1,
+  "eliteHp": 6,
+  "eliteEvery": 10,
+  "thickness": 3,
+  "fallback": 2,
+  "retryAfter": 3,
+  "hp100": [
+   1000,
+   1202,
+   1445,
+   1738,
+   2089,
+   2512,
+   3020,
+   3631,
+   4365,
+   5248,
+   6310,
+   7586,
+   9120,
+   10965,
+   13183,
+   15849,
+   19055,
+   22909,
+   27542,
+   33113,
+   39811,
+   47863,
+   57544,
+   69183,
+   83176,
+   100000,
+   120226,
+   144544,
+   173780,
+   208930,
+   251189,
+   301995,
+   363078,
+   436516,
+   524807,
+   630957,
+   758578,
+   912011,
+   1096478,
+   1318257,
+   1584893,
+   1905461,
+   2290868,
+   2754229,
+   3311311,
+   3981072,
+   4786301,
+   5754399,
+   6918310,
+   8317638
+  ]
+ },
+ "boss": {
+  "hpMul": 20,
+  "walk": 40,
+  "sheepMul": 300,
+  "candyFirst": 150,
+  "repeatHp": 3
+ },
+ "econ": {
+  "sheepPerHp": 0.01,
+  "sheepFlat": 3,
+  "atk0": 4,
+  "atkGrow": 1.08,
+  "lvCost0": 2,
+  "lvCostGrow": 1.09,
+  "lvCap0": 100,
+  "lvCapPerBoss": 70,
+  "lvOverGrow": 1.5,
+  "starMul": 2,
+  "starShards": [
+   0,
+   10,
+   20,
+   40,
+   80
+  ],
+  "courage": 2.5,
+  "fortCost0": 100,
+  "fortCostGrow": 2,
+  "fortAtk": 0.04,
+  "captainAura": [
+   0.2,
+   0.3,
+   0.45,
+   0.65,
+   0.9
+  ],
+  "supportBuff": [
+   0.2,
+   0.25,
+   0.3,
+   0.35,
+   0.4
+  ],
+  "supportSelf": 0.35,
+  "offlineCapH": 8,
+  "offlineEff": 1,
+  "adOffline": 0.5,
+  "meteorEveryMin": 20,
+  "meteorAwayH": 2,
+  "meteorWorthMin": 15,
+  "freeBoxEveryH": 4,
+  "freeBoxMax": 3,
+  "boxCandy": 10,
+  "boxShards": 3,
+  "boxLineupWeight": 0.75,
+  "wishCandy": 20,
+  "wishShards": 3,
+  "candyWave": 1,
+  "candyWave10": 10,
+  "candyPerOfflineH": 2,
+  "meteorCandy": 15
+ },
+ "lullaby": [
+  {
+   "id": 0,
+   "name": "关",
+   "count": 1,
+   "sheep": 1
+  },
+  {
+   "id": 1,
+   "name": "轻",
+   "count": 1.5,
+   "sheep": 1.08
+  },
+  {
+   "id": 2,
+   "name": "沉",
+   "count": 2,
+   "sheep": 1.16
+  },
+  {
+   "id": 3,
+   "name": "深",
+   "count": 2.5,
+   "sheep": 1.25
+  }
+ ],
+ "flash": {
+  "charge": 20,
+  "beam": 3,
+  "beamMul": 2,
+  "stun": 3,
+  "vuln": 0.5,
+  "manualBoss": 1.25,
+  "autoBoss": 1.08
+ },
+ "slots": {
+  "toy": [
+   [
+    1,
+    3
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    9,
+    5
+   ],
+   [
+    15,
+    6
+   ],
+   [
+    22,
+    7
+   ],
+   [
+    30,
+    8
+   ],
+   [
+    39,
+    9
+   ],
+   [
+    49,
+    10
+   ],
+   [
+    60,
+    11
+   ],
+   [
+    72,
+    12
+   ]
+  ],
+  "device": [
+   [
+    1,
+    1
+   ],
+   [
+    12,
+    2
+   ],
+   [
+    35,
+    3
+   ]
+  ],
+  "rows": 3,
+  "perRow": 4
+ },
+ "stance": {
+  "block": {
+   "stamina": [
+    4,
+    6,
+    8,
+    10,
+    12
+   ],
+   "hold": 2,
+   "drainNormal": 1,
+   "drainElite": 3,
+   "knocked": 5
+  },
+  "startle": 2,
+  "dash": {
+   "cd": 10,
+   "travel": 1,
+   "hits": 3,
+   "hitMul": 4,
+   "bossMul": 1.3,
+   "waveMul": 0.85
+  },
+  "clone": {
+   "stamina": 2
+  }
+ },
+ "nest": {
+  "center": [
+   375,
+   1170
+  ],
+  "radius": {
+   "outer": 330,
+   "middle": 232,
+   "inner": 135,
+   "base": 390
+  },
+  "slots": [
+   {
+    "id": "O1",
+    "arc": "外",
+    "pos": [
+     65,
+     1057
+    ],
+    "adjacent": [
+     "M1"
+    ]
+   },
+   {
+    "id": "O2",
+    "arc": "外",
+    "pos": [
+     186,
+     900
+    ],
+    "adjacent": [
+     "M2"
+    ]
+   },
+   {
+    "id": "O3",
+    "arc": "外",
+    "pos": [
+     375,
+     840
+    ],
+    "adjacent": [
+     "M2",
+     "M3"
+    ]
+   },
+   {
+    "id": "O4",
+    "arc": "外",
+    "pos": [
+     564,
+     900
+    ],
+    "adjacent": [
+     "M3"
+    ]
+   },
+   {
+    "id": "O5",
+    "arc": "外",
+    "pos": [
+     685,
+     1057
+    ],
+    "adjacent": [
+     "M4"
+    ]
+   },
+   {
+    "id": "M1",
+    "arc": "中",
+    "pos": [
+     174,
+     1054
+    ],
+    "adjacent": [
+     "O1",
+     "I1"
+    ]
+   },
+   {
+    "id": "M2",
+    "arc": "中",
+    "pos": [
+     296,
+     952
+    ],
+    "adjacent": [
+     "O2",
+     "O3",
+     "I1",
+     "I2"
+    ]
+   },
+   {
+    "id": "M3",
+    "arc": "中",
+    "pos": [
+     454,
+     952
+    ],
+    "adjacent": [
+     "O3",
+     "O4",
+     "I2",
+     "I3"
+    ]
+   },
+   {
+    "id": "M4",
+    "arc": "中",
+    "pos": [
+     576,
+     1054
+    ],
+    "adjacent": [
+     "O5",
+     "I3"
+    ]
+   },
+   {
+    "id": "I1",
+    "arc": "里",
+    "pos": [
+     272,
+     1083
+    ],
+    "adjacent": [
+     "M1",
+     "M2",
+     "I2"
+    ]
+   },
+   {
+    "id": "I2",
+    "arc": "里",
+    "pos": [
+     375,
+     1035
+    ],
+    "adjacent": [
+     "M2",
+     "M3",
+     "I1",
+     "I3"
+    ]
+   },
+   {
+    "id": "I3",
+    "arc": "里",
+    "pos": [
+     478,
+     1083
+    ],
+    "adjacent": [
+     "M3",
+     "M4",
+     "I2"
+    ]
+   }
+  ],
+  "openOrder": [
+   "O3",
+   "M2",
+   "M3",
+   "O2",
+   "O4",
+   "M1",
+   "M4",
+   "I2",
+   "O1",
+   "O5",
+   "I1",
+   "I3"
+  ],
+  "adjacentWithin": 150,
+  "slotRadius": 46,
+  "spawn": {
+   "y": 262,
+   "x": [
+    80,
+    670
+   ],
+   "lanes": [
+    "O1",
+    "O2",
+    "O3",
+    "O4",
+    "O5"
+   ],
+   "speed": 65,
+   "edge": 60
+  },
+  "captain": [
+   375,
+   770
+  ],
+  "kid": {
+   "pos": [
+    375,
+    1160
+   ],
+   "size": [
+    160,
+    88
+   ]
+  },
+  "flashlight": [
+   440,
+   1150
+  ],
+  "devices": [
+   {
+    "id": "D1",
+    "rect": [
+     20,
+     1120,
+     80,
+     90
+    ]
+   },
+   {
+    "id": "D2",
+    "rect": [
+     650,
+     1120,
+     80,
+     90
+    ]
+   },
+   {
+    "id": "D3",
+    "rect": [
+     130,
+     1135,
+     80,
+     80
+    ]
+   }
+  ],
+  "fence": {
+   "rect": [
+    20,
+    170,
+    120,
+    50
+   ],
+   "sheepJumpTo": [
+    160,
+    175
+   ]
+  },
+  "hud": {
+   "top": [
+    0,
+    0,
+    750,
+    96
+   ],
+   "strip": [
+    0,
+    96,
+    750,
+    56
+   ],
+   "capsuleReserve": [
+    530,
+    0,
+    220,
+    96
+   ],
+   "fog": [
+    0,
+    152,
+    750,
+    110
+   ],
+   "tabs": [
+    0,
+    1224,
+    750,
+    110
+   ],
+   "flashButton": {
+    "pos": [
+     690,
+     830
+    ],
+    "r": 46
+   },
+   "bossButton": [
+    560,
+    102,
+    170,
+    44
+   ]
+  }
+ },
+ "zones": [
+  {
+   "id": 0,
+   "phase": 1,
+   "name": "刚闭眼",
+   "scene": "自己的卧室",
+   "fear": "黑",
+   "boss": "衣柜怪",
+   "hard100": 100,
+   "trait": [],
+   "pref": {},
+   "nightmares": [
+    "hand",
+    "eyes",
+    "curtain"
+   ],
+   "elite": "hand",
+   "intro": "刚闭上眼，屋里的东西好像都在动。床底下，衣柜缝里……",
+   "brave": "第二天早上，糯糯自己打开了衣柜，里面只有冬天的大衣。——不怕黑了。"
+  },
+  {
+   "id": 1,
+   "phase": 1,
+   "name": "夜里的家",
+   "scene": "夜里的家",
+   "fear": "一个人在家",
+   "boss": "长走廊",
+   "hard100": 150,
+   "trait": [
+    "分裂",
+    "带壳"
+   ],
+   "pref": {},
+   "nightmares": [
+    "stair",
+    "drip",
+    "door"
+   ],
+   "elite": "door",
+   "intro": "梦里的家变得好大，走廊长长的，一个人也没有。",
+   "brave": "糯糯自己去了走廊尽头的卫生间，回来还哼着歌。——不怕一个人在家了。"
+  },
+  {
+   "id": 2,
+   "phase": 1,
+   "name": "学校的梦",
+   "scene": "学校",
+   "fear": "考试和迟到",
+   "boss": "期末大考卷",
+   "hard100": 300,
+   "trait": [
+    "快",
+    "成群"
+   ],
+   "pref": {},
+   "nightmares": [
+    "paper",
+    "clock",
+    "notebook"
+   ],
+   "elite": "paper",
+   "intro": "梦里明天就要考试，书一页也没看，闹钟一直在叫。",
+   "brave": "其实考得还行。——不怕考试了。"
+  },
+  {
+   "id": 3,
+   "phase": 2,
+   "name": "森林里迷路",
+   "scene": "夜里的森林",
+   "fear": "迷路",
+   "boss": "大树影",
+   "hard100": 150,
+   "trait": [
+    "会飞"
+   ],
+   "pref": {
+    "暖": 0.3,
+    "凉": -0.3
+   },
+   "nightmares": [
+    "treeshade",
+    "owl",
+    "sign"
+   ],
+   "elite": "treeshade",
+   "intro": "树一棵比一棵高，路一直绕回原地。",
+   "brave": "跟着路牌，糯糯带大家走出了公园。——不怕迷路了。"
+  },
+  {
+   "id": 4,
+   "phase": 2,
+   "name": "雷雨夜",
+   "scene": "打雷的窗外",
+   "fear": "打雷",
+   "boss": "大雷云",
+   "hard100": 100,
+   "trait": [
+    "抗性"
+   ],
+   "pref": {
+    "电": -0.5,
+    "暖": 0.3
+   },
+   "nightmares": [
+    "cloud",
+    "bolt",
+    "claw"
+   ],
+   "elite": "cloud",
+   "intro": "窗外轰隆一声，玻璃上全是水。",
+   "brave": "打雷的时候，糯糯数一、二、三，雷声就过去了。——不怕打雷了。"
+  },
+  {
+   "id": 5,
+   "phase": 2,
+   "name": "掉下去的梦",
+   "scene": "云上的楼梯",
+   "fear": "掉下去",
+   "boss": "无底洞",
+   "hard100": 100,
+   "trait": [
+    "影子"
+   ],
+   "pref": {
+    "枕": 0.3,
+    "臭": -0.3
+   },
+   "nightmares": [
+    "step",
+    "wind",
+    "hole"
+   ],
+   "elite": "hole",
+   "intro": "踩空了一级台阶，一直往下掉、往下掉……",
+   "brave": "从最高的滑梯滑下来，糯糯笑得最大声。——不怕掉下去了。"
+  },
+  {
+   "id": 6,
+   "phase": 3,
+   "name": "看牙的梦",
+   "scene": "牙医的椅子",
+   "fear": "看牙打针",
+   "boss": "大牙钻",
+   "hard100": 60,
+   "trait": [],
+   "pref": {
+    "凉": 0.3,
+    "电": -0.3
+   },
+   "nightmares": [
+    "drill",
+    "needle",
+    "tooth"
+   ],
+   "elite": "needle",
+   "intro": "躺在亮亮的椅子上，嘴巴张得好大。",
+   "brave": "看完牙，医生给了一张小贴纸。——不怕看牙了。"
+  },
+  {
+   "id": 7,
+   "phase": 3,
+   "name": "被追的梦",
+   "scene": "跑不动的街",
+   "fear": "被追",
+   "boss": "追影",
+   "hard100": 40,
+   "trait": [
+    "墙"
+   ],
+   "pref": {
+    "臭": 0.3,
+    "枕": -0.3
+   },
+   "nightmares": [
+    "chaser",
+    "legs",
+    "deadend"
+   ],
+   "elite": "legs",
+   "intro": "后面有什么在追，腿却怎么也跑不快。",
+   "brave": "糯糯回头一看，追着自己的是一只想一起玩的小狗。——不怕被追了。"
+  },
+  {
+   "id": 8,
+   "phase": 3,
+   "name": "海里的梦",
+   "scene": "黑黑的海",
+   "fear": "大浪",
+   "boss": "黑浪",
+   "hard100": 60,
+   "trait": [
+    "回血"
+   ],
+   "pref": {
+    "电": 0.3,
+    "暖": -0.5
+   },
+   "nightmares": [
+    "blackwater",
+    "kelp",
+    "wavelet"
+   ],
+   "elite": "blackwater",
+   "intro": "浪一层一层压过来，水是黑的。",
+   "brave": "在海边，糯糯第一次把脚伸进了浪里。——不怕大浪了。"
+  },
+  {
+   "id": 9,
+   "phase": 3,
+   "name": "最深的黑",
+   "scene": "什么都没有的黑",
+   "fear": "一个人在黑里",
+   "boss": "最大的黑",
+   "hard100": 90,
+   "trait": [
+    "召唤"
+   ],
+   "pref": {
+    "暖": 0.2,
+    "凉": 0.2,
+    "电": 0.2,
+    "臭": 0.2,
+    "枕": 0.2
+   },
+   "nightmares": [
+    "shade",
+    "empty",
+    "lonely"
+   ],
+   "elite": "empty",
+   "intro": "什么都没有了。没有声音，也没有光。",
+   "brave": ""
+  }
+ ],
+ "endless": {
+  "phase": 3,
+  "note": "第 10 区起是“又一晚”：梦按 0–9 轮着来（场景、噩梦用第 z % 10 区的），hard100 一律 100；每区按种子 z 抽 1–2 个词缀加在所有噩梦身上（人人一样）。大噩梦照旧，打败了照旧“不怕了”。",
+  "affixes": [
+   "会飞",
+   "带壳",
+   "快",
+   "成群",
+   "分裂",
+   "影子",
+   "回血"
+  ],
+  "affixCount": [
+   1,
+   2
+  ]
+ },
+ "nightmares": [
+  {
+   "z": 0,
+   "id": "hand",
+   "name": "床底的手",
+   "speed": 0.7,
+   "hp": 1.4,
+   "trait": [],
+   "phase": 1
+  },
+  {
+   "z": 0,
+   "id": "eyes",
+   "name": "衣柜缝的眼睛",
+   "speed": 1,
+   "hp": 1,
+   "trait": [],
+   "phase": 1
+  },
+  {
+   "z": 0,
+   "id": "curtain",
+   "name": "窗帘影子",
+   "speed": 1.4,
+   "hp": 0.7,
+   "trait": [],
+   "phase": 1
+  },
+  {
+   "z": 1,
+   "id": "stair",
+   "name": "楼梯上的影子",
+   "speed": 1,
+   "hp": 1,
+   "trait": [],
+   "phase": 1
+  },
+  {
+   "z": 1,
+   "id": "drip",
+   "name": "滴答水滴",
+   "speed": 1,
+   "hp": 0.8,
+   "trait": [
+    "分裂"
+   ],
+   "phase": 1
+  },
+  {
+   "z": 1,
+   "id": "door",
+   "name": "吱呀门",
+   "speed": 0.8,
+   "hp": 1.2,
+   "trait": [
+    "带壳"
+   ],
+   "phase": 1
+  },
+  {
+   "z": 2,
+   "id": "paper",
+   "name": "考卷怪",
+   "speed": 0.9,
+   "hp": 1.1,
+   "trait": [
+    "带壳"
+   ],
+   "phase": 1
+  },
+  {
+   "z": 2,
+   "id": "clock",
+   "name": "迟到闹钟",
+   "speed": 1.4,
+   "hp": 0.7,
+   "trait": [
+    "快"
+   ],
+   "phase": 1
+  },
+  {
+   "z": 2,
+   "id": "notebook",
+   "name": "作业本",
+   "speed": 1,
+   "hp": 0.4,
+   "trait": [
+    "成群"
+   ],
+   "phase": 1
+  },
+  {
+   "z": 3,
+   "id": "treeshade",
+   "name": "树影",
+   "speed": 0.7,
+   "hp": 1.5,
+   "trait": [],
+   "phase": 2
+  },
+  {
+   "z": 3,
+   "id": "owl",
+   "name": "猫头鹰眼",
+   "speed": 1.1,
+   "hp": 0.9,
+   "trait": [
+    "会飞"
+   ],
+   "phase": 2
+  },
+  {
+   "z": 3,
+   "id": "sign",
+   "name": "打转的路牌",
+   "speed": 1,
+   "hp": 1,
+   "trait": [],
+   "phase": 2
+  },
+  {
+   "z": 4,
+   "id": "cloud",
+   "name": "小雷云",
+   "speed": 0.9,
+   "hp": 1.1,
+   "trait": [
+    "会飞"
+   ],
+   "phase": 2
+  },
+  {
+   "z": 4,
+   "id": "bolt",
+   "name": "闪电",
+   "speed": 1.5,
+   "hp": 0.6,
+   "trait": [
+    "快"
+   ],
+   "phase": 2
+  },
+  {
+   "z": 4,
+   "id": "claw",
+   "name": "窗上的爪印",
+   "speed": 1,
+   "hp": 1,
+   "trait": [],
+   "phase": 2
+  },
+  {
+   "z": 5,
+   "id": "step",
+   "name": "踩空的台阶",
+   "speed": 1,
+   "hp": 0.9,
+   "trait": [
+    "分裂"
+   ],
+   "phase": 2
+  },
+  {
+   "z": 5,
+   "id": "wind",
+   "name": "冷风",
+   "speed": 1.4,
+   "hp": 0.7,
+   "trait": [
+    "快"
+   ],
+   "phase": 2
+  },
+  {
+   "z": 5,
+   "id": "hole",
+   "name": "云洞",
+   "speed": 0.9,
+   "hp": 1.1,
+   "trait": [
+    "影子"
+   ],
+   "phase": 2
+  },
+  {
+   "z": 6,
+   "id": "drill",
+   "name": "小牙钻",
+   "speed": 1.4,
+   "hp": 0.8,
+   "trait": [
+    "快"
+   ],
+   "phase": 3
+  },
+  {
+   "z": 6,
+   "id": "needle",
+   "name": "针筒",
+   "speed": 0.9,
+   "hp": 1.1,
+   "trait": [
+    "带壳"
+   ],
+   "phase": 3
+  },
+  {
+   "z": 6,
+   "id": "tooth",
+   "name": "掉的牙",
+   "speed": 1,
+   "hp": 0.4,
+   "trait": [
+    "成群"
+   ],
+   "phase": 3
+  },
+  {
+   "z": 7,
+   "id": "chaser",
+   "name": "追影",
+   "speed": 1.4,
+   "hp": 0.8,
+   "trait": [
+    "快"
+   ],
+   "phase": 3
+  },
+  {
+   "z": 7,
+   "id": "legs",
+   "name": "跑不动的腿",
+   "speed": 0.6,
+   "hp": 1.6,
+   "trait": [],
+   "phase": 3
+  },
+  {
+   "z": 7,
+   "id": "deadend",
+   "name": "死胡同",
+   "speed": 0.8,
+   "hp": 1.2,
+   "trait": [
+    "墙"
+   ],
+   "phase": 3
+  },
+  {
+   "z": 8,
+   "id": "blackwater",
+   "name": "黑水",
+   "speed": 0.9,
+   "hp": 1.1,
+   "trait": [
+    "回血"
+   ],
+   "phase": 3
+  },
+  {
+   "z": 8,
+   "id": "kelp",
+   "name": "海草手",
+   "speed": 1,
+   "hp": 1,
+   "trait": [],
+   "phase": 3
+  },
+  {
+   "z": 8,
+   "id": "wavelet",
+   "name": "小浪",
+   "speed": 1.1,
+   "hp": 0.4,
+   "trait": [
+    "成群"
+   ],
+   "phase": 3
+  },
+  {
+   "z": 9,
+   "id": "shade",
+   "name": "黑影",
+   "speed": 1,
+   "hp": 1,
+   "trait": [
+    "影子"
+   ],
+   "phase": 3
+  },
+  {
+   "z": 9,
+   "id": "empty",
+   "name": "空荡荡",
+   "speed": 0.8,
+   "hp": 1.3,
+   "trait": [
+    "抗性"
+   ],
+   "phase": 3
+  },
+  {
+   "z": 9,
+   "id": "lonely",
+   "name": "孤单",
+   "speed": 0.9,
+   "hp": 1.1,
+   "trait": [
+    "召唤"
+   ],
+   "phase": 3
+  }
+ ],
+ "captain": {
+  "id": "mianmian",
+  "name": "绵绵",
+  "toy": "旧绵羊玩偶",
+  "role": "领头羊",
+  "desc": "小孩最早的玩偶，脖子上挂个小铃铛。光环：全队攻击加成；“咩——”：每 20 秒全队攻速 +50%，4 秒",
+  "phase": 1
+ },
+ "toys": [
+  {
+   "id": "fangfang",
+   "stance": "挡",
+   "name": "方方",
+   "toy": "积木小兵",
+   "el": "枕",
+   "role": "D",
+   "base": 1,
+   "itv": 1,
+   "aoe": 0,
+   "unlock": {
+    "z": 0,
+    "w": 0
+   },
+   "desc": "扔积木，专打最前面那只",
+   "phase": 1
+  },
+  {
+   "id": "huhu",
+   "stance": "打",
+   "name": "呼呼",
+   "toy": "恐龙玩偶",
+   "el": "暖",
+   "role": "A",
+   "base": 0.8,
+   "itv": 1.2,
+   "aoe": 0.6,
+   "unlock": {
+    "z": 0,
+    "w": 0
+   },
+   "desc": "呼出一口热气，前面一小片都烘着",
+   "phase": 1
+  },
+  {
+   "id": "gaga",
+   "stance": "打",
+   "name": "嘎嘎",
+   "toy": "橡皮鸭",
+   "el": "凉",
+   "role": "D",
+   "base": 0.9,
+   "itv": 1,
+   "aoe": 0,
+   "unlock": {
+    "z": 0,
+    "w": 0
+   },
+   "desc": "滋一股凉水，打中的变慢",
+   "phase": 1
+  },
+  {
+   "id": "dingdang",
+   "stance": "帮",
+   "name": "叮当",
+   "toy": "存钱罐小猪",
+   "el": "枕",
+   "role": "S",
+   "base": 1,
+   "itv": 1,
+   "aoe": 0,
+   "unlock": {
+    "z": 0,
+    "w": 25
+   },
+   "desc": "辅助：同一排的玩偶攻击加成",
+   "phase": 1
+  },
+  {
+   "id": "kaka",
+   "stance": "打",
+   "name": "咔咔",
+   "toy": "发条机器人",
+   "el": "电",
+   "role": "C",
+   "base": 0.75,
+   "itv": 1,
+   "aoe": 0.9,
+   "unlock": {
+    "z": 0,
+    "w": 50
+   },
+   "desc": "放一道静电，跳着打 3 只",
+   "phase": 1
+  },
+  {
+   "id": "piaopiao",
+   "stance": "帮",
+   "name": "飘飘",
+   "toy": "气球兔",
+   "el": "电",
+   "role": "S",
+   "base": 1,
+   "itv": 1,
+   "aoe": 0,
+   "unlock": {
+    "z": 1,
+    "w": 50
+   },
+   "desc": "辅助：同一排的玩偶攻速加成（核算按攻击加成算）",
+   "phase": 1
+  },
+  {
+   "id": "ruanruan",
+   "stance": "挡",
+   "name": "软软",
+   "toy": "小枕头",
+   "el": "枕",
+   "role": "U",
+   "base": 0.85,
+   "itv": 1,
+   "aoe": 0.3,
+   "unlock": {
+    "z": 1,
+    "w": 25
+   },
+   "desc": "变出小枕头分身一起拍，分身也吃同排加成",
+   "phase": 1
+  },
+  {
+   "id": "laowa",
+   "stance": "打",
+   "name": "老袜",
+   "toy": "袜子玩偶",
+   "el": "臭",
+   "role": "T",
+   "base": 0.7,
+   "itv": 0.8,
+   "aoe": 0.4,
+   "unlock": {
+    "z": 2,
+    "w": 25
+   },
+   "desc": "熏一下叠一层臭，层数一直熏",
+   "phase": 1
+  },
+  {
+   "id": "abing",
+   "stance": "冲",
+   "name": "阿冰",
+   "toy": "企鹅",
+   "el": "凉",
+   "role": "A",
+   "base": 0.75,
+   "itv": 1.3,
+   "aoe": 0.7,
+   "unlock": {
+    "z": 2,
+    "w": 50
+   },
+   "desc": "扔雪球，砸一片，三下冻住",
+   "phase": 1
+  },
+  {
+   "id": "pupu",
+   "stance": "打",
+   "name": "噗噗",
+   "toy": "臭鼬玩偶",
+   "el": "臭",
+   "role": "A",
+   "base": 0.8,
+   "itv": 1.5,
+   "aoe": 0.8,
+   "unlock": {
+    "z": 3,
+    "w": 50
+   },
+   "desc": "把臭味一下子“噗”出来：层数越多炸得越疼",
+   "phase": 2
+  },
+  {
+   "id": "caicai",
+   "stance": "帮",
+   "name": "彩彩",
+   "toy": "蜡笔",
+   "el": "暖",
+   "role": "S",
+   "base": 1,
+   "itv": 1,
+   "aoe": 0,
+   "unlock": {
+    "z": 3,
+    "w": 25
+   },
+   "desc": "辅助：给同一排打中的噩梦画上红圈，受到的伤害加成",
+   "phase": 2
+  },
+  {
+   "id": "tuanzi",
+   "stance": "冲",
+   "name": "团子",
+   "toy": "毛线猫",
+   "el": "电",
+   "role": "C",
+   "base": 0.8,
+   "itv": 0.9,
+   "aoe": 0.9,
+   "unlock": {
+    "z": 4,
+    "w": 50
+   },
+   "desc": "蹭毛线起电，队里带电的越多跳得越远",
+   "phase": 2
+  },
+  {
+   "id": "xingxing",
+   "stance": "帮",
+   "name": "星星",
+   "toy": "夜光星星",
+   "el": "凉",
+   "role": "S",
+   "base": 1,
+   "itv": 1,
+   "aoe": 0,
+   "unlock": {
+    "z": 4,
+    "w": 25
+   },
+   "desc": "辅助：同一排暴击加成（核算按攻击加成算）",
+   "phase": 2
+  },
+  {
+   "id": "bubu",
+   "stance": "挡",
+   "name": "咘咘",
+   "toy": "小火车",
+   "el": "暖",
+   "role": "A",
+   "base": 0.9,
+   "itv": 1.4,
+   "aoe": 0.7,
+   "unlock": {
+    "z": 5,
+    "w": 50
+   },
+   "desc": "鸣笛冒一股热蒸汽，一条线上的都烘着",
+   "phase": 2
+  },
+  {
+   "id": "zhizhi",
+   "stance": "帮",
+   "name": "芝芝",
+   "toy": "芝士小鼠",
+   "el": "臭",
+   "role": "S",
+   "base": 1,
+   "itv": 1,
+   "aoe": 0,
+   "unlock": {
+    "z": 6,
+    "w": 50
+   },
+   "desc": "辅助：同一排每次熏多叠一层",
+   "phase": 3
+  },
+  {
+   "id": "tiaotiao",
+   "stance": "冲",
+   "name": "跳跳",
+   "toy": "弹力球",
+   "el": "枕",
+   "role": "C",
+   "base": 0.9,
+   "itv": 0.8,
+   "aoe": 0.6,
+   "unlock": {
+    "z": 7,
+    "w": 50
+   },
+   "desc": "弹来弹去，一下打好几只",
+   "phase": 3
+  }
+ ],
+ "devices": [
+  {
+   "id": "nightlight",
+   "name": "小夜灯",
+   "effect": {
+    "atkAll": 0.2
+   },
+   "unlock": {
+    "z": 0,
+    "w": 0
+   },
+   "desc": "全队攻击 +20%；照得到影子",
+   "phase": 1
+  },
+  {
+   "id": "musicbox",
+   "name": "音乐盒",
+   "effect": {
+    "lullaby": true
+   },
+   "unlock": {
+    "z": 3,
+    "w": 1
+   },
+   "desc": "摇篮曲（经济组件）：睡得越沉，噩梦越多，羊越多",
+   "phase": 2
+  },
+  {
+   "id": "fan",
+   "name": "小风扇",
+   "effect": {
+    "slow": 0.15
+   },
+   "unlock": {
+    "z": 1,
+    "w": 50
+   },
+   "desc": "一直吹凉风：所有噩梦慢 15%",
+   "phase": 1
+  },
+  {
+   "id": "humidifier",
+   "name": "加湿器",
+   "effect": {
+    "field": 0.25
+   },
+   "unlock": {
+    "z": 3,
+    "w": 50
+   },
+   "desc": "堡前一片凉雾：走进来的噩梦每秒受全队输出 25% 的伤害",
+   "phase": 2
+  },
+  {
+   "id": "hotbottle",
+   "name": "暖水袋",
+   "effect": {
+    "elBoost": "暖",
+    "amt": 0.4
+   },
+   "unlock": {
+    "z": 4,
+    "w": 50
+   },
+   "desc": "暖烘烘：暖系 +40%",
+   "phase": 2
+  },
+  {
+   "id": "plasma",
+   "name": "静电球",
+   "effect": {
+    "elBoost": "电",
+    "amt": 0.4
+   },
+   "unlock": {
+    "z": 6,
+    "w": 50
+   },
+   "desc": "噼啪：静电 +40%",
+   "phase": 3
+  }
+ ],
+ "research": [
+  {
+   "id": "r01",
+   "name": "画画",
+   "gate": {
+    "z": 0,
+    "w": 20
+   },
+   "min": 10,
+   "cost": 20,
+   "eff": {
+    "atk": 1.5
+   },
+   "costSheep": 1009.8097943721461,
+   "phase": 2
+  },
+  {
+   "id": "r02",
+   "name": "去公园",
+   "gate": {
+    "z": 0,
+    "w": 30
+   },
+   "min": 20,
+   "cost": 30,
+   "eff": {
+    "sheep": 1.25
+   },
+   "costSheep": 5734.3107140497,
+   "phase": 2
+  },
+  {
+   "id": "r03",
+   "name": "换新电池",
+   "gate": {
+    "z": 0,
+    "w": 40
+   },
+   "min": 30,
+   "cost": 40,
+   "eff": {
+    "flash": 0.85
+   },
+   "costSheep": 43144.215633805085,
+   "phase": 2
+  },
+  {
+   "id": "r04",
+   "name": "搭积木",
+   "gate": {
+    "z": 1,
+    "w": 1
+   },
+   "min": 45,
+   "cost": 40,
+   "eff": {
+    "el": "枕",
+    "amt": 1.5
+   },
+   "costSheep": 480960.0000000007,
+   "phase": 2
+  },
+  {
+   "id": "r05",
+   "name": "学会摇篮曲·轻",
+   "gate": {
+    "z": 3,
+    "w": 1
+   },
+   "min": 60,
+   "cost": 40,
+   "eff": {
+    "lullaby": 1
+   },
+   "costSheep": 48000000000960.24,
+   "phase": 2
+  },
+  {
+   "id": "r06",
+   "name": "听故事",
+   "gate": {
+    "z": 1,
+    "w": 20
+   },
+   "min": 60,
+   "cost": 50,
+   "eff": {
+    "cap": 1
+   },
+   "costSheep": 19869067.288955513,
+   "phase": 2
+  },
+  {
+   "id": "r07",
+   "name": "画画·大张的",
+   "gate": {
+    "z": 1,
+    "w": 30
+   },
+   "min": 90,
+   "cost": 50,
+   "eff": {
+    "atk": 1.5
+   },
+   "costSheep": 125358967.8512427,
+   "phase": 2
+  },
+  {
+   "id": "r08",
+   "name": "两只手一起",
+   "gate": {
+    "z": 2,
+    "w": 1
+   },
+   "min": 120,
+   "cost": 60,
+   "eff": {
+    "slots": 1
+   },
+   "costSheep": 14400001440.00005,
+   "phase": 2
+  },
+  {
+   "id": "r09",
+   "name": "吃冰棍",
+   "gate": {
+    "z": 2,
+    "w": 10
+   },
+   "min": 120,
+   "cost": 60,
+   "eff": {
+    "el": "凉",
+    "amt": 1.5
+   },
+   "costSheep": 75572275715.96753,
+   "phase": 2
+  },
+  {
+   "id": "r10",
+   "name": "踢球",
+   "gate": {
+    "z": 2,
+    "w": 30
+   },
+   "min": 150,
+   "cost": 70,
+   "eff": {
+    "atk": 1.6
+   },
+   "costSheep": 3510017501514.802,
+   "phase": 2
+  },
+  {
+   "id": "r11",
+   "name": "学会摇篮曲·沉",
+   "gate": {
+    "z": 4,
+    "w": 1
+   },
+   "min": 180,
+   "cost": 70,
+   "eff": {
+    "lullaby": 2
+   },
+   "costSheep": 560000000000005440,
+   "phase": 2
+  },
+  {
+   "id": "r12",
+   "name": "晒太阳",
+   "gate": {
+    "z": 3,
+    "w": 10
+   },
+   "min": 180,
+   "cost": 80,
+   "eff": {
+    "el": "暖",
+    "amt": 1.5
+   },
+   "costSheep": 503815161841704.4,
+   "phase": 2
+  },
+  {
+   "id": "r13",
+   "name": "听长一点的故事",
+   "gate": {
+    "z": 3,
+    "w": 30
+   },
+   "min": 240,
+   "cost": 80,
+   "eff": {
+    "cap": 1
+   },
+   "costSheep": 20057242856200824,
+   "phase": 2
+  },
+  {
+   "id": "r14",
+   "name": "去游乐园",
+   "gate": {
+    "z": 4,
+    "w": 1
+   },
+   "min": 240,
+   "cost": 90,
+   "eff": {
+    "atk": 1.7
+   },
+   "costSheep": 720000000000007000,
+   "phase": 2
+  },
+  {
+   "id": "r15",
+   "name": "摸摸小猫",
+   "gate": {
+    "z": 4,
+    "w": 20
+   },
+   "min": 300,
+   "cost": 90,
+   "eff": {
+    "el": "电",
+    "amt": 1.5
+   },
+   "costSheep": 23841440746746740000,
+   "phase": 2
+  },
+  {
+   "id": "r16",
+   "name": "大扫除",
+   "gate": {
+    "z": 4,
+    "w": 40
+   },
+   "min": 300,
+   "cost": 100,
+   "eff": {
+    "sheep": 1.3
+   },
+   "costSheep": 1.0546053908451342e+21,
+   "phase": 2
+  },
+  {
+   "id": "r17",
+   "name": "换个大灯泡",
+   "gate": {
+    "z": 5,
+    "w": 1
+   },
+   "min": 360,
+   "cost": 100,
+   "eff": {
+    "flash": 0.85
+   },
+   "costSheep": 8.000000000000069e+21,
+   "phase": 2
+  },
+  {
+   "id": "r18",
+   "name": "去爬山",
+   "gate": {
+    "z": 5,
+    "w": 20
+   },
+   "min": 360,
+   "cost": 110,
+   "eff": {
+    "atk": 1.8
+   },
+   "costSheep": 2.9139538690468288e+23,
+   "phase": 2
+  },
+  {
+   "id": "r19",
+   "name": "学会摇篮曲·深",
+   "gate": {
+    "z": 5,
+    "w": 40
+   },
+   "min": 420,
+   "cost": 110,
+   "eff": {
+    "lullaby": 3
+   },
+   "costSheep": 1.1600659299296496e+25,
+   "phase": 2
+  },
+  {
+   "id": "r20",
+   "name": "穿脏袜子踢球",
+   "gate": {
+    "z": 6,
+    "w": 1
+   },
+   "min": 420,
+   "cost": 120,
+   "eff": {
+    "el": "臭",
+    "amt": 1.5
+   },
+   "costSheep": 5.76000000000006e+25,
+   "phase": 3
+  },
+  {
+   "id": "r21",
+   "name": "听更长的故事",
+   "gate": {
+    "z": 6,
+    "w": 20
+   },
+   "min": 480,
+   "cost": 120,
+   "eff": {
+    "cap": 2
+   },
+   "costSheep": 1.9073152597397458e+27,
+   "phase": 3
+  },
+  {
+   "id": "r22",
+   "name": "学骑车",
+   "gate": {
+    "z": 6,
+    "w": 40
+   },
+   "min": 480,
+   "cost": 130,
+   "eff": {
+    "atk": 1.8
+   },
+   "costSheep": 8.225922048592076e+28,
+   "phase": 3
+  },
+  {
+   "id": "r23",
+   "name": "去海边",
+   "gate": {
+    "z": 7,
+    "w": 1
+   },
+   "min": 540,
+   "cost": 130,
+   "eff": {
+    "sheep": 1.3
+   },
+   "costSheep": 4.16000000000005e+29,
+   "phase": 3
+  },
+  {
+   "id": "r24",
+   "name": "自己系鞋带",
+   "gate": {
+    "z": 7,
+    "w": 20
+   },
+   "min": 540,
+   "cost": 140,
+   "eff": {
+    "atk": 1.8
+   },
+   "costSheep": 1.483467424242027e+31,
+   "phase": 3
+  },
+  {
+   "id": "r25",
+   "name": "学游泳",
+   "gate": {
+    "z": 8,
+    "w": 1
+   },
+   "min": 600,
+   "cost": 140,
+   "eff": {
+    "atk": 1.9
+   },
+   "costSheep": 6.720000000000091e+33,
+   "phase": 3
+  },
+  {
+   "id": "r26",
+   "name": "一个人去买酱油",
+   "gate": {
+    "z": 8,
+    "w": 25
+   },
+   "min": 600,
+   "cost": 150,
+   "eff": {
+    "atk": 1.9
+   },
+   "costSheep": 5.9886991519393186e+35,
+   "phase": 3
+  },
+  {
+   "id": "r27",
+   "name": "关灯也敢睡",
+   "gate": {
+    "z": 9,
+    "w": 1
+   },
+   "min": 720,
+   "cost": 160,
+   "eff": {
+    "atk": 2
+   },
+   "costSheep": 1.152000000000018e+38,
+   "phase": 3
+  }
+ ],
+ "researchDaily": {
+  "id": "rd",
+  "name": "每天的小事",
+  "min": 360,
+  "costWaves": 20,
+  "eff": {
+   "atk": 1.1
+  },
+  "gate": {
+   "z": 0,
+   "w": 50
+  },
+  "phase": 1
+ },
+ "relics": [
+  {
+   "id": "flower",
+   "name": "小红花",
+   "from": 0,
+   "scope": "self",
+   "desc": "戴的那只攻击 ×2（每级 +0.2）",
+   "atkSelf": [
+    2,
+    0.2
+   ],
+   "phase": 2
+  },
+  {
+   "id": "hairclip",
+   "name": "发卡",
+   "from": 1,
+   "scope": "row",
+   "desc": "同一排攻速 +15%（每级 +3%）",
+   "atkRow": [
+    0.15,
+    0.03
+   ],
+   "phase": 2
+  },
+  {
+   "id": "eraser",
+   "name": "橡皮",
+   "from": 2,
+   "scope": "self",
+   "desc": "戴的那只打中的噩梦抗性 -30%（每级 -3%）",
+   "atkSelf": [
+    1.4,
+    0.05
+   ],
+   "phase": 2
+  },
+  {
+   "id": "marble",
+   "name": "弹珠",
+   "from": 3,
+   "scope": "self",
+   "desc": "戴的那只每下多弹一只（伤害 60%，每级 +6%）",
+   "atkSelf": [
+    1.6,
+    0.06
+   ],
+   "phase": 2
+  },
+  {
+   "id": "bell",
+   "name": "小铃铛",
+   "from": 4,
+   "scope": "all",
+   "desc": "领头羊的光环再 +30%（每级 +5%）",
+   "atkAll": [
+    0.15,
+    0.025
+   ],
+   "phase": 2
+  },
+  {
+   "id": "bandaid",
+   "name": "创可贴",
+   "from": 5,
+   "scope": "all",
+   "desc": "枕头堡多 1 层厚（每 5 级再多 1 层）",
+   "thick": 1,
+   "phase": 2
+  },
+  {
+   "id": "sunsticker",
+   "name": "太阳贴纸",
+   "from": 6,
+   "scope": "self",
+   "desc": "戴的那只的伤害也算“暖”（吃暖系加成）",
+   "atkSelf": [
+    1.5,
+    0.05
+   ],
+   "phase": 3
+  },
+  {
+   "id": "whistle",
+   "name": "口哨",
+   "from": 7,
+   "scope": "all",
+   "desc": "手电筒充能 -20%（每级 -2%）",
+   "flash": [
+    0.8,
+    -0.02
+   ],
+   "phase": 3
+  },
+  {
+   "id": "shell",
+   "name": "贝壳",
+   "from": 8,
+   "scope": "row",
+   "desc": "同一排对“回血”“带壳”的噩梦 +60%（每级 +6%）",
+   "atkRow": [
+    0.2,
+    0.02
+   ],
+   "phase": 3
+  },
+  {
+   "id": "goodnight",
+   "name": "晚安吻",
+   "from": 9,
+   "scope": "all",
+   "desc": "全队 ×1.5（每级 +0.05）",
+   "atkAll": [
+    0.5,
+    0.05
+   ],
+   "phase": 3
+  }
+ ],
+ "relicLvFrag": [
+  0,
+  3,
+  5,
+  8,
+  12,
+  17,
+  23,
+  30,
+  38,
+  47
+ ],
+ "systems": [
+  {
+   "id": "stars",
+   "name": "纸箱和升星",
+   "at": [
+    0,
+    10
+   ],
+   "phase": 1
+  },
+  {
+   "id": "daily",
+   "name": "每天的小事",
+   "at": [
+    0,
+    50
+   ],
+   "phase": 1
+  },
+  {
+   "id": "research",
+   "name": "白天的事（研究树）",
+   "at": [
+    0,
+    20
+   ],
+   "phase": 2
+  },
+  {
+   "id": "relics",
+   "name": "宝贝",
+   "at": [
+    0,
+    50
+   ],
+   "phase": 2
+  },
+  {
+   "id": "repeatBoss",
+   "name": "回头梦",
+   "at": [
+    1,
+    1
+   ],
+   "phase": 2
+  },
+  {
+   "id": "lullaby",
+   "name": "摇篮曲",
+   "at": [
+    3,
+    1
+   ],
+   "phase": 2
+  },
+  {
+   "id": "twoLineups",
+   "name": "两套阵容",
+   "at": [
+    3,
+    1
+   ],
+   "phase": 2
+  },
+  {
+   "id": "codex",
+   "name": "图鉴",
+   "at": [
+    1,
+    1
+   ],
+   "phase": 3
+  },
+  {
+   "id": "sleepless",
+   "name": "睡不着的夜",
+   "at": [
+    3,
+    50
+   ],
+   "phase": 3
+  }
+ ],
+ "unlocks": [
+  {
+   "z": 0,
+   "w": 10,
+   "toys": [],
+   "devices": [],
+   "relics": [],
+   "research": [],
+   "systems": [
+    "stars"
+   ]
+  },
+  {
+   "z": 0,
+   "w": 20,
+   "toys": [],
+   "devices": [],
+   "relics": [],
+   "research": [
+    "r01"
+   ],
+   "systems": [
+    "research"
+   ]
+  },
+  {
+   "z": 0,
+   "w": 25,
+   "toys": [
+    "dingdang"
+   ],
+   "devices": [],
+   "relics": [],
+   "research": [],
+   "systems": []
+  },
+  {
+   "z": 0,
+   "w": 30,
+   "toys": [],
+   "devices": [],
+   "relics": [],
+   "research": [
+    "r02"
+   ],
+   "systems": []
+  },
+  {
+   "z": 0,
+   "w": 40,
+   "toys": [],
+   "devices": [],
+   "relics": [],
+   "research": [
+    "r03"
+   ],
+   "systems": []
+  },
+  {
+   "z": 0,
+   "w": 50,
+   "toys": [
+    "kaka"
+   ],
+   "devices": [],
+   "relics": [
+    "flower"
+   ],
+   "research": [
+    "rd"
+   ],
+   "systems": [
+    "daily",
+    "relics"
+   ]
+  },
+  {
+   "z": 1,
+   "w": 1,
+   "toys": [],
+   "devices": [],
+   "relics": [],
+   "research": [
+    "r04"
+   ],
+   "systems": [
+    "repeatBoss",
+    "codex"
+   ]
+  },
+  {
+   "z": 1,
+   "w": 20,
+   "toys": [],
+   "devices": [],
+   "relics": [],
+   "research": [
+    "r06"
+   ],
+   "systems": []
+  },
+  {
+   "z": 1,
+   "w": 25,
+   "toys": [
+    "ruanruan"
+   ],
+   "devices": [],
+   "relics": [],
+   "research": [],
+   "systems": []
+  },
+  {
+   "z": 1,
+   "w": 30,
+   "toys": [],
+   "devices": [],
+   "relics": [],
+   "research": [
+    "r07"
+   ],
+   "systems": []
+  },
+  {
+   "z": 1,
+   "w": 50,
+   "toys": [
+    "piaopiao"
+   ],
+   "devices": [
+    "fan"
+   ],
+   "relics": [
+    "hairclip"
+   ],
+   "research": [],
+   "systems": []
+  },
+  {
+   "z": 2,
+   "w": 1,
+   "toys": [],
+   "devices": [],
+   "relics": [],
+   "research": [
+    "r08"
+   ],
+   "systems": []
+  },
+  {
+   "z": 2,
+   "w": 10,
+   "toys": [],
+   "devices": [],
+   "relics": [],
+   "research": [
+    "r09"
+   ],
+   "systems": []
+  },
+  {
+   "z": 2,
+   "w": 25,
+   "toys": [
+    "laowa"
+   ],
+   "devices": [],
+   "relics": [],
+   "research": [],
+   "systems": []
+  },
+  {
+   "z": 2,
+   "w": 30,
+   "toys": [],
+   "devices": [],
+   "relics": [],
+   "research": [
+    "r10"
+   ],
+   "systems": []
+  },
+  {
+   "z": 2,
+   "w": 50,
+   "toys": [
+    "abing"
+   ],
+   "devices": [],
+   "relics": [
+    "eraser"
+   ],
+   "research": [],
+   "systems": []
+  },
+  {
+   "z": 3,
+   "w": 1,
+   "toys": [],
+   "devices": [
+    "musicbox"
+   ],
+   "relics": [],
+   "research": [
+    "r05"
+   ],
+   "systems": [
+    "lullaby",
+    "twoLineups"
+   ]
+  },
+  {
+   "z": 3,
+   "w": 10,
+   "toys": [],
+   "devices": [],
+   "relics": [],
+   "research": [
+    "r12"
+   ],
+   "systems": []
+  },
+  {
+   "z": 3,
+   "w": 25,
+   "toys": [
+    "caicai"
+   ],
+   "devices": [],
+   "relics": [],
+   "research": [],
+   "systems": []
+  },
+  {
+   "z": 3,
+   "w": 30,
+   "toys": [],
+   "devices": [],
+   "relics": [],
+   "research": [
+    "r13"
+   ],
+   "systems": []
+  },
+  {
+   "z": 3,
+   "w": 50,
+   "toys": [
+    "pupu"
+   ],
+   "devices": [
+    "humidifier"
+   ],
+   "relics": [
+    "marble"
+   ],
+   "research": [],
+   "systems": [
+    "sleepless"
+   ]
+  },
+  {
+   "z": 4,
+   "w": 1,
+   "toys": [],
+   "devices": [],
+   "relics": [],
+   "research": [
+    "r11",
+    "r14"
+   ],
+   "systems": []
+  },
+  {
+   "z": 4,
+   "w": 20,
+   "toys": [],
+   "devices": [],
+   "relics": [],
+   "research": [
+    "r15"
+   ],
+   "systems": []
+  },
+  {
+   "z": 4,
+   "w": 25,
+   "toys": [
+    "xingxing"
+   ],
+   "devices": [],
+   "relics": [],
+   "research": [],
+   "systems": []
+  },
+  {
+   "z": 4,
+   "w": 40,
+   "toys": [],
+   "devices": [],
+   "relics": [],
+   "research": [
+    "r16"
+   ],
+   "systems": []
+  },
+  {
+   "z": 4,
+   "w": 50,
+   "toys": [
+    "tuanzi"
+   ],
+   "devices": [
+    "hotbottle"
+   ],
+   "relics": [
+    "bell"
+   ],
+   "research": [],
+   "systems": []
+  },
+  {
+   "z": 5,
+   "w": 1,
+   "toys": [],
+   "devices": [],
+   "relics": [],
+   "research": [
+    "r17"
+   ],
+   "systems": []
+  },
+  {
+   "z": 5,
+   "w": 20,
+   "toys": [],
+   "devices": [],
+   "relics": [],
+   "research": [
+    "r18"
+   ],
+   "systems": []
+  },
+  {
+   "z": 5,
+   "w": 40,
+   "toys": [],
+   "devices": [],
+   "relics": [],
+   "research": [
+    "r19"
+   ],
+   "systems": []
+  },
+  {
+   "z": 5,
+   "w": 50,
+   "toys": [
+    "bubu"
+   ],
+   "devices": [],
+   "relics": [
+    "bandaid"
+   ],
+   "research": [],
+   "systems": []
+  },
+  {
+   "z": 6,
+   "w": 1,
+   "toys": [],
+   "devices": [],
+   "relics": [],
+   "research": [
+    "r20"
+   ],
+   "systems": []
+  },
+  {
+   "z": 6,
+   "w": 20,
+   "toys": [],
+   "devices": [],
+   "relics": [],
+   "research": [
+    "r21"
+   ],
+   "systems": []
+  },
+  {
+   "z": 6,
+   "w": 40,
+   "toys": [],
+   "devices": [],
+   "relics": [],
+   "research": [
+    "r22"
+   ],
+   "systems": []
+  },
+  {
+   "z": 6,
+   "w": 50,
+   "toys": [
+    "zhizhi"
+   ],
+   "devices": [
+    "plasma"
+   ],
+   "relics": [
+    "sunsticker"
+   ],
+   "research": [],
+   "systems": []
+  },
+  {
+   "z": 7,
+   "w": 1,
+   "toys": [],
+   "devices": [],
+   "relics": [],
+   "research": [
+    "r23"
+   ],
+   "systems": []
+  },
+  {
+   "z": 7,
+   "w": 20,
+   "toys": [],
+   "devices": [],
+   "relics": [],
+   "research": [
+    "r24"
+   ],
+   "systems": []
+  },
+  {
+   "z": 7,
+   "w": 50,
+   "toys": [
+    "tiaotiao"
+   ],
+   "devices": [],
+   "relics": [
+    "whistle"
+   ],
+   "research": [],
+   "systems": []
+  },
+  {
+   "z": 8,
+   "w": 1,
+   "toys": [],
+   "devices": [],
+   "relics": [],
+   "research": [
+    "r25"
+   ],
+   "systems": []
+  },
+  {
+   "z": 8,
+   "w": 25,
+   "toys": [],
+   "devices": [],
+   "relics": [],
+   "research": [
+    "r26"
+   ],
+   "systems": []
+  },
+  {
+   "z": 8,
+   "w": 50,
+   "toys": [],
+   "devices": [],
+   "relics": [
+    "shell"
+   ],
+   "research": [],
+   "systems": []
+  },
+  {
+   "z": 9,
+   "w": 1,
+   "toys": [],
+   "devices": [],
+   "relics": [],
+   "research": [
+    "r27"
+   ],
+   "systems": []
+  },
+  {
+   "z": 9,
+   "w": 50,
+   "toys": [],
+   "devices": [],
+   "relics": [
+    "goodnight"
+   ],
+   "research": [],
+   "systems": []
+  }
+ ],
+ "story": {
+  "kidName": "糯糯",
+  "opening": [
+   "糯糯搬进新家的第一晚。关了灯，屋里黑黑的。",
+   "枕头边的旧绵羊绵绵站了起来，铃铛轻轻一响：“你睡吧，我们守着。”"
+  ],
+  "ending": [
+   "最大的黑慢慢变小，变成软软的一团，蜷在糯糯脚边睡着了。原来它也只是怕一个人待着。",
+   "窗帘缝里透进来一点光。",
+   "天亮了。“早安，绵绵。”"
+  ],
+  "again": "又是一晚。每天都有新的梦——睡吧，我们守着。",
+  "phase": 3
+ }
+};
+export const DATA = loadData(RAW_DATA);

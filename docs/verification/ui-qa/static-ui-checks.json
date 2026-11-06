@@ -1,0 +1,33 @@
+{
+  "description": "Source-pattern checks only, not Cocos engine execution",
+  "results": [
+    [
+      "Cocos onHide cancels active pointer",
+      true
+    ],
+    [
+      "Cocos onShow cancels active pointer",
+      true
+    ],
+    [
+      "Canvas keeps design750 width rather than caps600",
+      true
+    ],
+    [
+      "Captain star is drawn beside rather than above O3",
+      true
+    ],
+    [
+      "Nondevelopment debug actions blocked",
+      true
+    ],
+    [
+      "Cocos controller development uses compile constant",
+      true
+    ],
+    [
+      "Touch cancel clears identity and app hold",
+      true
+    ]
+  ]
+}

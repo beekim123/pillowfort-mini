@@ -1,0 +1,6 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> pillowfort-mini@0.1.0 check:spec
+> node tools/check-spec.mjs
+
+PASS: 10 份规格文件完整；运行时两份 JSON 与原件逐字节一致。

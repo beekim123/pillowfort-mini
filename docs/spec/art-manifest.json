@@ -1,0 +1,1360 @@
+{
+ "game": "枕头堡",
+ "code": "zhentou",
+ "note": "P1 的全部美术资源。美术交出图模块（Canvas2D 代码），不交 PNG；做法见 美术技术方案.md，画什么见 美术文档.md。size / anchor / display 都是设计像素（屏幕宽 750）。batch = 第几批交。",
+ "assets": [
+  {
+   "phase": 1,
+   "boil": 3,
+   "code": "art-code/captain_mianmian.js",
+   "key": "captain_mianmian",
+   "cat": "角色",
+   "level": "L1",
+   "batch": 1,
+   "size": [
+    140,
+    140
+   ],
+   "anchor": [
+    70,
+    128
+   ],
+   "display": [
+    110,
+    110
+   ],
+   "pos": [
+    375,
+    770
+   ],
+   "events": {
+    "idle": {
+     "loop": true,
+     "dur": 2000
+    },
+    "baa": {
+     "dur": 1200
+    },
+    "cheer": {
+     "dur": 900
+    },
+    "flinch": {
+     "dur": 400
+    }
+   },
+   "desc": "绵绵：旧绵羊玩偶，领头羊；浆果色丝带 + 金色小铃铛（单独部件）"
+  },
+  {
+   "phase": 1,
+   "boil": 3,
+   "code": "art-code/toy_huhu.js",
+   "key": "toy_huhu",
+   "cat": "玩偶",
+   "level": "L1",
+   "batch": 1,
+   "size": [
+    140,
+    150
+   ],
+   "anchor": [
+    70,
+    138
+   ],
+   "display": [
+    96,
+    104
+   ],
+   "stance": "打",
+   "slots": "站在 nest.slots 的 12 个位置上（脚底中心 = 位置）",
+   "events": {
+    "idle": {
+     "loop": true,
+     "dur": 1800
+    },
+    "attack": {
+     "dur": 500
+    },
+    "skill": {
+     "dur": 1000
+    },
+    "cheer": {
+     "dur": 900
+    },
+    "startled": {
+     "dur": 500
+    }
+   },
+   "desc": "呼呼：恐龙玩偶（绿），圆肚子，背上软刺；暖"
+  },
+  {
+   "phase": 1,
+   "boil": 3,
+   "code": "art-code/toy_fangfang.js",
+   "key": "toy_fangfang",
+   "cat": "玩偶",
+   "level": "L1",
+   "batch": 2,
+   "size": [
+    140,
+    150
+   ],
+   "anchor": [
+    70,
+    138
+   ],
+   "display": [
+    96,
+    104
+   ],
+   "stance": "挡",
+   "slots": "站在 nest.slots 的 12 个位置上（脚底中心 = 位置）",
+   "events": {
+    "idle": {
+     "loop": true,
+     "dur": 1800
+    },
+    "attack": {
+     "dur": 500
+    },
+    "skill": {
+     "dur": 1000
+    },
+    "cheer": {
+     "dur": 900
+    },
+    "startled": {
+     "dur": 500
+    },
+    "block": {
+     "loop": true,
+     "dur": 800
+    },
+    "knocked": {
+     "dur": 400
+    },
+    "down": {
+     "loop": true,
+     "dur": 1600
+    },
+    "getup": {
+     "dur": 700
+    }
+   },
+   "desc": "方方：积木小兵；枕头；挡"
+  },
+  {
+   "phase": 1,
+   "boil": 3,
+   "code": "art-code/toy_gaga.js",
+   "key": "toy_gaga",
+   "cat": "玩偶",
+   "level": "L1",
+   "batch": 2,
+   "size": [
+    140,
+    150
+   ],
+   "anchor": [
+    70,
+    138
+   ],
+   "display": [
+    96,
+    104
+   ],
+   "stance": "打",
+   "slots": "站在 nest.slots 的 12 个位置上（脚底中心 = 位置）",
+   "events": {
+    "idle": {
+     "loop": true,
+     "dur": 1800
+    },
+    "attack": {
+     "dur": 500
+    },
+    "skill": {
+     "dur": 1000
+    },
+    "cheer": {
+     "dur": 900
+    },
+    "startled": {
+     "dur": 500
+    }
+   },
+   "desc": "嘎嘎：橡皮鸭；凉"
+  },
+  {
+   "phase": 1,
+   "boil": 3,
+   "code": "art-code/toy_dingdang.js",
+   "key": "toy_dingdang",
+   "cat": "玩偶",
+   "level": "L1",
+   "batch": 2,
+   "size": [
+    140,
+    150
+   ],
+   "anchor": [
+    70,
+    138
+   ],
+   "display": [
+    96,
+    104
+   ],
+   "stance": "帮",
+   "slots": "站在 nest.slots 的 12 个位置上（脚底中心 = 位置）",
+   "events": {
+    "idle": {
+     "loop": true,
+     "dur": 1800
+    },
+    "attack": {
+     "dur": 500
+    },
+    "skill": {
+     "dur": 1000
+    },
+    "cheer": {
+     "dur": 900
+    },
+    "startled": {
+     "dur": 500
+    }
+   },
+   "desc": "叮当：存钱罐小猪；枕头；帮"
+  },
+  {
+   "phase": 1,
+   "boil": 3,
+   "code": "art-code/toy_kaka.js",
+   "key": "toy_kaka",
+   "cat": "玩偶",
+   "level": "L1",
+   "batch": 2,
+   "size": [
+    140,
+    150
+   ],
+   "anchor": [
+    70,
+    138
+   ],
+   "display": [
+    96,
+    104
+   ],
+   "stance": "打",
+   "slots": "站在 nest.slots 的 12 个位置上（脚底中心 = 位置）",
+   "events": {
+    "idle": {
+     "loop": true,
+     "dur": 1800
+    },
+    "attack": {
+     "dur": 500
+    },
+    "skill": {
+     "dur": 1000
+    },
+    "cheer": {
+     "dur": 900
+    },
+    "startled": {
+     "dur": 500
+    }
+   },
+   "desc": "咔咔：发条机器人；静电"
+  },
+  {
+   "phase": 1,
+   "boil": 3,
+   "code": "art-code/toy_ruanruan.js",
+   "key": "toy_ruanruan",
+   "cat": "玩偶",
+   "level": "L1",
+   "batch": 2,
+   "size": [
+    140,
+    150
+   ],
+   "anchor": [
+    70,
+    138
+   ],
+   "display": [
+    96,
+    104
+   ],
+   "stance": "挡",
+   "slots": "站在 nest.slots 的 12 个位置上（脚底中心 = 位置）",
+   "events": {
+    "idle": {
+     "loop": true,
+     "dur": 1800
+    },
+    "attack": {
+     "dur": 500
+    },
+    "skill": {
+     "dur": 1000
+    },
+    "cheer": {
+     "dur": 900
+    },
+    "startled": {
+     "dur": 500
+    },
+    "block": {
+     "loop": true,
+     "dur": 800
+    },
+    "knocked": {
+     "dur": 400
+    },
+    "down": {
+     "loop": true,
+     "dur": 1600
+    },
+    "getup": {
+     "dur": 700
+    }
+   },
+   "desc": "软软：小枕头；枕头；挡（+ 分身）"
+  },
+  {
+   "phase": 1,
+   "boil": 3,
+   "code": "art-code/toy_piaopiao.js",
+   "key": "toy_piaopiao",
+   "cat": "玩偶",
+   "level": "L1",
+   "batch": 2,
+   "size": [
+    140,
+    150
+   ],
+   "anchor": [
+    70,
+    138
+   ],
+   "display": [
+    96,
+    104
+   ],
+   "stance": "帮",
+   "slots": "站在 nest.slots 的 12 个位置上（脚底中心 = 位置）",
+   "events": {
+    "idle": {
+     "loop": true,
+     "dur": 1800
+    },
+    "attack": {
+     "dur": 500
+    },
+    "skill": {
+     "dur": 1000
+    },
+    "cheer": {
+     "dur": 900
+    },
+    "startled": {
+     "dur": 500
+    }
+   },
+   "desc": "飘飘：气球兔；静电；帮"
+  },
+  {
+   "phase": 1,
+   "boil": 3,
+   "code": "art-code/toy_laowa.js",
+   "key": "toy_laowa",
+   "cat": "玩偶",
+   "level": "L1",
+   "batch": 2,
+   "size": [
+    140,
+    150
+   ],
+   "anchor": [
+    70,
+    138
+   ],
+   "display": [
+    96,
+    104
+   ],
+   "stance": "打",
+   "slots": "站在 nest.slots 的 12 个位置上（脚底中心 = 位置）",
+   "events": {
+    "idle": {
+     "loop": true,
+     "dur": 1800
+    },
+    "attack": {
+     "dur": 500
+    },
+    "skill": {
+     "dur": 1000
+    },
+    "cheer": {
+     "dur": 900
+    },
+    "startled": {
+     "dur": 500
+    }
+   },
+   "desc": "老袜：袜子玩偶；臭"
+  },
+  {
+   "phase": 1,
+   "boil": 3,
+   "code": "art-code/toy_abing.js",
+   "key": "toy_abing",
+   "cat": "玩偶",
+   "level": "L1",
+   "batch": 2,
+   "size": [
+    140,
+    150
+   ],
+   "anchor": [
+    70,
+    138
+   ],
+   "display": [
+    96,
+    104
+   ],
+   "stance": "冲",
+   "slots": "站在 nest.slots 的 12 个位置上（脚底中心 = 位置）",
+   "events": {
+    "idle": {
+     "loop": true,
+     "dur": 1800
+    },
+    "attack": {
+     "dur": 500
+    },
+    "skill": {
+     "dur": 1000
+    },
+    "cheer": {
+     "dur": 900
+    },
+    "startled": {
+     "dur": 500
+    },
+    "dash": {
+     "loop": true,
+     "dur": 400
+    },
+    "strike": {
+     "dur": 250
+    },
+    "back": {
+     "loop": true,
+     "dur": 500
+    }
+   },
+   "desc": "阿冰：企鹅；凉；冲（肚皮滑出去）"
+  },
+  {
+   "phase": 1,
+   "boil": 3,
+   "code": "art-code/obj_pillow_clone.js",
+   "key": "obj_pillow_clone",
+   "cat": "玩偶",
+   "level": "L1",
+   "batch": 2,
+   "size": [
+    70,
+    60
+   ],
+   "anchor": [
+    35,
+    54
+   ],
+   "display": [
+    56,
+    48
+   ],
+   "events": {
+    "idle": {
+     "loop": true,
+     "dur": 1200
+    },
+    "block": {
+     "loop": true,
+     "dur": 800
+    },
+    "attack": {
+     "dur": 400
+    },
+    "poof": {
+     "dur": 300
+    }
+   },
+   "desc": "软软变出来的小枕头分身：站到窝外挡 1 只，6 秒后噗地散掉"
+  },
+  {
+   "phase": 1,
+   "boil": 3,
+   "code": "art-code/kid_nuonuo.js",
+   "key": "kid_nuonuo",
+   "cat": "角色",
+   "level": "L1",
+   "batch": 2,
+   "size": [
+    200,
+    110
+   ],
+   "anchor": [
+    100,
+    100
+   ],
+   "display": [
+    160,
+    88
+   ],
+   "pos": [
+    375,
+    1204
+   ],
+   "events": {
+    "idle": {
+     "loop": true,
+     "dur": 3000
+    },
+    "stir": {
+     "dur": 800
+    },
+    "mumble": {
+     "dur": 1000
+    },
+    "smile": {
+     "dur": 1000
+    }
+   },
+   "desc": "糯糯在被窝里睡觉，只露头和一只手"
+  },
+  {
+   "phase": 1,
+   "boil": 3,
+   "code": "art-code/dev_nightlight.js",
+   "key": "dev_nightlight",
+   "cat": "设施",
+   "level": "L1",
+   "batch": 2,
+   "size": [
+    100,
+    110
+   ],
+   "anchor": [
+    50,
+    100
+   ],
+   "display": [
+    80,
+    88
+   ],
+   "slots": "放在 nest.devices 的 D1–D3（框的底边中心）",
+   "events": {
+    "idle": {
+     "loop": true,
+     "dur": 2400
+    }
+   },
+   "desc": "小夜灯：光晕呼吸"
+  },
+  {
+   "phase": 1,
+   "boil": 3,
+   "code": "art-code/dev_fan.js",
+   "key": "dev_fan",
+   "cat": "设施",
+   "level": "L1",
+   "batch": 2,
+   "size": [
+    100,
+    110
+   ],
+   "anchor": [
+    50,
+    100
+   ],
+   "display": [
+    80,
+    88
+   ],
+   "slots": "放在 nest.devices 的 D1–D3（框的底边中心）",
+   "events": {
+    "idle": {
+     "loop": true,
+     "dur": 600
+    }
+   },
+   "desc": "小风扇：叶片单独部件，开发转它"
+  },
+  {
+   "phase": 1,
+   "boil": 3,
+   "code": "art-code/obj_flashlight.js",
+   "key": "obj_flashlight",
+   "cat": "设施",
+   "level": "L1",
+   "batch": 2,
+   "size": [
+    90,
+    60
+   ],
+   "anchor": [
+    20,
+    30
+   ],
+   "display": [
+    72,
+    48
+   ],
+   "pos": [
+    440,
+    1150
+   ],
+   "events": {
+    "idle": {
+     "loop": true,
+     "dur": 2000
+    },
+    "flash": {
+     "dur": 300
+    }
+   },
+   "desc": "手电筒：糯糯手里拿着，轴心在尾部，开发旋转对准光束"
+  },
+  {
+   "phase": 1,
+   "boil": 1,
+   "code": "art-code/nm_eyes.js",
+   "key": "nm_eyes",
+   "cat": "噩梦 · 第 0 区",
+   "level": "L2",
+   "batch": 1,
+   "size": [
+    120,
+    120
+   ],
+   "anchor": [
+    60,
+    108
+   ],
+   "display": [
+    88,
+    88
+   ],
+   "anims": {
+    "walk": {
+     "frames": 8,
+     "fps": 10,
+     "loop": true
+    },
+    "hit": {
+     "frames": 4,
+     "fps": 12
+    },
+    "push": {
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "burst": {
+     "frames": 8,
+     "fps": 14
+    }
+   },
+   "variants": [
+    "normal",
+    "elite"
+   ],
+   "desc": "衣柜缝的眼睛：门缝挤出来的软黑影，一双大眼睛"
+  },
+  {
+   "phase": 1,
+   "boil": 1,
+   "code": "art-code/nm_hand.js",
+   "key": "nm_hand",
+   "cat": "噩梦 · 第 0 区",
+   "level": "L2",
+   "batch": 3,
+   "size": [
+    120,
+    120
+   ],
+   "anchor": [
+    60,
+    108
+   ],
+   "display": [
+    88,
+    88
+   ],
+   "anims": {
+    "walk": {
+     "frames": 8,
+     "fps": 10,
+     "loop": true
+    },
+    "hit": {
+     "frames": 4,
+     "fps": 12
+    },
+    "push": {
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "burst": {
+     "frames": 8,
+     "fps": 14
+    }
+   },
+   "variants": [
+    "normal",
+    "elite"
+   ],
+   "desc": "床底的手：圆圆的黑手掌，手背一双眼睛，慢"
+  },
+  {
+   "phase": 1,
+   "boil": 1,
+   "code": "art-code/nm_curtain.js",
+   "key": "nm_curtain",
+   "cat": "噩梦 · 第 0 区",
+   "level": "L2",
+   "batch": 3,
+   "size": [
+    120,
+    120
+   ],
+   "anchor": [
+    60,
+    108
+   ],
+   "display": [
+    88,
+    88
+   ],
+   "anims": {
+    "walk": {
+     "frames": 8,
+     "fps": 10,
+     "loop": true
+    },
+    "hit": {
+     "frames": 4,
+     "fps": 12
+    },
+    "push": {
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "burst": {
+     "frames": 8,
+     "fps": 14
+    }
+   },
+   "variants": [
+    "normal",
+    "elite"
+   ],
+   "desc": "窗帘影子：飘着的窗帘形影子，快"
+  },
+  {
+   "phase": 1,
+   "boil": 1,
+   "code": "art-code/nm_stair.js",
+   "key": "nm_stair",
+   "cat": "噩梦 · 第 1 区",
+   "level": "L2",
+   "batch": 3,
+   "size": [
+    120,
+    120
+   ],
+   "anchor": [
+    60,
+    108
+   ],
+   "display": [
+    88,
+    88
+   ],
+   "anims": {
+    "walk": {
+     "frames": 8,
+     "fps": 10,
+     "loop": true
+    },
+    "hit": {
+     "frames": 4,
+     "fps": 12
+    },
+    "push": {
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "burst": {
+     "frames": 8,
+     "fps": 14
+    }
+   },
+   "variants": [
+    "normal",
+    "elite"
+   ],
+   "desc": "楼梯上的影子：台阶形，一蹦一级"
+  },
+  {
+   "phase": 1,
+   "boil": 1,
+   "code": "art-code/nm_drip.js",
+   "key": "nm_drip",
+   "cat": "噩梦 · 第 1 区",
+   "level": "L2",
+   "batch": 3,
+   "size": [
+    120,
+    120
+   ],
+   "anchor": [
+    60,
+    108
+   ],
+   "display": [
+    88,
+    88
+   ],
+   "anims": {
+    "walk": {
+     "frames": 8,
+     "fps": 10,
+     "loop": true
+    },
+    "hit": {
+     "frames": 4,
+     "fps": 12
+    },
+    "push": {
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "burst": {
+     "frames": 8,
+     "fps": 14
+    }
+   },
+   "variants": [
+    "normal",
+    "elite"
+   ],
+   "desc": "滴答水滴：深色大水滴，会分裂（同一套帧缩小）"
+  },
+  {
+   "phase": 1,
+   "boil": 1,
+   "code": "art-code/nm_door.js",
+   "key": "nm_door",
+   "cat": "噩梦 · 第 1 区",
+   "level": "L2",
+   "batch": 3,
+   "size": [
+    120,
+    120
+   ],
+   "anchor": [
+    60,
+    108
+   ],
+   "display": [
+    88,
+    88
+   ],
+   "anims": {
+    "walk": {
+     "frames": 8,
+     "fps": 10,
+     "loop": true
+    },
+    "hit": {
+     "frames": 4,
+     "fps": 12
+    },
+    "push": {
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "burst": {
+     "frames": 8,
+     "fps": 14
+    }
+   },
+   "variants": [
+    "normal",
+    "elite"
+   ],
+   "desc": "吱呀门：小门板，门把手是鼻子；带壳（壳是特效）"
+  },
+  {
+   "phase": 1,
+   "boil": 1,
+   "code": "art-code/nm_paper.js",
+   "key": "nm_paper",
+   "cat": "噩梦 · 第 2 区",
+   "level": "L2",
+   "batch": 3,
+   "size": [
+    120,
+    120
+   ],
+   "anchor": [
+    60,
+    108
+   ],
+   "display": [
+    88,
+    88
+   ],
+   "anims": {
+    "walk": {
+     "frames": 8,
+     "fps": 10,
+     "loop": true
+    },
+    "hit": {
+     "frames": 4,
+     "fps": 12
+    },
+    "push": {
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "burst": {
+     "frames": 8,
+     "fps": 14
+    }
+   },
+   "variants": [
+    "normal",
+    "elite"
+   ],
+   "desc": "考卷怪：揉皱的考卷，满是红叉的影子（不写字）；带壳"
+  },
+  {
+   "phase": 1,
+   "boil": 1,
+   "code": "art-code/nm_clock.js",
+   "key": "nm_clock",
+   "cat": "噩梦 · 第 2 区",
+   "level": "L2",
+   "batch": 3,
+   "size": [
+    120,
+    120
+   ],
+   "anchor": [
+    60,
+    108
+   ],
+   "display": [
+    88,
+    88
+   ],
+   "anims": {
+    "walk": {
+     "frames": 8,
+     "fps": 10,
+     "loop": true
+    },
+    "hit": {
+     "frames": 4,
+     "fps": 12
+    },
+    "push": {
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "burst": {
+     "frames": 8,
+     "fps": 14
+    }
+   },
+   "variants": [
+    "normal",
+    "elite"
+   ],
+   "desc": "迟到闹钟：圆闹钟，铃铛像耳朵，快"
+  },
+  {
+   "phase": 1,
+   "boil": 1,
+   "code": "art-code/nm_notebook.js",
+   "key": "nm_notebook",
+   "cat": "噩梦 · 第 2 区",
+   "level": "L2",
+   "batch": 3,
+   "size": [
+    120,
+    120
+   ],
+   "anchor": [
+    60,
+    108
+   ],
+   "display": [
+    56,
+    56
+   ],
+   "anims": {
+    "walk": {
+     "frames": 8,
+     "fps": 10,
+     "loop": true
+    },
+    "hit": {
+     "frames": 4,
+     "fps": 12
+    },
+    "push": {
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "burst": {
+     "frames": 8,
+     "fps": 14
+    }
+   },
+   "variants": [
+    "normal",
+    "elite"
+   ],
+   "desc": "作业本：小本子，三只一起来"
+  },
+  {
+   "phase": 1,
+   "boil": 1,
+   "code": "art-code/obj_sheep.js",
+   "key": "obj_sheep",
+   "cat": "羊",
+   "level": "L2",
+   "batch": 1,
+   "size": [
+    64,
+    60
+   ],
+   "anchor": [
+    32,
+    54
+   ],
+   "display": [
+    52,
+    48
+   ],
+   "anims": {
+    "cotton": {
+     "frames": 6,
+     "fps": 12
+    },
+    "pop": {
+     "frames": 5,
+     "fps": 14
+    },
+    "run": {
+     "frames": 6,
+     "fps": 12,
+     "loop": true
+    },
+    "jump": {
+     "frames": 6,
+     "fps": 12
+    }
+   },
+   "desc": "拍散的噩梦 → 棉花 → 白色小羊（脸深灰）→ 往左上角雾里的栅栏跑 → 跳过去（画朝左，开发需要时翻转）"
+  },
+  {
+   "phase": 1,
+   "code": "art-code/boss_closet.js",
+   "key": "boss_closet",
+   "cat": "大噩梦",
+   "level": "L0",
+   "batch": 3,
+   "size": [
+    300,
+    300
+   ],
+   "anchor": [
+    150,
+    280
+   ],
+   "display": [
+    260,
+    260
+   ],
+   "events": {
+    "walk": {
+     "loop": true,
+     "dur": 2000
+    },
+    "trick": {
+     "dur": 1500
+    },
+    "hit": {
+     "dur": 300
+    },
+    "defeat": {
+     "dur": 2000
+    }
+   },
+   "desc": "衣柜怪：每 8 秒关门躲 2 秒"
+  },
+  {
+   "phase": 1,
+   "code": "art-code/boss_hallway.js",
+   "key": "boss_hallway",
+   "cat": "大噩梦",
+   "level": "L0",
+   "batch": 3,
+   "size": [
+    300,
+    300
+   ],
+   "anchor": [
+    150,
+    280
+   ],
+   "display": [
+    260,
+    260
+   ],
+   "events": {
+    "walk": {
+     "loop": true,
+     "dur": 2000
+    },
+    "trick": {
+     "dur": 1500
+    },
+    "hit": {
+     "dur": 300
+    },
+    "defeat": {
+     "dur": 2000
+    }
+   },
+   "desc": "长走廊：把路拉长"
+  },
+  {
+   "phase": 1,
+   "code": "art-code/boss_exam.js",
+   "key": "boss_exam",
+   "cat": "大噩梦",
+   "level": "L0",
+   "batch": 3,
+   "size": [
+    300,
+    300
+   ],
+   "anchor": [
+    150,
+    280
+   ],
+   "display": [
+    260,
+    260
+   ],
+   "events": {
+    "walk": {
+     "loop": true,
+     "dur": 2000
+    },
+    "trick": {
+     "dur": 1500
+    },
+    "hit": {
+     "dur": 300
+    },
+    "defeat": {
+     "dur": 2000
+    }
+   },
+   "desc": "期末大考卷：撒作业本"
+  },
+  {
+   "phase": 1,
+   "code": "art-code/fx_warm.js",
+   "key": "fx_warm",
+   "cat": "特效",
+   "level": "L3",
+   "batch": 1,
+   "desc": "暖：热气团、火星、光斑；breath / hit / burn（烘）"
+  },
+  {
+   "phase": 1,
+   "code": "art-code/fx_pillow.js",
+   "key": "fx_pillow",
+   "cat": "特效",
+   "level": "L3",
+   "batch": 4,
+   "desc": "枕头：积木碎屑、硬币闪、棉絮；hit"
+  },
+  {
+   "phase": 1,
+   "code": "art-code/fx_cool.js",
+   "key": "fx_cool",
+   "cat": "特效",
+   "level": "L3",
+   "batch": 4,
+   "desc": "凉：水花、雪粒、冰晶；hit / slow / freeze / slide（阿冰滑出去的雪痕）"
+  },
+  {
+   "phase": 1,
+   "code": "art-code/fx_static.js",
+   "key": "fx_static",
+   "cat": "特效",
+   "level": "L3",
+   "batch": 4,
+   "desc": "静电：电花、电弧；hit / chain"
+  },
+  {
+   "phase": 1,
+   "code": "art-code/fx_stink.js",
+   "key": "fx_stink",
+   "cat": "特效",
+   "level": "L3",
+   "batch": 4,
+   "desc": "臭：绿色臭气；hit / layer（1–10 层）"
+  },
+  {
+   "phase": 1,
+   "code": "art-code/fx_common.js",
+   "key": "fx_common",
+   "cat": "特效",
+   "level": "L3",
+   "batch": 4,
+   "desc": "壳、漏怪的棉絮、手电筒光束、破单位、push（挡和噩梦顶在一起冒的小棉絮）、startle（吓一跳的惊吓线）、dash（冲出去的风线）"
+  },
+  {
+   "phase": 1,
+   "code": "art-code/bg_dream_0.js",
+   "key": "bg_dream_0",
+   "cat": "背景",
+   "level": "bg",
+   "batch": 1,
+   "size": [
+    750,
+    1624
+   ],
+   "display": [
+    750,
+    1624
+   ],
+   "desc": "刚闭眼：梦里的卧室（衣柜、窗户月光、玩具架在两边；中间平静）"
+  },
+  {
+   "phase": 1,
+   "code": "art-code/bg_dream_1.js",
+   "key": "bg_dream_1",
+   "cat": "背景",
+   "level": "bg",
+   "batch": 3,
+   "size": [
+    750,
+    1624
+   ],
+   "display": [
+    750,
+    1624
+   ],
+   "desc": "夜里的家：长走廊、楼梯"
+  },
+  {
+   "phase": 1,
+   "code": "art-code/bg_dream_2.js",
+   "key": "bg_dream_2",
+   "cat": "背景",
+   "level": "bg",
+   "batch": 3,
+   "size": [
+    750,
+    1624
+   ],
+   "display": [
+    750,
+    1624
+   ],
+   "desc": "学校的梦：空教室、黑板（不写字）、课桌"
+  },
+  {
+   "phase": 1,
+   "code": "art-code/obj_fort.js",
+   "key": "obj_fort",
+   "cat": "枕头堡",
+   "level": "bg",
+   "batch": 2,
+   "size": [
+    750,
+    560
+   ],
+   "anchor": [
+    375,
+    396
+   ],
+   "display": [
+    750,
+    560
+   ],
+   "pos": [
+    375,
+    1170
+   ],
+   "variants": [
+    "1",
+    "2",
+    "3"
+   ],
+   "desc": "月牙枕头窝三档（几个枕头 → 小窝 → 带被子的大窝）：圆心 = anchor；外圈枕头墙（半径 330）、中圈（232）、里圈（135）是一层层被子；12 个小圆垫（半径 46）画在 nest.slots 的位置上，要平"
+  },
+  {
+   "phase": 1,
+   "code": "art-code/obj_fence.js",
+   "key": "obj_fence",
+   "cat": "枕头堡",
+   "level": "bg",
+   "batch": 2,
+   "size": [
+    160,
+    80
+   ],
+   "anchor": [
+    80,
+    76
+   ],
+   "display": [
+    120,
+    60
+   ],
+   "pos": [
+    80,
+    220
+   ],
+   "desc": "左上角雾里的小木栅栏（nest.fence.rect），羊从右边 sheepJumpTo 起跳、往左跳过去消失在雾里"
+  }
+ ]
+}

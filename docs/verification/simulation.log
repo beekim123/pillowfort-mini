@@ -1,0 +1,27 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> pillowfort-mini@0.1.0 simulate:20m
+> node tools/simulate.mjs
+
+PASS: 引擎外 Canvas 预览已生成到 preview/。它不是 Cocos 或 TapTap 构建。npm run preview 启动。
+{
+  "kind": "Node pure-logic simulation; not Cocos/device runtime",
+  "node": "v24.22.1",
+  "simulatedSeconds": 1200,
+  "completedWaves": 88,
+  "strategy": "Upgrade deployed toys after every wave, no debug grants, no bosses, default lineup.",
+  "lastProgress": {
+    "z": 0,
+    "w": 35,
+    "maxZ": 0,
+    "maxW": 34
+  },
+  "wins": 80,
+  "losses": 8,
+  "cocosRuntimeVerified": false
+}
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.2
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.2
+npm notice To update run: npm install -g npm@12.2.2
+npm notice

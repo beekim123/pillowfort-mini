@@ -1,0 +1,19 @@
+node_modules/
+library/
+temp/
+local/
+build/
+preview/
+.DS_Store
+*.log
+
+# Keep reproducible validation evidence, never engine/build caches or credentials.
+!docs/verification/**/*.log
+!docs/verification/*.log
+.env
+.env.*
+!.env.example
+project.private.config.json
+*.tsbuildinfo
+coverage/
+.npm/
